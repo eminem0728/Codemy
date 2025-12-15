@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 1: Введение в Go - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .lecture-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .highlight-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .highlight-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .key-points {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .key-points h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-go.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 1: Введение в Go</h1>
+            <div class="lecture-meta">
+                <span>🚀 Go</span>
+                <span>⏱️ 45 минут</span>
+                <span>🎯 Начинающий</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели лекции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Познакомиться с языком программирования Go</li>
+                <li>Изучить историю и особенности Go</li>
+                <li>Установить и настроить среду разработки</li>
+                <li>Создать и запустить первую программу</li>
+                <li>Изучить основные концепции Go</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>📚 Что такое Go?</h2>
+            <p>Go (или Golang) - это компилируемый, статически типизированный язык программирования, разработанный компанией Google. Он был создан для решения проблем, с которыми сталкивались разработчики при работе с существующими языками в крупномасштабных проектах.</p>
+
+            <h3>История создания:</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>2007:</strong> Начало разработки проекта</li>
+                <li><strong>2009:</strong> Первый публичный релиз Go 1.0</li>
+                <li><strong>2012:</strong> Go 1.0 - стабильная версия</li>
+                <li><strong>2023:</strong> Активное развитие и поддержка</li>
+            </ul>
+        </div>
+
+        <div class="highlight-box">
+            <h4>💡 Почему Go так популярен?</h4>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Простота:</strong> Минималистичный синтаксис, легко изучить</li>
+                <li><strong>Быстрота компиляции:</strong> Быстрая сборка проектов</li>
+                <li><strong>Встроенная конкурентность:</strong> Goroutines для параллельного выполнения</li>
+                <li><strong>Статическая типизация:</strong> Безопасность и производительность</li>
+                <li><strong>Отличная стандартная библиотека:</strong> Мощные встроенные инструменты</li>
+                <li><strong>Кроссплатформенность:</strong> Работает на всех основных платформах</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>⚙️ Установка Go</h2>
+
+            <h3>Скачивание и установка:</h3>
+            <ol style="margin-left: 20px; margin-top: 10px;">
+                <li>Перейдите на сайт <strong>golang.org</strong></li>
+                <li>Скачайте установщик для вашей операционной системы</li>
+                <li>Запустите установщик и следуйте инструкциям</li>
+                <li>Проверьте установку командой <code>go version</code></li>
+            </ol>
+
+            <h3>Проверка установки:</h3>
+            <div class="code-example">
+                <code>// Откройте командную строку и выполните:
+go version
+
+// Ожидаемый результат:
+go version go1.21.0 windows/amd64</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Первая программа на Go</h2>
+
+            <p>Создадим классическую программу "Hello World":</p>
+
+            <h3>Создание файла:</h3>
+            <div class="code-example">
+                <code>// Создайте файл hello.go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello, World!")
+}</code>
+            </div>
+
+            <h3>Компиляция и запуск:</h3>
+            <div class="code-example">
+                <code>// Компиляция и запуск
+go run hello.go
+
+// Или компиляция в исполняемый файл
+go build hello.go
+./hello  // на Linux/Mac
+hello.exe  // на Windows
+
+// Вывод:
+Hello, World!</code>
+            </div>
+        </div>
+
+        <div class="key-points">
+            <h4>🔑 Ключевые понятия:</h4>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Пакет (package):</strong> Организационная единица кода</li>
+                <li><strong>Функция main:</strong> Точка входа в программу</li>
+                <li><strong>Импорт (import):</strong> Подключение внешних пакетов</li>
+                <li><strong>fmt.Println:</strong> Функция для вывода в консоль</li>
+                <li><strong>go run:</strong> Компиляция и выполнение в одном шаге</li>
+                <li><strong>go build:</strong> Создание исполняемого файла</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🔍 Структура Go программы</h2>
+
+            <div class="code-example">
+                <code>// Объявление пакета
+package main
+
+// Импорт пакетов
+import (
+    "fmt"
+    "math"
+)
+
+// Глобальные переменные и константы
+const Pi = 3.14159
+
+var globalVar = "Глобальная переменная"
+
+// Функции
+func calculateArea(radius float64) float64 {
+    return Pi * radius * radius
+}
+
+func greet(name string) {
+    fmt.Printf("Привет, %s!\n", name)
+}
+
+// Главная функция
+func main() {
+    // Локальные переменные
+    name := "Мир"
+    radius := 5.0
+
+    // Вызов функций
+    greet(name)
+
+    area := calculateArea(radius)
+    fmt.Printf("Площадь круга с радиусом %.1f = %.2f\n", radius, area)
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🛠️ Интегрированные среды разработки</h2>
+
+            <h3>Популярные IDE для Go:</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Visual Studio Code:</strong> Бесплатный редактор с отличной поддержкой Go</li>
+                <li><strong>GoLand:</strong> Профессиональная IDE от JetBrains</li>
+                <li><strong>Vim/Neovim:</strong> Для опытных разработчиков</li>
+                <li><strong>Sublime Text:</strong> Легкий редактор с поддержкой Go</li>
+            </ul>
+
+            <h3>Рекомендуемые расширения для VS Code:</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Go (официальное расширение)</li>
+                <li>Go Doc</li>
+                <li>Go Test Explorer</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>📊 Особенности Go</h2>
+
+            <h3>Философия Go:</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Простота:</strong> Минималистичный синтаксис</li>
+                <li><strong>Читаемость:</strong> Код должен быть понятен</li>
+                <li><strong>Производительность:</strong> Быстрая компиляция и выполнение</li>
+                <li><strong>Надежность:</strong> Строгая типизация и обработка ошибок</li>
+                <li><strong>Конкурентность:</strong> Встроенная поддержка параллелизма</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Заключение</h2>
+            <p>В этой лекции мы изучили основы Go:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Познакомились с историей и особенностями Go</li>
+                <li>Установили и настроили среду разработки</li>
+                <li>Создали и запустили первую программу</li>
+                <li>Изучили структуру Go приложения</li>
+                <li>Поняли философию языка</li>
+            </ul>
+
+            <p style="margin-top: 20px; font-weight: bold;">В следующей лекции мы изучим основные типы данных и переменные в Go!</p>
+        </div>
+
+        <div class="navigation">
+            <a href="course-go.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(1)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить лекцию</button>
+            <a href="go-lecture-2.html" class="nav-button">Следующая лекция →</a>
+        </div>
+
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedGoLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedGoLectures', JSON.stringify(completedLectures));
+                    alert('Лекция завершена! Отличная работа! 🎉');
+                } else {
+                    alert('Эта лекция уже отмечена как завершенная.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 8: Исключения и обработка ошибок - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .lecture-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .highlight-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .highlight-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .key-points {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .key-points h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-java.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 8: Исключения и обработка ошибок</h1>
+            <div class="lecture-meta">
+                <span>☕ Java</span>
+                <span>⏱️ 60 минут</span>
+                <span>🎯 Средний</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели лекции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Понять концепцию исключений в Java</li>
+                <li>Изучить иерархию классов исключений</li>
+                <li>Освоить блоки try-catch-finally</li>
+                <li>Научиться создавать собственные исключения</li>
+                <li>Понять разницу между checked и unchecked исключениями</li>
+                <li>Изучить best practices обработки ошибок</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🚨 Что такое исключения?</h2>
+            
+            <p>Исключения - это механизм обработки ошибок в Java, который позволяет программе корректно реагировать на непредвиденные ситуации во время выполнения.</p>
+
+            <h3>Почему нужны исключения?</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Разделение логики программы и обработки ошибок</li>
+                <li>Предотвращение аварийного завершения программы</li>
+                <li>Упрощение отладки и поддержки кода</li>
+                <li>Стандартизация обработки ошибок</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h4>💡 Ключевые термины</h4>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Исключение (Exception):</strong> Объект, описывающий ошибку</li>
+                    <li><strong>Генерация исключения (Throw):</strong> Создание и отправка исключения</li>
+                    <li><strong>Перехват исключения (Catch):</strong> Обработка исключения</li>
+                    <li><strong>Стек вызовов (Stack Trace):</strong> История вызовов методов</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Иерархия исключений</h2>
+            
+            <p>Все исключения в Java наследуются от класса Throwable.</p>
+
+            <div class="code-example">
+                <code>java.lang.Throwable
+├── java.lang.Error          // Серьезные системные ошибки
+│   ├── OutOfMemoryError     // Недостаточно памяти
+│   ├── StackOverflowError   // Переполнение стека
+│   └── VirtualMachineError  // Ошибки JVM
+│
+└── java.lang.Exception       // Исключения, которые можно обработать
+    ├── RuntimeException     // Unchecked исключения
+    │   ├── NullPointerException
+    │   ├── IllegalArgumentException
+    │   ├── IndexOutOfBoundsException
+    │   └── ArithmeticException
+    │
+    └── Checked исключения    // Должны быть обработаны
+        ├── IOException
+        ├── SQLException
+        ├── ClassNotFoundException
+        └── InterruptedException</code>
+            </div>
+
+            <h3>Checked vs Unchecked исключения</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Checked исключения:</strong> Проверяются компилятором, должны быть обработаны</li>
+                <li><strong>Unchecked исключения:</strong> Не проверяются компилятором, наследуются от RuntimeException</li>
+                <li><strong>Errors:</strong> Критические ошибки, обычно не обрабатываются</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🔄 Блоки try-catch-finally</h2>
+            
+            <p>Основная конструкция для обработки исключений.</p>
+
+            <div class="code-example">
+                <code>public class ExceptionHandlingDemo {
+    public static void main(String[] args) {
+        try {
+            // Код, который может вызвать исключение
+            int result = divide(10, 0);
+            System.out.println("Результат: " + result);
+            
+        } catch (ArithmeticException e) {
+            // Обработка конкретного типа исключения
+            System.out.println("Ошибка деления на ноль: " + e.getMessage());
+            
+        } catch (Exception e) {
+            // Обработка более общего типа исключения
+            System.out.println("Произошла ошибка: " + e.getMessage());
+            
+        } finally {
+            // Код, который выполнится всегда
+            System.out.println("Блок finally выполнен");
+        }
+        
+        System.out.println("Программа продолжает работу");
+    }
+    
+    public static int divide(int a, int b) {
+        return a / b;
+    }
+}</code>
+            </div>
+
+            <h3>Правила обработки исключений:</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Блок catch должен идти после try</li>
+                <li>Можно использовать несколько блоков catch</li>
+                <li>Блок finally выполняется всегда (опционально)</li>
+                <li>Исключения обрабатываются от более специфичных к более общим</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🚀 Генерация исключений</h2>
+            
+            <p>Ключевое слово throw используется для генерации исключений.</p>
+
+            <div class="code-example">
+                <code>public class ValidationUtils {
+    
+    public static void validateAge(int age) {
+        if (age < 0) {
+            throw new IllegalArgumentException("Возраст не может быть отрицательным");
+        }
+        if (age > 150) {
+            throw new IllegalArgumentException("Возраст слишком большой");
+        }
+    }
+    
+    public static void validateEmail(String email) {
+        if (email == null || email.trim().isEmpty()) {
+            throw new IllegalArgumentException("Email не может быть пустым");
+        }
+        if (!email.contains("@")) {
+            throw new IllegalArgumentException("Некорректный формат email");
+        }
+    }
+    
+    public static void validatePassword(String password) {
+        if (password == null) {
+            throw new NullPointerException("Пароль не может быть null");
+        }
+        if (password.length() < 8) {
+            throw new IllegalArgumentException("Пароль должен содержать минимум 8 символов");
+        }
+        if (!password.matches(".*[A-Z].*")) {
+            throw new IllegalArgumentException("Пароль должен содержать заглавную букву");
+        }
+        if (!password.matches(".*[a-z].*")) {
+            throw new IllegalArgumentException("Пароль должен содержать строчную букву");
+        }
+        if (!password.matches(".*\\d.*")) {
+            throw new IllegalArgumentException("Пароль должен содержать цифру");
+        }
+    }
+}
+
+public class UserRegistration {
+    public static void main(String[] args) {
+        try {
+            registerUser("john@example.com", "weak", 25);
+            System.out.println("Пользователь успешно зарегистрирован");
+            
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка регистрации: " + e.getMessage());
+            
+        } catch (Exception e) {
+            System.out.println("Неожиданная ошибка: " + e.getMessage());
+        }
+    }
+    
+    public static void registerUser(String email, String password, int age) {
+        ValidationUtils.validateEmail(email);
+        ValidationUtils.validatePassword(password);
+        ValidationUtils.validateAge(age);
+        
+        // Регистрация пользователя...
+        System.out.println("Регистрация пользователя: " + email);
+    }
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎨 Создание собственных исключений</h2>
+            
+            <p>Вы можете создавать собственные классы исключений для специфических ситуаций.</p>
+
+            <div class="code-example">
+                <code>// Базовое пользовательское исключение
+public class BankException extends Exception {
+    public BankException(String message) {
+        super(message);
+    }
+    
+    public BankException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}
+
+// Специфические исключения для банковской системы
+public class InsufficientFundsException extends BankException {
+    private double requiredAmount;
+    private double availableAmount;
+    
+    public InsufficientFundsException(double required, double available) {
+        super("Недостаточно средств. Требуется: " + required + ", доступно: " + available);
+        this.requiredAmount = required;
+        this.availableAmount = available;
+    }
+    
+    public double getRequiredAmount() {
+        return requiredAmount;
+    }
+    
+    public double getAvailableAmount() {
+        return availableAmount;
+    }
+    
+    public double getShortfall() {
+        return requiredAmount - availableAmount;
+    }
+}
+
+public class InvalidAccountException extends BankException {
+    private String accountNumber;
+    
+    public InvalidAccountException(String accountNumber) {
+        super("Некорректный номер счета: " + accountNumber);
+        this.accountNumber = accountNumber;
+    }
+    
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+}
+
+public class AccountFrozenException extends BankException {
+    public AccountFrozenException(String accountNumber) {
+        super("Счет заблокирован: " + accountNumber);
+    }
+}
+
+// Использование пользовательских исключений
+public class BankAccount {
+    private String accountNumber;
+    private double balance;
+    private boolean isFrozen;
+    
+    public BankAccount(String accountNumber, double initialBalance) {
+        if (accountNumber == null || accountNumber.trim().isEmpty()) {
+            throw new InvalidAccountException(accountNumber);
+        }
+        this.accountNumber = accountNumber;
+        this.balance = initialBalance;
+        this.isFrozen = false;
+    }
+    
+    public void withdraw(double amount) throws BankException {
+        if (isFrozen) {
+            throw new AccountFrozenException(accountNumber);
+        }
+        
+        if (amount <= 0) {
+            throw new BankException("Сумма снятия должна быть положительной");
+        }
+        
+        if (amount > balance) {
+            throw new InsufficientFundsException(amount, balance);
+        }
+        
+        balance -= amount;
+        System.out.println("Снято: " + amount + ", остаток: " + balance);
+    }
+    
+    public void freezeAccount() {
+        isFrozen = true;
+        System.out.println("Счет " + accountNumber + " заблокирован");
+    }
+    
+    public void unfreezeAccount() {
+        isFrozen = false;
+        System.out.println("Счет " + accountNumber + " разблокирован");
+    }
+}
+
+public class BankDemo {
+    public static void main(String[] args) {
+        BankAccount account = new BankAccount("123456789", 1000.0);
+        
+        try {
+            account.withdraw(500.0);     // Успешно
+            account.withdraw(800.0);     // InsufficientFundsException
+            
+        } catch (InsufficientFundsException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+            System.out.println("Недостаток средств: " + e.getShortfall());
+            
+        } catch (AccountFrozenException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+            
+        } catch (BankException e) {
+            System.out.println("Банковская ошибка: " + e.getMessage());
+            
+        } catch (Exception e) {
+            System.out.println("Неожиданная ошибка: " + e.getMessage());
+        }
+        
+        // Демонстрация блокировки счета
+        account.freezeAccount();
+        try {
+            account.withdraw(100.0);     // AccountFrozenException
+            
+        } catch (BankException e) {
+            System.out.println("Ошибка после блокировки: " + e.getMessage());
+        }
+    }
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔄 Пропаганда исключений</h2>
+            
+            <p>Методы могут передавать исключения вызывающему коду с помощью throws.</p>
+
+            <div class="code-example">
+                <code>import java.io.*;
+import java.util.Scanner;
+
+public class FileProcessor {
+    
+    // Метод объявляет, что может выбросить исключения
+    public static String readFile(String fileName) throws IOException {
+        FileReader fileReader = new FileReader(fileName);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        
+        try {
+            StringBuilder content = new StringBuilder();
+            String line;
+            
+            while ((line = bufferedReader.readLine()) != null) {
+                content.append(line).append("\n");
+            }
+            
+            return content.toString();
+            
+        } finally {
+            // Гарантированное закрытие ресурсов
+            try {
+                bufferedReader.close();
+                fileReader.close();
+            } catch (IOException e) {
+                System.out.println("Ошибка при закрытии файла: " + e.getMessage());
+            }
+        }
+    }
+    
+    // Метод с множественными исключениями
+    public static void processUserData(String fileName, String outputFile) 
+            throws IOException, IllegalArgumentException {
+        
+        String data = readFile(fileName);
+        
+        if (data.trim().isEmpty()) {
+            throw new IllegalArgumentException("Файл пустой или содержит только пробелы");
+        }
+        
+        // Обработка данных...
+        String processedData = data.toUpperCase();
+        
+        // Запись в выходной файл
+        writeFile(outputFile, processedData);
+    }
+    
+    public static void writeFile(String fileName, String content) throws IOException {
+        FileWriter fileWriter = new FileWriter(fileName);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        
+        try {
+            bufferedWriter.write(content);
+            System.out.println("Данные успешно записаны в файл: " + fileName);
+            
+        } finally {
+            try {
+                bufferedWriter.close();
+                fileWriter.close();
+            } catch (IOException e) {
+                System.out.println("Ошибка при закрытии файла: " + e.getMessage());
+            }
+        }
+    }
+}
+
+public class ExceptionPropagationDemo {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Введите имя входного файла: ");
+        String inputFile = scanner.nextLine();
+        
+        System.out.print("Введите имя выходного файла: ");
+        String outputFile = scanner.nextLine();
+        
+        try {
+            FileProcessor.processUserData(inputFile, outputFile);
+            System.out.println("Обработка завершена успешно!");
+            
+        } catch (FileNotFoundException e) {
+            System.out.println("Ошибка: Файл не найден - " + e.getMessage());
+            
+        } catch (IOException e) {
+            System.out.println("Ошибка ввода-вывода: " + e.getMessage());
+            
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка валидации: " + e.getMessage());
+            
+        } catch (Exception e) {
+            System.out.println("Неожиданная ошибка: " + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        scanner.close();
+    }
+}</code>
+            </div>
+        </div>
+
+        <div class="key-points">
+            <h4>🔑 Best Practices обработки исключений</h4>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Не игнорируйте исключения:</strong> Всегда обрабатывайте или передавайте исключения</li>
+                <li><strong>Будьте специфичны:</strong> Ловите конкретные исключения, а не общий Exception</li>
+                <li><strong>Используйте finally:</strong> Для освобождения ресурсов</li>
+                <li><strong>Создавайте понятные сообщения:</strong> Исключения должны объяснять проблему</li>
+                <li><strong>Не используйте исключения для управления потоком:</strong> Только для исключительных ситуаций</li>
+                <li><strong>Документируйте исключения:</strong> Используйте throws в сигнатурах методов</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>💭 Практический пример</h2>
+            
+            <div class="code-example">
+                <code>import java.util.*;
+
+public class StudentGradeSystem {
+    private Map<String, List<Double>> studentGrades;
+    
+    public StudentGradeSystem() {
+        this.studentGrades = new HashMap<>();
+    }
+    
+    // Добавление оценки студенту
+    public void addGrade(String studentId, double grade) throws InvalidGradeException {
+        if (grade < 0 || grade > 100) {
+            throw new InvalidGradeException("Оценка должна быть в диапазоне 0-100", grade);
+        }
+        
+        studentGrades.computeIfAbsent(studentId, k -> new ArrayList<>()).add(grade);
+        System.out.println("Оценка " + grade + " добавлена студенту " + studentId);
+    }
+    
+    // Получение средней оценки студента
+    public double getAverageGrade(String studentId) throws StudentNotFoundException {
+        List<Double> grades = studentGrades.get(studentId);
+        if (grades == null || grades.isEmpty()) {
+            throw new StudentNotFoundException("Студент не найден или у него нет оценок: " + studentId);
+        }
+        
+        return grades.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
+    }
+    
+    // Получение всех оценок студента
+    public List<Double> getStudentGrades(String studentId) throws StudentNotFoundException {
+        List<Double> grades = studentGrades.get(studentId);
+        if (grades == null) {
+            throw new StudentNotFoundException("Студент не найден: " + studentId);
+        }
+        return new ArrayList<>(grades);
+    }
+    
+    // Генерация отчета по всем студентам
+    public void generateReport() {
+        System.out.println("\n=== ОТЧЕТ ПО СТУДЕНТАМ ===");
+        for (Map.Entry<String, List<Double>> entry : studentGrades.entrySet()) {
+            String studentId = entry.getKey();
+            List<Double> grades = entry.getValue();
+            
+            try {
+                double average = getAverageGrade(studentId);
+                System.out.printf("Студент %s: Оценок - %d, Средний балл - %.2f%n",
+                                studentId, grades.size(), average);
+            } catch (StudentNotFoundException e) {
+                System.out.println("Ошибка при генерации отчета: " + e.getMessage());
+            }
+        }
+    }
+}
+
+// Пользовательские исключения
+class InvalidGradeException extends Exception {
+    private double invalidGrade;
+    
+    public InvalidGradeException(String message, double invalidGrade) {
+        super(message);
+        this.invalidGrade = invalidGrade;
+    }
+    
+    public double getInvalidGrade() {
+        return invalidGrade;
+    }
+}
+
+class StudentNotFoundException extends Exception {
+    public StudentNotFoundException(String message) {
+        super(message);
+    }
+}
+
+// Демонстрация системы
+public class GradeSystemDemo {
+    public static void main(String[] args) {
+        StudentGradeSystem system = new StudentGradeSystem();
+        
+        // Добавление оценок
+        try {
+            system.addGrade("S001", 85.5);
+            system.addGrade("S001", 92.0);
+            system.addGrade("S001", 78.5);
+            
+            system.addGrade("S002", 88.0);
+            system.addGrade("S002", 95.5);
+            
+            system.addGrade("S003", 76.0);
+            
+            // Попытка добавить некорректную оценку
+            system.addGrade("S001", 150.0); // InvalidGradeException
+            
+        } catch (InvalidGradeException e) {
+            System.out.println("Ошибка добавления оценки: " + e.getMessage() + 
+                             " (некорректная оценка: " + e.getInvalidGrade() + ")");
+        }
+        
+        // Получение информации о студентах
+        String[] students = {"S001", "S002", "S003", "S004"};
+        
+        for (String studentId : students) {
+            try {
+                double average = system.getAverageGrade(studentId);
+                List<Double> grades = system.getStudentGrades(studentId);
+                
+                System.out.println("\nСтудент " + studentId + ":");
+                System.out.println("  Оценки: " + grades);
+                System.out.println("  Средний балл: " + String.format("%.2f", average));
+                
+            } catch (StudentNotFoundException e) {
+                System.out.println("Ошибка: " + e.getMessage());
+            }
+        }
+        
+        // Генерация отчета
+        system.generateReport();
+    }
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Заключение</h2>
+            <p>В этой лекции мы изучили:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Концепцию исключений и их роль в Java</li>
+                <li>Иерархию классов исключений</li>
+                <li>Блоки try-catch-finally</li>
+                <li>Генерацию и обработку исключений</li>
+                <li>Создание пользовательских исключений</li>
+                <li>Best practices обработки ошибок</li>
+            </ul>
+            
+            <p style="margin-top: 20px; font-weight: bold;">В следующей лекции мы изучим коллекции Java!</p>
+        </div>
+
+        <div class="navigation">
+            <a href="course-java.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(8)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить лекцию</button>
+            <a href="java-lecture-9.html" class="nav-button">Следующая лекция →</a>
+        </div>
+        
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedJavaLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedJavaLectures', JSON.stringify(completedLectures));
+                    alert('Лекция завершена! Отличная работа! 🎉');
+                } else {
+                    alert('Эта лекция уже отмечена как завершенная.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

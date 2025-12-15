@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 1: Введение в JavaScript - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .lecture-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .highlight-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .highlight-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .key-points {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .key-points h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+        .interactive-demo {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #ffd700;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .demo-button {
+            background: #ffd700;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+        }
+        .demo-output {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-family: monospace;
+            min-height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-js.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 1: Введение в JavaScript</h1>
+            <div class="lecture-meta">
+                <span>🌐 JavaScript</span>
+                <span>⏱️ 45 минут</span>
+                <span>🎯 Начинающий</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели лекции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Понять роль JavaScript в современной веб-разработке</li>
+                <li>Изучить основные концепции языка</li>
+                <li>Освоить базовый синтаксис и структуру программ</li>
+                <li>Создать интерактивные примеры кода</li>
+                <li>Понять связь между HTML, CSS и JavaScript</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🌟 Что делает JavaScript особенным?</h2>
+            <p>JavaScript - это язык программирования, который оживает веб-страницы. Он позволяет создавать интерактивные элементы, обрабатывать пользовательский ввод, работать с данными и многое другое.</p>
+
+            <h3>Почему JavaScript важен?</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Вездесущность:</strong> Работает во всех современных браузерах</li>
+                <li><strong>Гибкость:</strong> Может использоваться для фронтенда, бэкенда и даже мобильной разработки</li>
+                <li><strong>Сообщество:</strong> Огромная экосистема библиотек и фреймворков</li>
+                <li><strong>Производительность:</strong> Современные движки (V8, SpiderMonkey) очень быстрые</li>
+                <li><strong>Эволюция:</strong> Постоянно развивается с новыми возможностями</li>
+            </ul>
+        </div>
+
+        <div class="highlight-box">
+            <h4>💡 JavaScript в экосистеме веб-разработки</h4>
+            <p>JavaScript взаимодействует с HTML и CSS, образуя триаду современных веб-технологий:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>HTML:</strong> Структура и содержание страницы</li>
+                <li><strong>CSS:</strong> Внешний вид и оформление</li>
+                <li><strong>JavaScript:</strong> Поведение и интерактивность</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🚀 Первая программа на JavaScript</h2>
+
+            <p>Давайте начнем с классического "Hello, World!" и посмотрим, как JavaScript может взаимодействовать с пользователем.</p>
+
+            <h3>Интерактивный пример:</h3>
+            <div class="interactive-demo">
+                <h4>Попробуйте сами!</h4>
+                <button class="demo-button" onclick="showGreeting()">Показать приветствие</button>
+                <button class="demo-button" onclick="showTime()">Показать время</button>
+                <button class="demo-button" onclick="clearOutput()">Очистить</button>
+                <div class="demo-output" id="demoOutput">Нажмите кнопку для демонстрации...</div>
+            </div>
+
+            <h3>Анализ кода:</h3>
+            <div class="code-example">
+                <code>// Функция для показа приветствия
+function showGreeting() {
+    const greeting = "Привет, мир JavaScript!";
+    document.getElementById('demoOutput').textContent = greeting;
+}
+
+// Функция для показа текущего времени
+function showTime() {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('ru-RU');
+    document.getElementById('demoOutput').textContent =
+        "Текущее время: " + timeString;
+}
+
+// Функция для очистки вывода
+function clearOutput() {
+    document.getElementById('demoOutput').textContent =
+        "Нажмите кнопку для демонстрации...";
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📝 Основы синтаксиса</h2>
+
+            <h3>Комментарии:</h3>
+            <div class="code-example">
+                <code>// Это однострочный комментарий
+
+/*
+   Это многострочный
+   комментарий
+*/
+
+// Комментарии помогают объяснять код
+console.log("Привет!"); // Это тоже комментарий</code>
+            </div>
+
+            <h3>Переменные и константы:</h3>
+            <div class="code-example">
+                <code>// Объявление переменных
+let userName = "Алексей";        // Можно изменять
+const PI = 3.14159;              // Нельзя изменять
+var oldStyle = "Устаревший";     // Старая форма (не рекомендуется)
+
+// Динамическая типизация
+let data = "Строка";             // Теперь строка
+data = 42;                       // Теперь число
+data = true;                     // Теперь булево значение
+data = [1, 2, 3];               // Теперь массив</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔧 Работа с браузером</h2>
+
+            <h3>Console API:</h3>
+            <div class="code-example">
+                <code>// Вывод в консоль разработчика
+console.log("Обычное сообщение");
+console.warn("Предупреждение");
+console.error("Ошибка");
+console.info("Информация");
+
+// Группировка сообщений
+console.group("Информация о пользователе");
+console.log("Имя: Алексей");
+console.log("Возраст: 25");
+console.groupEnd();
+
+// Таблица данных
+const users = [
+    {name: "Алексей", age: 25},
+    {name: "Мария", age: 30}
+];
+console.table(users);</code>
+            </div>
+
+            <h3>Взаимодействие с DOM:</h3>
+            <div class="code-example">
+                <code>// Получение элементов
+const button = document.getElementById('myButton');
+const paragraphs = document.querySelectorAll('p');
+
+// Изменение содержимого
+button.textContent = "Нажми меня!";
+paragraphs[0].style.color = "red";
+
+// Добавление обработчиков событий
+button.addEventListener('click', function() {
+    alert("Кнопка нажата!");
+});</code>
+            </div>
+        </div>
+
+        <div class="key-points">
+            <h4>🔑 Ключевые концепции JavaScript</h4>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Интерпретируемый язык:</strong> Код выполняется без предварительной компиляции</li>
+                <li><strong>Динамическая типизация:</strong> Типы данных определяются во время выполнения</li>
+                <li><strong>Прототипное наследование:</strong> Объекты наследуют от других объектов</li>
+                <li><strong>Асинхронность:</strong> Поддержка неблокирующих операций</li>
+                <li><strong>Глобальная доступность:</strong> Работает везде, где есть JavaScript-движок</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🛠️ Инструменты разработчика</h2>
+
+            <h3>Браузерные инструменты:</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Chrome DevTools:</strong> F12 → вкладки Elements, Console, Sources</li>
+                <li><strong>Firefox Developer Tools:</strong> F12 → мощные инструменты отладки</li>
+                <li><strong>VS Code:</strong> Отличный редактор с поддержкой JavaScript</li>
+            </ul>
+
+            <h3>Онлайн песочницы:</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>CodePen:</strong> Быстрое прототипирование</li>
+                <li><strong>JSFiddle:</strong> Совместная разработка</li>
+                <li><strong>Repl.it:</strong> Полноценная среда разработки</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Что мы изучили</h2>
+            <p>В этой лекции мы:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Поняли роль JavaScript в современной веб-разработке</li>
+                <li>Созали интерактивные примеры с DOM манипуляцией</li>
+                <li>Освоили базовый синтаксис и работу с переменными</li>
+                <li>Изучили инструменты разработчика</li>
+                <li>Поняли связь между HTML, CSS и JavaScript</li>
+            </ul>
+
+            <p style="margin-top: 20px; font-weight: bold;">В следующей лекции мы подробно разберем типы данных и переменные в JavaScript!</p>
+        </div>
+
+        <div class="navigation">
+            <a href="course-js.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(1)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить лекцию</button>
+            <a href="js-lecture-2.html" class="nav-button">Следующая лекция →</a>
+        </div>
+
+        <script>
+            // Интерактивные функции для демонстрации
+            function showGreeting() {
+                const greetings = [
+                    "Привет, мир JavaScript! 🌟",
+                    "Hello, JavaScript World! 👋",
+                    "Hola, mundo JavaScript! 🌍",
+                    "Bonjour, monde JavaScript! 🇫🇷"
+                ];
+                const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
+                document.getElementById('demoOutput').textContent = randomGreeting;
+            }
+
+            function showTime() {
+                const now = new Date();
+                const timeString = now.toLocaleString('ru-RU', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                });
+                document.getElementById('demoOutput').textContent = "Текущая дата и время: " + timeString;
+            }
+
+            function clearOutput() {
+                document.getElementById('demoOutput').textContent = "Нажмите кнопку для демонстрации...";
+            }
+
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedJSLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedJSLectures', JSON.stringify(completedLectures));
+                    alert('Лекция завершена! Отличная работа! 🎉');
+                } else {
+                    alert('Эта лекция уже отмечена как завершенная.');
+                }
+            }
+
+            // Демонстрация работы с консолью
+            console.log("Лекция 1 загружена!");
+            console.log("Откройте консоль разработчика (F12), чтобы увидеть это сообщение");
+        </script>
+    </div>
+</body>
+</html>

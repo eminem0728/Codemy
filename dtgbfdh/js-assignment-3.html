@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 3: Операторы - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 3: Операторы</h1>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Задача</h2>
+            <p>Создайте программу-калькулятор, демонстрирующую различные операторы JavaScript.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Решение</h2>
+
+            <div class="code-example">
+                <code>// script.js
+// Демонстрация операторов JavaScript
+
+console.log("=== АРИФМЕТИЧЕСКИЕ ОПЕРАТОРЫ ===");
+let a = 10;
+let b = 3;
+
+console.log(`${a} + ${b} = ${a + b}`);  // 13
+console.log(`${a} - ${b} = ${a - b}`);  // 7
+console.log(`${a} * ${b} = ${a * b}`);  // 30
+console.log(`${a} / ${b} = ${a / b}`);  // 3.333...
+console.log(`${a} % ${b} = ${a % b}`);  // 1
+console.log(`${a} ** ${b} = ${a ** b}`); // 1000
+
+console.log("\n=== ОПЕРАТОРЫ СРАВНЕНИЯ ===");
+console.log(`${a} > ${b}: ${a > b}`);    // true
+console.log(`${a} < ${b}: ${a < b}`);    // false
+console.log(`${a} >= ${b}: ${a >= b}`);  // true
+console.log(`${a} <= ${b}: ${a <= b}`);  // false
+console.log(`${a} == ${b}: ${a == b}`);  // false
+console.log(`${a} === ${b}: ${a === b}`); // false
+console.log(`${a} != ${b}: ${a != b}`);  // true
+console.log(`${a} !== ${b}: ${a !== b}`); // true
+
+console.log("\n=== ЛОГИЧЕСКИЕ ОПЕРАТОРЫ ===");
+let x = true;
+let y = false;
+
+console.log(`true && true: ${true && true}`);     // true
+console.log(`true && false: ${true && false}`);   // false
+console.log(`true || false: ${true || false}`);   // true
+console.log(`false || false: ${false || false}`); // false
+console.log(`!true: ${!true}`);                   // false
+console.log(`!false: ${!false}`);                 // true
+
+console.log("\n=== ОПЕРАТОРЫ ПРИСВАИВАНИЯ ===");
+let num = 10;
+console.log(`Начальное значение: ${num}`);
+
+num += 5;  console.log(`+= 5: ${num}`);  // 15
+num -= 3;  console.log(`-= 3: ${num}`);  // 12
+num *= 2;  console.log(`*= 2: ${num}`);  // 24
+num /= 4;  console.log(`/= 4: ${num}`);  // 6
+num %= 5;  console.log(`%= 5: ${num}`);  // 1
+
+console.log("\n=== ТЕРНАРНЫЙ ОПЕРАТОР ===");
+let age = 20;
+let status = age >= 18 ? "Взрослый" : "Несовершеннолетний";
+console.log(`Возраст ${age}: ${status}`);
+
+let score = 85;
+let grade = score >= 90 ? "Отлично" : score >= 70 ? "Хорошо" : "Удовлетворительно";
+console.log(`Оценка ${score}: ${grade}`);
+
+console.log("\n=== ОПЕРАТОРЫ ИНКРЕМЕНТА/ДЕКРЕМЕНТА ===");
+let counter = 5;
+console.log(`Начальное: ${counter}`);
+console.log(`counter++: ${counter++}`); // 5, затем counter = 6
+console.log(`counter: ${counter}`);     // 6
+console.log(`++counter: ${++counter}`); // 7
+console.log(`counter--: ${counter--}`); // 7, затем counter = 6
+console.log(`counter: ${counter}`);     // 6</code>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="course-js.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(3)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить задание</button>
+            <a href="js-assignment-4.html" class="nav-button">Следующее задание →</a>
+        </div>
+
+        <script>
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedJSAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedJSAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание завершено! Отличная работа! 🎉');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

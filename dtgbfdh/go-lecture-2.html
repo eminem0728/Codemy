@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 2: Основы синтаксиса и типы данных - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .lecture-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .highlight-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .highlight-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .key-points {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .key-points h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-go.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 2: Основы синтаксиса и типы данных</h1>
+            <div class="lecture-meta">
+                <span>🚀 Go</span>
+                <span>⏱️ 60 минут</span>
+                <span>🎯 Начинающий</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели лекции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Изучить базовые типы данных в Go</li>
+                <li>Освоить объявление переменных и констант</li>
+                <li>Понять принципы вывода типов</li>
+                <li>Научиться работать с операторами</li>
+                <li>Изучить основы форматирования вывода</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>📚 Переменные и константы</h2>
+
+            <h3>Объявление переменных:</h3>
+            <div class="code-example">
+                <code>// Полная форма объявления
+var name string = "Go"
+
+// С выводом типа
+var age int = 25
+
+// Короткая форма (только внутри функций)
+language := "Go"
+
+// Множественное объявление
+var (
+    width  int    = 100
+    height int    = 200
+    title  string = "Window"
+)
+
+// Объявление без инициализации
+var counter int  // значение по умолчанию 0
+var message string  // значение по умолчанию ""</code>
+            </div>
+
+            <h3>Константы:</h3>
+            <div class="code-example">
+                <code>// Объявление констант
+const Pi = 3.14159
+const Greeting = "Hello, World!"
+
+// Типизированные константы
+const MaxConnections int = 100
+
+// Константы с iota
+const (
+    Sunday = iota  // 0
+    Monday         // 1
+    Tuesday        // 2
+    Wednesday      // 3
+    Thursday       // 4
+    Friday         // 5
+    Saturday       // 6
+)</code>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h4>💡 Базовые типы данных</h4>
+            <div class="code-example">
+                <code>// Целые числа
+var a int = 42          // int (зависит от платформы)
+var b int8 = 127        // -128 to 127
+var c int16 = 32767     // -32768 to 32767
+var d int32 = 2147483647 // -2147483648 to 2147483647
+var e int64 = 9223372036854775807 // очень большое число
+
+// Беззнаковые целые
+var f uint = 42
+var g uint8 = 255       // 0 to 255
+var h uint16 = 65535
+var i uint32 = 4294967295
+var j uint64 = 18446744073709551615
+
+// Числа с плавающей точкой
+var x float32 = 3.14159
+var y float64 = 3.141592653589793
+
+// Булевы значения
+var isActive bool = true
+var isVisible bool = false
+
+// Строки
+var name string = "Go Programming"
+var empty string = ""
+
+// Руны (символы Unicode)
+var letter rune = 'A'
+var symbol rune = '🚀'</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>⚙️ Операторы</h2>
+
+            <h3>Арифметические операторы:</h3>
+            <div class="code-example">
+                <code>a := 10
+b := 3
+
+sum := a + b        // 13
+diff := a - b       // 7
+product := a * b    // 30
+quotient := a / b   // 3 (целое деление)
+remainder := a % b  // 1 (остаток от деления)
+
+a++                 // инкремент
+a--                 // декремент</code>
+            </div>
+
+            <h3>Операторы сравнения:</h3>
+            <div class="code-example">
+                <code>x := 5
+y := 10
+
+result1 := x == y   // false
+result2 := x != y   // true
+result3 := x < y    // true
+result4 := x > y    // false
+result5 := x <= y   // true
+result6 := x >= y   // false</code>
+            </div>
+
+            <h3>Логические операторы:</h3>
+            <div class="code-example">
+                <code>a := true
+b := false
+
+and := a && b       // false (И)
+or := a || b        // true (ИЛИ)
+not := !a           // false (НЕ)</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔄 Преобразование типов</h2>
+
+            <div class="code-example">
+                <code>// Явное преобразование типов
+var a int = 42
+var b float64 = float64(a)  // int в float64
+
+var c float64 = 3.14159
+var d int = int(c)          // float64 в int (3)
+
+var e int64 = 100
+var f int32 = int32(e)      // int64 в int32
+
+// Преобразование чисел в строки
+import "strconv"
+
+num := 42
+str := strconv.Itoa(num)           // "42"
+str2 := strconv.FormatInt(int64(num), 10)  // "42"
+
+// Преобразование строк в числа
+strNum := "123"
+parsed, err := strconv.Atoi(strNum)  // 123
+
+floatStr := "3.14159"
+parsedFloat, err := strconv.ParseFloat(floatStr, 64)  // 3.14159</code>
+            </div>
+        </div>
+
+        <div class="key-points">
+            <h4>🔑 Ключевые понятия:</h4>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>var:</strong> Ключевое слово для объявления переменных</li>
+                <li><strong>:= :</strong> Короткая форма объявления и инициализации</li>
+                <li><strong>const:</strong> Ключевое слово для констант</li>
+                <li><strong>iota:</strong> Константа для автоматической нумерации</li>
+                <li><strong>strconv:</strong> Пакет для преобразования строк</li>
+                <li><strong>Типы:</strong> int, float64, string, bool, rune</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🔍 Вывод и форматирование</h2>
+
+            <div class="code-example">
+                <code>import "fmt"
+
+name := "Go"
+version := 1.21
+isAwesome := true
+
+// Простой вывод
+fmt.Println("Hello, World!")
+fmt.Println(name, version, isAwesome)
+
+// Форматированный вывод
+fmt.Printf("Язык: %s\n", name)
+fmt.Printf("Версия: %.2f\n", version)
+fmt.Printf("Крутой: %t\n", isAwesome)
+
+// Спецификаторы формата:
+// %s - строка
+// %d - целое число
+// %f - число с плавающей точкой
+// %.2f - число с 2 знаками после запятой
+// %t - булево значение
+// %v - значение в формате по умолчанию
+
+// Sprintf возвращает строку
+message := fmt.Sprintf("Привет, %s!", name)
+fmt.Println(message)</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🛠️ Практические примеры</h2>
+
+            <div class="code-example">
+                <code>package main
+
+import (
+    "fmt"
+    "strconv"
+)
+
+func main() {
+    // Работа с переменными
+    var temperature float64 = 23.5
+    var city string = "Москва"
+    isRaining := false
+
+    fmt.Printf("Погода в %s: %.1f°C, дождь: %t\n",
+               city, temperature, isRaining)
+
+    // Преобразования
+    age := 25
+    ageStr := strconv.Itoa(age)
+    fmt.Println("Возраст:", ageStr)
+
+    // Математические операции
+    width := 10.5
+    height := 20.3
+    area := width * height
+    fmt.Printf("Площадь прямоугольника: %.2f\n", area)
+
+    // Логические операции
+    hasPermission := true
+    isAdult := age >= 18
+    canAccess := hasPermission && isAdult
+    fmt.Println("Доступ разрешен:", canAccess)
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Заключение</h2>
+            <p>В этой лекции мы изучили основы Go:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Объявление переменных и констант</li>
+                <li>Базовые типы данных</li>
+                <li>Арифметические и логические операторы</li>
+                <li>Преобразование типов</li>
+                <li>Форматированный вывод</li>
+            </ul>
+
+            <p style="margin-top: 20px; font-weight: bold;">В следующей лекции мы изучим управляющие конструкции в Go!</p>
+        </div>
+
+        <div class="navigation">
+            <a href="course-go.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(2)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить лекцию</button>
+            <a href="go-lecture-3.html" class="nav-button">Следующая лекция →</a>
+        </div>
+
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedGoLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedGoLectures', JSON.stringify(completedLectures));
+                    alert('Лекция завершена! Отличная работа! 🎉');
+                } else {
+                    alert('Эта лекция уже отмечена как завершенная.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

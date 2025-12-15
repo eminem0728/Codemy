@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 10: REST API сервер - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .assignment-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .task-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .task-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .solution-box {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .solution-box h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+        .celebration {
+            background: linear-gradient(45deg, #FFD700, #FFA500, #FF6347);
+            background-size: 200% 200%;
+            animation: celebration 2s ease-in-out infinite;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        @keyframes celebration {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-kotlin.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="celebration">
+            <h1 style="font-size: 3em; margin-bottom: 10px;">🎉</h1>
+            <h2 style="color: #333; margin-bottom: 10px;">ФИНАЛЬНОЕ ЗАДАНИЕ!</h2>
+            <p style="color: #333; font-size: 1.2em;">Поздравляем! Вы достигли финального этапа курса Kotlin!</p>
+        </div>
+
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 10: REST API сервер</h1>
+            <div class="assignment-meta">
+                <span>🅺 Kotlin</span>
+                <span>⏱️ 200 минут</span>
+                <span>🏆 Финальное</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Описание задания</h2>
+            <p>Создайте полнофункциональный REST API сервер на Kotlin с использованием Ktor framework, включая аутентификацию, авторизацию, работу с базой данных, документацию API и тестирование.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели задания</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Изучить создание REST API на Kotlin</li>
+                <li>Использовать Ktor framework для веб-сервера</li>
+                <li>Реализовать аутентификацию и авторизацию</li>
+                <li>Работать с базой данных через ORM</li>
+                <li>Создать документацию API</li>
+                <li>Реализовать валидацию данных</li>
+                <li>Написать тесты для API endpoints</li>
+            </ul>
+        </div>
+
+        <div class="task-box">
+            <h4>📝 Задача</h4>
+            <p>Создайте REST API сервер для системы управления библиотекой с поддержкой CRUD операций для книг, пользователей, займов, а также системой аутентификации и авторизации.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>💡 Подсказки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Используйте Ktor для создания HTTP сервера</li>
+                <li>Примените Exposed ORM для работы с базой данных</li>
+                <li>Реализуйте JWT аутентификацию</li>
+                <li>Используйте Kotlin Serialization для JSON</li>
+                <li>Добавьте документацию через OpenAPI/Swagger</li>
+                <li>Напишите интеграционные тесты</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Архитектура сервера</h2>
+            
+            <h3>1. Структура проекта</h3>
+            <div class="code-example">
+                <code>src/
+├── main/
+│   ├── kotlin/
+│   │   ├── com/
+│   │   │   └── library/
+│   │   │       ├── Application.kt          # Главный файл приложения
+│   │   │       ├── plugins/
+│   │   │       │   ├── Routing.kt         # Настройка маршрутов
+│   │   │       │   ├── Security.kt        # Аутентификация/авторизация
+│   │   │       │   ├── Serialization.kt   # JSON сериализация
+│   │   │       │   └── Database.kt        # Настройка БД
+│   │   │       ├── routes/
+│   │   │       │   ├── AuthRoutes.kt      # Маршруты аутентификации
+│   │   │       │   ├── BookRoutes.kt      # Маршруты книг
+│   │   │       │   ├── UserRoutes.kt      # Маршруты пользователей
+│   │   │       │   └── LoanRoutes.kt      # Маршруты займов
+│   │   │       ├── models/
+│   │   │       │   ├── Book.kt            # Модель книги
+│   │   │       │   ├── User.kt            # Модель пользователя
+│   │   │       │   ├── Loan.kt            # Модель займа
+│   │   │       │   └── DTOs.kt            # Data Transfer Objects
+│   │   │       ├── database/
+│   │   │       │   ├── Database.kt        # Конфигурация БД
+│   │   │       │   ├── Tables.kt          # Определения таблиц
+│   │   │       │   └── Repositories.kt    # Репозитории
+│   │   │       ├── services/
+│   │   │       │   ├── AuthService.kt     # Сервис аутентификации
+│   │   │       │   ├── BookService.kt     # Сервис книг
+│   │   │       │   └── UserService.kt     # Сервис пользователей
+│   │   │       └── utils/
+│   │   │           ├── JWT.kt             # Утилиты JWT
+│   │   │           └── Validators.kt      # Валидация данных
+│   └── resources/
+│       └── application.conf              # Конфигурация приложения</code>
+            </div>
+
+            <h3>2. Основные модели данных</h3>
+            <div class="code-example">
+                <code>// Book.kt
+data class Book(
+    val id: Long? = null,
+    val title: String,
+    val author: String,
+    val isbn: String,
+    val genre: String,
+    val publishedYear: Int,
+    val availableCopies: Int,
+    val totalCopies: Int,
+    val description: String = "",
+    val createdAt: LocalDateTime = LocalDateTime.now()
+)
+
+// User.kt
+data class User(
+    val id: Long? = null,
+    val username: String,
+    val email: String,
+    val passwordHash: String,
+    val firstName: String,
+    val lastName: String,
+    val role: UserRole = UserRole.READER,
+    val createdAt: LocalDateTime = LocalDateTime.now()
+)
+
+enum class UserRole {
+    ADMIN, LIBRARIAN, READER
+}
+
+// Loan.kt
+data class Loan(
+    val id: Long? = null,
+    val userId: Long,
+    val bookId: Long,
+    val loanDate: LocalDateTime = LocalDateTime.now(),
+    val dueDate: LocalDateTime,
+    val returnDate: LocalDateTime? = null,
+    val status: LoanStatus = LoanStatus.ACTIVE
+)
+
+enum class LoanStatus {
+    ACTIVE, RETURNED, OVERDUE, LOST
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🌐 API Endpoints</h2>
+            
+            <h3>Аутентификация</h3>
+            <div class="code-example">
+                <code>POST /api/auth/register     # Регистрация пользователя
+POST /api/auth/login      # Вход в систему
+POST /api/auth/refresh    # Обновление токена
+POST /api/auth/logout     # Выход из системы</code>
+            </div>
+
+            <h3>Книги</h3>
+            <div class="code-example">
+                <code>GET    /api/books              # Получить все книги
+GET    /api/books/{id}       # Получить книгу по ID
+POST   /api/books            # Создать новую книгу
+PUT    /api/books/{id}       # Обновить книгу
+DELETE /api/books/{id}       # Удалить книгу
+GET    /api/books/search     # Поиск книг</code>
+            </div>
+
+            <h3>Пользователи</h3>
+            <div class="code-example">
+                <code>GET    /api/users              # Получить всех пользователей (admin)
+GET    /api/users/{id}       # Получить пользователя по ID
+PUT    /api/users/{id}       # Обновить пользователя
+DELETE /api/users/{id}       # Удалить пользователя (admin)
+GET    /api/users/me         # Получить информацию о себе</code>
+            </div>
+
+            <h3>Займы</h3>
+            <div class="code-example">
+                <code>GET    /api/loans              # Получить все займы
+GET    /api/loans/{id}       # Получить займ по ID
+POST   /api/loans            # Создать новый займ
+PUT    /api/loans/{id}/return # Вернуть книгу
+GET    /api/loans/user/{id}  # Займы пользователя</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔒 Безопасность</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>JWT аутентификация:</strong> Безопасная аутентификация пользователей</li>
+                <li><strong>Роли пользователей:</strong> ADMIN, LIBRARIAN, READER с разными правами</li>
+                <li><strong>Валидация данных:</strong> Проверка входных данных на сервере</li>
+                <li><strong>Хеширование паролей:</strong> Безопасное хранение паролей</li>
+                <li><strong>Rate limiting:</strong> Ограничение количества запросов</li>
+                <li><strong>CORS:</strong> Настройка политики CORS для фронтенда</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>📊 Пример использования API</h2>
+            <div class="code-example">
+                <code>=== ДЕМОНСТРАЦИЯ REST API ===
+
+1. Регистрация пользователя:
+POST /api/auth/register
+{
+  "username": "john_doe",
+  "email": "john@example.com", 
+  "password": "securePassword123",
+  "firstName": "John",
+  "lastName": "Doe"
+}
+
+Ответ:
+{
+  "success": true,
+  "message": "User registered successfully",
+  "userId": 123
+}
+
+2. Вход в систему:
+POST /api/auth/login
+{
+  "username": "john_doe",
+  "password": "securePassword123"
+}
+
+Ответ:
+{
+  "success": true,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refreshToken": "refresh_token_here",
+  "user": {
+    "id": 123,
+    "username": "john_doe",
+    "role": "READER"
+  }
+}
+
+3. Получение всех книг:
+GET /api/books
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+Ответ:
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "title": "Kotlin Programming",
+      "author": "John Smith",
+      "isbn": "978-0123456789",
+      "genre": "Programming",
+      "publishedYear": 2024,
+      "availableCopies": 5,
+      "totalCopies": 10
+    }
+  ],
+  "total": 150,
+  "page": 1,
+  "limit": 20
+}
+
+4. Создание нового займа:
+POST /api/loans
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+{
+  "bookId": 1
+}
+
+Ответ:
+{
+  "success": true,
+  "data": {
+    "id": 456,
+    "userId": 123,
+    "bookId": 1,
+    "loanDate": "2024-12-07T20:13:00",
+    "dueDate": "2024-12-21T20:13:00",
+    "status": "ACTIVE"
+  }
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🗃️ База данных</h2>
+            <p>Используйте PostgreSQL или H2 для разработки:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>users:</strong> id, username, email, password_hash, first_name, last_name, role, created_at</li>
+                <li><strong>books:</strong> id, title, author, isbn, genre, published_year, available_copies, total_copies, description, created_at</li>
+                <li><strong>loans:</strong> id, user_id, book_id, loan_date, due_date, return_date, status</li>
+                <li><strong>refresh_tokens:</strong> id, user_id, token, expires_at, created_at</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Критерии оценки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Архитектура (25%):</strong> Правильная структура проекта, слои приложения</li>
+                <li><strong>Функциональность (30%):</strong> Все CRUD операции и аутентификация</li>
+                <li><strong>Безопасность (20%):</strong> JWT, валидация, авторизация</li>
+                <li><strong>Код качество (15%):</strong> Читаемость, обработка ошибок</li>
+                <li><strong>Документация (10%):</strong> OpenAPI/Swagger документация</li>
+            </ul>
+        </div>
+
+        <div class="solution-box">
+            <h4>💡 Пример решения</h4>
+            <p>Нажмите кнопку ниже, чтобы посмотреть пример решения:</p>
+            <button onclick="toggleSolution()" class="nav-button" style="margin-top: 15px;">
+                Показать решение
+            </button>
+            
+            <div id="solution" style="display: none; margin-top: 20px;">
+                <div class="code-example">
+                    <code>// 1. build.gradle.kts
+plugins {
+    kotlin("jvm") version "1.9.10"
+    kotlin("plugin.serialization") version "1.9.10"
+    id("io.ktor.plugin") version "2.3.5"
+    id("org.jetbrains.kotlin.plugin.noarg") version "1.9.10"
+}
+
+group = "com.library"
+version = "1.0.0"
+
+application {
+    mainClass.set("com.library.ApplicationKt")
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("io.ktor:ktor-server-core:2.3.5")
+    implementation("io.ktor:ktor-server-netty:2.3.5")
+    implementation("io.ktor:ktor-server-content-negotiation:2.3.5")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.5")
+    implementation("io.ktor:ktor-server-auth:2.3.5")
+    implementation("io.ktor:ktor-server-auth-jwt:2.3.5")
+    implementation("io.ktor:ktor-server-swagger:2.3.5")
+    implementation("io.ktor:ktor-server-rate-limit:2.3.5")
+    implementation("io.ktor:ktor-server-cors:2.3.5")
+    implementation("io.ktor:ktor-server-status-pages:2.3.5")
+    
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.7.3")
+    
+    implementation("org.jetbrains.exposed:exposed-core:0.44.1")
+    implementation("org.jetbrains.exposed:exposed-dao:0.44.1")
+    implementation("org.jetbrains.exposed:exposed-jdbc:0.44.1")
+    implementation("org.jetbrains.exposed:exposed-java-time:0.44.1")
+    
+    implementation("com.h2database:h2:2.2.224")
+    implementation("org.postgresql:postgresql:42.7.0")
+    
+    implementation("org.mindrot:jbcrypt:0.4")
+    
+    testImplementation("io.ktor:ktor-server-test-host:2.3.5")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")
+}
+
+// 2. Application.kt
+package com.library
+
+import com.library.plugins.*
+import io.ktor.server.application.*
+
+fun main(args: Array<String>) {
+    io.ktor.server.engine.embeddedServer(
+        factory = io.ktor.server.engine.EngineMain,
+        port = 8080,
+        host = "0.0.0.0",
+        module = Application::module
+    ).start(wait = true)
+}
+
+fun Application.module() {
+    configureDatabase()
+    configureSerialization()
+    configureSecurity()
+    configureRouting()
+    configureStatusPages()
+    configureCors()
+    configureRateLimit()
+    configureSwagger()
+}
+
+// 3. Database.kt
+package com.library.plugins
+
+import com.library.database.*
+import kotlinx.coroutines.Dispatchers
+import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
+import org.jetbrains.exposed.sql.transactions.transaction
+
+fun Application.configureDatabase() {
+    val databaseUrl = environment.config.propertyOrNull("database.url")?.getString() ?: "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1"
+    val databaseDriver = environment.config.propertyOrNull("database.driver")?.getString() ?: "org.h2.Driver"
+    
+    Database.connect(
+        url = databaseUrl,
+        driver = databaseDriver
+    )
+    
+    transaction {
+        SchemaUtils.create(
+            Users, Books, Loans, RefreshTokens
+        )
+    }
+}
+
+suspend fun <T> dbQuery(block: suspend () -> T): T =
+    newSuspendedTransaction(Dispatchers.IO) {
+        block()
+    }
+
+// 4. Security.kt
+package com.library.plugins
+
+import com.library.utils.JWT
+import io.ktor.server.application.*
+import io.ktor.server.auth.*
+import io.ktor.server.auth.jwt.*
+import io.ktor.server.response.*
+import io.ktor.server.request.*
+
+fun Application.configureSecurity() {
+    val jwtIssuer = environment.config.property("jwt.issuer").getString()
+    val jwtAudience = environment.config.property("jwt.audience").getString()
+    val jwtSecret = environment.config.property("jwt.secret").getString()
+    
+    install(Authentication) {
+        jwt("jwt-auth") {
+            verifier(JWT.getVerifier(jwtSecret))
+            validate { credential ->
+                val userId = credential.payload.getClaim("userId").asLong()
+                if (userId != null) {
+                    JWTPrincipal(credential.payload)
+                } else {
+                    null
+                }
+            }
+            challenge { defaultChallenge, _ ->
+                call.respond(io.ktor.http.HttpStatusCode.Unauthorized, mapOf("error" to "Invalid token"))
+            }
+        }
+    }
+}
+
+fun Application.configureRateLimit() {
+    install(io.ktor.server.plugins.ratelimit.RateLimit) {
+        val rateLimiter = io.ktor.server.plugins.ratelimit.RateLimitName("ktor-ratelimit")
+        
+        register(rateLimiter) {
+            rate = 100 // requests
+            period = java.time.Duration.ofMinutes(1)
+        }
+    }
+}
+
+fun Application.configureCors() {
+    install(io.ktor.server.plugins.cors.CORS) {
+        allowMethod(io.ktor.http.HttpMethod.Get)
+        allowMethod(io.ktor.http.HttpMethod.Post)
+        allowMethod(io.ktor.http.HttpMethod.Put)
+        allowMethod(io.ktor.http.HttpMethod.Delete)
+        allowHeader(io.ktor.http.HttpHeaders.ContentType)
+        allowHeader(io.ktor.http.HttpHeaders.Authorization)
+        allowHeader("Custom-Header")
+        
+        anyHost()
+    }
+}
+
+// 5. Models.kt
+package com.library.models
+
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class ApiResponse<T>(
+    val success: Boolean,
+    val data: T? = null,
+    val message: String = "",
+    val error: String? = null
+)
+
+@Serializable
+data class LoginRequest(
+    val username: String,
+    val password: String
+)
+
+@Serializable
+data class RegisterRequest(
+    val username: String,
+    val email: String,
+    val password: String,
+    val firstName: String,
+    val lastName: String
+)
+
+@Serializable
+data class AuthResponse(
+    val token: String,
+    val refreshToken: String,
+    val user: UserDTO
+)
+
+@Serializable
+data class UserDTO(
+    val id: Long,
+    val username: String,
+    val email: String,
+    val firstName: String,
+    val lastName: String,
+    val role: String
+)
+
+@Serializable
+data class BookDTO(
+    val id: Long? = null,
+    val title: String,
+    val author: String,
+    val isbn: String,
+    val genre: String,
+    val publishedYear: Int,
+    val availableCopies: Int,
+    val totalCopies: Int,
+    val description: String = ""
+)
+
+@Serializable
+data class LoanDTO(
+    val id: Long? = null,
+    val userId: Long,
+    val bookId: Long,
+    val loanDate: String,
+    val dueDate: String,
+    val returnDate: String? = null,
+    val status: String
+)
+
+@Serializable
+data class PaginatedResponse<T>(
+    val success: Boolean,
+    val data: List<T>,
+    val total: Int,
+    val page: Int,
+    val limit: Int
+)
+
+// 6. Services/AuthService.kt
+package com.library.services
+
+import com.library.database.RefreshTokens
+import com.library.database.Users
+import com.library.database.Users.id
+import com.library.models.*
+import com.library.utils.JWT
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.update
+import org.mindrot.jbcrypt.BCrypt
+import java.time.LocalDateTime
+import java.util.*
+
+class AuthService {
+    suspend fun register(request: RegisterRequest): ApiResponse<Long> = withContext(Dispatchers.IO) {
+        try {
+            // Проверка уникальности
+            val existingUser = Users.select { 
+                (Users.username eq request.username) or (Users.email eq request.email) 
+            }.firstOrNull()
+            
+            if (existingUser != null) {
+                return@withContext ApiResponse(
+                    success = false,
+                    message = "Пользователь с таким именем или email уже существует"
+                )
+            }
+            
+            val passwordHash = BCrypt.hashpw(request.password, BCrypt.gensalt())
+            val userId = Users.insert {
+                it[username] = request.username
+                it[email] = request.email
+                it[passwordHash] = passwordHash
+                it[firstName] = request.firstName
+                it[lastName] = request.lastName
+                it[role] = "READER"
+                it[createdAt] = LocalDateTime.now()
+            }[Users.id]
+            
+            ApiResponse(
+                success = true,
+                data = userId,
+                message = "Пользователь успешно зарегистрирован"
+            )
+        } catch (e: Exception) {
+            ApiResponse(
+                success = false,
+                message = "Ошибка при регистрации: ${e.message}"
+            )
+        }
+    }
+    
+    suspend fun login(request: LoginRequest): ApiResponse<AuthResponse> = withContext(Dispatchers.IO) {
+        try {
+            val user = Users.select { Users.username eq request.username }.firstOrNull()
+                ?: return@withContext ApiResponse(
+                    success = false,
+                    message = "Неверные учетные данные"
+                )
+            
+            val passwordMatches = BCrypt.checkpw(request.password, user[Users.passwordHash])
+            if (!passwordMatches) {
+                return@withContext ApiResponse(
+                    success = false,
+                    message = "Неверные учетные данные"
+                )
+            }
+            
+            val userId = user[Users.id]
+            val token = JWT.generateToken(userId, user[Users.role])
+            val refreshToken = generateRefreshToken()
+            
+            saveRefreshToken(userId, refreshToken)
+            
+            val userDTO = UserDTO(
+                id = userId,
+                username = user[Users.username],
+                email = user[Users.email],
+                firstName = user[Users.firstName],
+                lastName = user[Users.lastName],
+                role = user[Users.role]
+            )
+            
+            ApiResponse(
+                success = true,
+                data = AuthResponse(token, refreshToken, userDTO),
+                message = "Успешный вход в систему"
+            )
+        } catch (e: Exception) {
+            ApiResponse(
+                success = false,
+                message = "Ошибка при входе: ${e.message}"
+            )
+        }
+    }
+    
+    private suspend fun generateRefreshToken(): String {
+        return UUID.randomUUID().toString()
+    }
+    
+    private suspend fun saveRefreshToken(userId: Long, token: String) {
+        RefreshTokens.insert {
+            it[RefreshTokens.userId] = userId
+            it[RefreshTokens.token] = token
+            it[RefreshTokens.expiresAt] = LocalDateTime.now().plusDays(30)
+            it[RefreshTokens.createdAt] = LocalDateTime.now()
+        }
+    }
+}
+
+// 7. Routes/AuthRoutes.kt
+package com.library.routes
+
+import com.library.models.*
+import com.library.services.AuthService
+import io.ktor.http.*
+import io.ktor.server.application.*
+import io.ktor.server.request.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
+
+fun Route.authRoutes() {
+    val authService = AuthService()
+    
+    route("/api/auth") {
+        post("/register") {
+            val request = call.receive<RegisterRequest>()
+            val response = authService.register(request)
+            call.respond(response.success, response)
+        }
+        
+        post("/login") {
+            val request = call.receive<LoginRequest>()
+            val response = authService.login(request)
+            call.respond(response.success, response)
+        }
+        
+        post("/refresh") {
+            // Реализация обновления токена
+            call.respond(mapOf("message" to "Token refresh not implemented"))
+        }
+        
+        post("/logout") {
+            // Реализация выхода из системы
+            call.respond(mapOf("message" to "Logout successful"))
+        }
+    }
+}
+
+// 8. Routes/BookRoutes.kt
+package com.library.routes
+
+import com.library.models.*
+import com.library.services.BookService
+import io.ktor.server.application.*
+import io.ktor.server.auth.*
+import io.ktor.server.request.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
+
+fun Route.bookRoutes() {
+    val bookService = BookService()
+    
+    route("/api/books") {
+        get {
+            val page = call.request.queryParameters["page"]?.toIntOrNull() ?: 1
+            val limit = call.request.queryParameters["limit"]?.toIntOrNull() ?: 20
+            val search = call.request.queryParameters["search"]
+            
+            val response = bookService.getAllBooks(page, limit, search)
+            call.respond(response)
+        }
+        
+        get("/{id}") {
+            val id = call.parameters["id"]?.toLongOrNull()
+                ?: return@get call.respond(HttpStatusCode.BadRequest, "Invalid ID")
+            
+            val response = bookService.getBookById(id)
+            call.respond(response)
+        }
+        
+        authenticate("jwt-auth") {
+            post {
+                val request = call.receive<BookDTO>()
+                val userPrincipal = call.principal<io.ktor.auth.jwt.JWTPrincipal>()
+                val userRole = userPrincipal?.payload?.getClaim("role")?.asString()
+                
+                if (userRole !in listOf("ADMIN", "LIBRARIAN")) {
+                    return@post call.respond(HttpStatusCode.Forbidden, "Insufficient permissions")
+                }
+                
+                val response = bookService.createBook(request)
+                call.respond(response)
+            }
+            
+            put("/{id}") {
+                val id = call.parameters["id"]?.toLongOrNull()
+                    ?: return@put call.respond(HttpStatusCode.BadRequest, "Invalid ID")
+                
+                val userPrincipal = call.principal<io.ktor.auth.jwt.JWTPrincipal>()
+                val userRole = userPrincipal?.payload?.getClaim("role")?.asString()
+                
+                if (userRole !in listOf("ADMIN", "LIBRARIAN")) {
+                    return@put call.respond(HttpStatusCode.Forbidden, "Insufficient permissions")
+                }
+                
+                val request = call.receive<BookDTO>()
+                val response = bookService.updateBook(id, request)
+                call.respond(response)
+            }
+            
+            delete("/{id}") {
+                val id = call.parameters["id"]?.toLongOrNull()
+                    ?: return@delete call.respond(HttpStatusCode.BadRequest, "Invalid ID")
+                
+                val userPrincipal = call.principal<io.ktor.auth.jwt.JWTPrincipal>()
+                val userRole = userPrincipal?.payload?.getClaim("role")?.asString()
+                
+                if (userRole != "ADMIN") {
+                    return@delete call.respond(HttpStatusCode.Forbidden, "Admin access required")
+                }
+                
+                val response = bookService.deleteBook(id)
+                call.respond(response)
+            }
+        }
+    }
+}
+
+// 9. Utils/JWT.kt
+package com.library.utils
+
+import io.ktor.auth.jwt.*
+import com.auth0.jwt.JWT
+import com.auth0.jwt.algorithms.Algorithm
+import java.util.*
+
+object JWT {
+    fun getVerifier(secret: String) = JWT.require(Algorithm.HMAC256(secret))
+        .withIssuer("library-api")
+        .build()
+    
+    fun generateToken(userId: Long, role: String): String {
+        val algorithm = Algorithm.HMAC256(System.getenv("JWT_SECRET") ?: "default-secret")
+        
+        return JWT.create()
+            .withIssuer("library-api")
+            .withAudience("library-clients")
+            .withClaim("userId", userId)
+            .withClaim("role", role)
+            .withExpiresAt(Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000)) // 24 часа
+            .sign(algorithm)
+    }
+}
+
+// 10. application.conf
+ktor {
+    deployment {
+        port = 8080
+        port = ${?PORT}
+    }
+    
+    application {
+        modules = [ com.library.ApplicationKt.module ]
+    }
+    
+    security {
+        jwt {
+            secret = ${JWT_SECRET}
+            issuer = "library-api"
+            audience = "library-clients"
+            validityPeriod = 24h
+        }
+    }
+}
+
+database {
+    url = ${DATABASE_URL}
+    driver = "org.postgresql.Driver"
+}
+
+Этот код показывает полную структуру REST API сервера на Kotlin
+с использованием Ktor framework, аутентификации и работы с БД:</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🚀 Расширения</h2>
+            <p>После выполнения основного задания попробуйте добавить:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Docker контейнеризацию сервера</li>
+                <li>Миграции базы данных с Flyway</li>
+                <li>Кэширование с Redis</li>
+                <li>Логирование запросов и ошибок</li>
+                <li>WebSocket поддержку для уведомлений</li>
+                <li>Мониторинг с Prometheus и Grafana</li>
+                <li>CI/CD пайплайн с GitHub Actions</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🎓 Поздравляем!</h2>
+            <p>Вы завершили все 10 заданий курса Kotlin! Теперь у вас есть прочные знания в:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>✅ Базовый синтаксис и типы данных Kotlin</li>
+                <li>✅ Функции и лямбда-выражения</li>
+                <li>✅ Объектно-ориентированное программирование</li>
+                <li>✅ Коллекции и функции высшего порядка</li>
+                <li>✅ Null safety и обработка ошибок</li>
+                <li>✅ Корутины и асинхронное программирование</li>
+                <li>✅ HTTP клиенты и работа с API</li>
+                <li>✅ Android разработка</li>
+                <li>✅ Создание REST API серверов</li>
+            </ul>
+            <p style="margin-top: 20px; font-size: 1.2em; text-align: center; color: #ffd700;">
+                🏆 Вы готовы к профессиональной разработке на Kotlin! 🏆
+            </p>
+        </div>
+
+        <div class="navigation">
+            <a href="course-kotlin.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(10)" class="nav-button" style="border: none; cursor: pointer; background: linear-gradient(45deg, #4CAF50, #45a049); color: white;">🎉 Завершить курс!</button>
+            <a href="courses.html" class="nav-button">Все курсы →</a>
+        </div>
+        
+        <script>
+            function toggleSolution() {
+                const solution = document.getElementById('solution');
+                const button = event.target;
+                
+                if (solution.style.display === 'none') {
+                    solution.style.display = 'block';
+                    button.textContent = 'Скрыть решение';
+                } else {
+                    solution.style.display = 'none';
+                    button.textContent = 'Показать решение';
+                }
+            }
+            
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedKotlinAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedKotlinAssignments', JSON.stringify(completedAssignments));
+                    
+                    // Проверяем, завершен ли весь курс
+                    if (completedAssignments.length === 10) {
+                        localStorage.setItem('kotlinCourseCompleted', 'true');
+                        alert('🎉 ПОЗДРАВЛЯЕМ! 🎉\n\nВы завершили ВСЕ 10 заданий курса Kotlin!\n\nТеперь вы обладаете всеми необходимыми знаниями для профессиональной разработки на Kotlin!\n\nСертификат курса сохранен в вашем профиле! 🏆');
+                    } else {
+                        alert('Задание завершено! Отличная работа! 🏆');
+                    }
+                } else {
+                    alert('Это задание уже отмечено как завершенное.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

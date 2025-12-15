@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 4: Управляющие конструкции - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 4: Управляющие конструкции</h1>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели лекции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Изучить условные конструкции if-else</li>
+                <li>Освоить switch-case оператор</li>
+                <li>Понять циклы for, while, do-while</li>
+                <li>Научиться break и continue</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>📚 Условные конструкции</h2>
+
+            <div class="code-example">
+                <code>// if-else
+let age = 18;
+
+if (age >= 18) {
+    console.log("Совершеннолетний");
+} else {
+    console.log("Несовершеннолетний");
+}
+
+// if-else if-else
+let score = 85;
+
+if (score >= 90) {
+    console.log("Отлично");
+} else if (score >= 70) {
+    console.log("Хорошо");
+} else if (score >= 50) {
+    console.log("Удовлетворительно");
+} else {
+    console.log("Неудовлетворительно");
+}
+
+// Тернарный оператор
+let result = age >= 18 ? "Взрослый" : "Ребенок";</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔄 Switch-case</h2>
+
+            <div class="code-example">
+                <code>let day = 3;
+let dayName;
+
+switch (day) {
+    case 1:
+        dayName = "Понедельник";
+        break;
+    case 2:
+        dayName = "Вторник";
+        break;
+    case 3:
+        dayName = "Среда";
+        break;
+    case 4:
+        dayName = "Четверг";
+        break;
+    case 5:
+        dayName = "Пятница";
+        break;
+    case 6:
+        dayName = "Суббота";
+        break;
+    case 7:
+        dayName = "Воскресенье";
+        break;
+    default:
+        dayName = "Неверный день";
+}
+
+console.log(dayName);</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔁 Циклы</h2>
+
+            <div class="code-example">
+                <code>// for цикл
+for (let i = 0; i < 5; i++) {
+    console.log("Итерация:", i);
+}
+
+// while цикл
+let count = 0;
+while (count < 3) {
+    console.log("Count:", count);
+    count++;
+}
+
+// do-while цикл
+let num = 0;
+do {
+    console.log("Num:", num);
+    num++;
+} while (num < 3);
+
+// for-of для массивов
+let fruits = ["яблоко", "банан", "апельсин"];
+for (let fruit of fruits) {
+    console.log(fruit);
+}
+
+// break и continue
+for (let i = 0; i < 10; i++) {
+    if (i === 3) continue;  // пропустить 3
+    if (i === 7) break;     // остановить цикл
+    console.log(i);
+}</code>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="course-js.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(4)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить лекцию</button>
+            <a href="js-lecture-5.html" class="nav-button">Следующая лекция →</a>
+        </div>
+
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedJSLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedJSLectures', JSON.stringify(completedLectures));
+                    alert('Лекция завершена! Отличная работа! 🎉');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 4: Функции - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .lecture-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .highlight-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .highlight-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .key-points {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .key-points h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-cpp.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 4: Функции</h1>
+            <div class="lecture-meta">
+                <span>⚡ C++</span>
+                <span>⏱️ 55 минут</span>
+                <span>🎯 Средний</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели лекции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Изучить объявление и определение функций</li>
+                <li>Освоить передачу параметров по значению и по ссылке</li>
+                <li>Понять возвращаемые значения функций</li>
+                <li>Изучить перегрузку функций</li>
+                <li>Освоить рекурсивные функции</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🔧 Объявление и определение функций</h2>
+
+            <h3>Структура функции</h3>
+            <div class="code-example">
+                <code>// Объявление функции (прототип)
+тип_возврата имя_функции(параметры);
+
+// Определение функции
+тип_возврата имя_функции(параметры) {
+    // тело функции
+    return значение;
+}</code>
+            </div>
+
+            <h3>Простая функция</h3>
+            <div class="code-example">
+                <code>#include <iostream>
+
+// Объявление функции
+void greet();
+
+int main() {
+    greet();  // Вызов функции
+    return 0;
+}
+
+// Определение функции
+void greet() {
+    std::cout << "Привет, мир!" << std::endl;
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📥 Параметры функций</h2>
+
+            <h3>Передача по значению</h3>
+            <div class="code-example">
+                <code>void printNumber(int num) {
+    std::cout << "Число: " << num << std::endl;
+    num = 999;  // Изменение не повлияет на оригинал
+}
+
+int main() {
+    int x = 42;
+    printNumber(x);
+    std::cout << "После вызова: " << x << std::endl;  // x все еще 42
+    return 0;
+}</code>
+            </div>
+
+            <h3>Передача по ссылке</h3>
+            <div class="code-example">
+                <code>void increment(int& num) {
+    num++;  // Изменение повлияет на оригинал
+}
+
+int main() {
+    int x = 5;
+    std::cout << "До: " << x << std::endl;
+    increment(x);
+    std::cout << "После: " << x << std::endl;  // x = 6
+    return 0;
+}</code>
+            </div>
+
+            <h3>Константные ссылки</h3>
+            <div class="code-example">
+                <code>void printInfo(const std::string& name, const int& age) {
+    std::cout << name << " (" << age << " лет)" << std::endl;
+    // name и age нельзя изменить внутри функции
+}
+
+int main() {
+    std::string person = "Алексей";
+    int years = 25;
+    printInfo(person, years);
+    return 0;
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📤 Возвращаемые значения</h2>
+
+            <h3>Функции с возвратом значения</h3>
+            <div class="code-example">
+                <code>int add(int a, int b) {
+    return a + b;
+}
+
+double calculateArea(double radius) {
+    const double PI = 3.14159;
+    return PI * radius * radius;
+}
+
+bool isEven(int number) {
+    return number % 2 == 0;
+}
+
+int main() {
+    int sum = add(5, 3);
+    double area = calculateArea(2.5);
+    bool even = isEven(4);
+
+    std::cout << "Сумма: " << sum << std::endl;
+    std::cout << "Площадь: " << area << std::endl;
+    std::cout << "Четное: " << (even ? "Да" : "Нет") << std::endl;
+
+    return 0;
+}</code>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h4>💡 Перегрузка функций</h4>
+            <div class="code-example">
+                <code>// Функции с одинаковыми именами но разными параметрами
+int max(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+double max(double a, double b) {
+    return (a > b) ? a : b;
+}
+
+int max(int a, int b, int c) {
+    return max(max(a, b), c);
+}
+
+int main() {
+    std::cout << max(5, 3) << std::endl;        // 5
+    std::cout << max(2.7, 3.1) << std::endl;    // 3.1
+    std::cout << max(1, 8, 4) << std::endl;      // 8
+    return 0;
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔄 Рекурсивные функции</h2>
+
+            <h3>Факториал</h3>
+            <div class="code-example">
+                <code>unsigned long long factorial(int n) {
+    if (n <= 1) {
+        return 1;  // Базовый случай
+    }
+    return n * factorial(n - 1);  // Рекурсивный вызов
+}
+
+int main() {
+    for (int i = 0; i <= 10; i++) {
+        std::cout << i << "! = " << factorial(i) << std::endl;
+    }
+    return 0;
+}</code>
+            </div>
+
+            <h3>Числа Фибоначчи</h3>
+            <div class="code-example">
+                <code>unsigned long long fibonacci(int n) {
+    if (n <= 1) {
+        return n;  // Базовые случаи: F(0) = 0, F(1) = 1
+    }
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+int main() {
+    std::cout << "Первые 15 чисел Фибоначчи:" << std::endl;
+    for (int i = 0; i < 15; i++) {
+        std::cout << "F(" << i << ") = " << fibonacci(i) << std::endl;
+    }
+    return 0;
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📝 Параметры по умолчанию</h3>
+            <div class="code-example">
+                <code>void printMessage(std::string message, int count = 1) {
+    for (int i = 0; i < count; i++) {
+        std::cout << message << std::endl;
+    }
+}
+
+void drawRectangle(int width = 10, int height = 5, char symbol = '*') {
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            std::cout << symbol;
+        }
+        std::cout << std::endl;
+    }
+}
+
+int main() {
+    printMessage("Привет!");           // 1 раз
+    printMessage("Привет!", 3);        // 3 раза
+
+    drawRectangle();                   // 10x5 звездочек
+    drawRectangle(8, 3);              // 8x3 звездочек
+    drawRectangle(5, 2, '#');         // 5x2 решеток
+
+    return 0;
+}</code>
+            </div>
+        </div>
+
+        <div class="key-points">
+            <h4>🔑 Ключевые понятия</h4>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Функция:</strong> Блок кода, выполняющий определенную задачу</li>
+                <li><strong>Параметры:</strong> Значения, передаваемые в функцию</li>
+                <li><strong>Возврат:</strong> Значение, возвращаемое функцией</li>
+                <li><strong>Перегрузка:</strong> Функции с одинаковыми именами но разными параметрами</li>
+                <li><strong>Рекурсия:</strong> Функция, вызывающая сама себя</li>
+                <li><strong>Ссылка:</strong> Позволяет изменять переданную переменную</li>
+                <li><strong>По умолчанию:</strong> Параметры со значениями по умолчанию</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Заключение</h2>
+            <p>В этой лекции мы изучили:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Объявление и определение функций</li>
+                <li>Передачу параметров по значению и по ссылке</li>
+                <li>Возвращаемые значения и типы функций</li>
+                <li>Перегрузку функций</li>
+                <li>Рекурсивные функции</li>
+                <li>Параметры по умолчанию</li>
+            </ul>
+
+            <p style="margin-top: 20px; font-weight: bold;">В следующей лекции мы изучим массивы и указатели!</p>
+        </div>
+
+        <div class="navigation">
+            <a href="course-cpp.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(4)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить лекцию</button>
+            <a href="cpp-lecture-5.html" class="nav-button">Следующая лекция →</a>
+        </div>
+
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedCPPLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedCPPLectures', JSON.stringify(completedLectures));
+                    alert('Лекция завершена! Отличная работа! 🎉');
+                } else {
+                    alert('Эта лекция уже отмечена как завершенная.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 7: DOM манипуляции - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+        .demo-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .demo-button {
+            background: #ffd700;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+        }
+        .demo-button:hover {
+            background: #ffed4e;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 7: DOM манипуляции</h1>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Задача</h2>
+            <p>Создайте интерактивную веб-страницу с задачами, демонстрирующими различные манипуляции DOM.</p>
+        </div>
+
+        <div class="demo-section">
+            <h2>🎮 Демонстрация DOM манипуляций</h2>
+            <div id="demo-container">
+                <p id="demo-text">Нажмите кнопки ниже для демонстрации!</p>
+                <ul id="demo-list">
+                    <li>Элемент 1</li>
+                    <li>Элемент 2</li>
+                </ul>
+            </div>
+            <br>
+            <button class="demo-button" onclick="changeText()">Изменить текст</button>
+            <button class="demo-button" onclick="changeStyle()">Изменить стиль</button>
+            <button class="demo-button" onclick="addElement()">Добавить элемент</button>
+            <button class="demo-button" onclick="removeElement()">Удалить элемент</button>
+            <button class="demo-button" onclick="toggleVisibility()">Переключить видимость</button>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ JavaScript код</h2>
+
+            <div class="code-example">
+                <code>// script.js
+// Функции для демонстрации DOM манипуляций
+
+function changeText() {
+    const textElement = document.getElementById('demo-text');
+    textElement.textContent = 'Текст изменен с помощью JavaScript!';
+    textElement.style.color = '#ffd700';
+}
+
+function changeStyle() {
+    const container = document.getElementById('demo-container');
+    container.style.backgroundColor = '#333';
+    container.style.padding = '20px';
+    container.style.borderRadius = '10px';
+}
+
+function addElement() {
+    const list = document.getElementById('demo-list');
+    const newItem = document.createElement('li');
+    newItem.textContent = `Элемент ${list.children.length + 1}`;
+    newItem.style.color = '#00ff00';
+    list.appendChild(newItem);
+}
+
+function removeElement() {
+    const list = document.getElementById('demo-list');
+    if (list.children.length > 0) {
+        list.removeChild(list.lastChild);
+    }
+}
+
+function toggleVisibility() {
+    const textElement = document.getElementById('demo-text');
+    if (textElement.style.display === 'none') {
+        textElement.style.display = 'block';
+    } else {
+        textElement.style.display = 'none';
+    }
+}
+
+// Дополнительные функции
+function createTable() {
+    const container = document.getElementById('demo-container');
+    
+    // Создаем таблицу
+    const table = document.createElement('table');
+    table.style.borderCollapse = 'collapse';
+    table.style.marginTop = '20px';
+    
+    // Создаем заголовок
+    const headerRow = document.createElement('tr');
+    ['Имя', 'Возраст', 'Город'].forEach(headerText => {
+        const th = document.createElement('th');
+        th.textContent = headerText;
+        th.style.border = '1px solid #fff';
+        th.style.padding = '8px';
+        th.style.backgroundColor = '#ffd700';
+        th.style.color = '#333';
+        headerRow.appendChild(th);
+    });
+    table.appendChild(headerRow);
+    
+    // Создаем строки данных
+    const data = [
+        ['Alice', '25', 'Москва'],
+        ['Bob', '30', 'СПб'],
+        ['Charlie', '22', 'Киев']
+    ];
+    
+    data.forEach(rowData => {
+        const row = document.createElement('tr');
+        rowData.forEach(cellData => {
+            const td = document.createElement('td');
+            td.textContent = cellData;
+            td.style.border = '1px solid #fff';
+            td.style.padding = '8px';
+            row.appendChild(td);
+        });
+        table.appendChild(row);
+    });
+    
+    container.appendChild(table);
+}
+
+function addEventListeners() {
+    // Добавляем обработчики событий при загрузке страницы
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM загружен!');
+        
+        // Добавляем кнопку для создания таблицы
+        const buttonContainer = document.querySelector('.demo-section');
+        const createTableBtn = document.createElement('button');
+        createTableBtn.textContent = 'Создать таблицу';
+        createTableBtn.className = 'demo-button';
+        createTableBtn.onclick = createTable;
+        buttonContainer.appendChild(createTableBtn);
+    });
+}
+
+// Вызываем функцию добавления обработчиков
+addEventListeners();</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📚 HTML структура</h2>
+
+            <div class="code-example">
+                <code><!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM Манипуляции</title>
+</head>
+<body>
+    <div id="demo-container">
+        <p id="demo-text">Нажмите кнопки ниже для демонстрации!</p>
+        <ul id="demo-list">
+            <li>Элемент 1</li>
+            <li>Элемент 2</li>
+        </ul>
+    </div>
+    
+    <button onclick="changeText()">Изменить текст</button>
+    <button onclick="changeStyle()">Изменить стиль</button>
+    <button onclick="addElement()">Добавить элемент</button>
+    <button onclick="removeElement()">Удалить элемент</button>
+    <button onclick="toggleVisibility()">Переключить видимость</button>
+    
+    <script src="script.js"></script>
+</body>
+</html></code>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="course-js.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(7)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить задание</button>
+            <a href="js-assignment-8.html" class="nav-button">Следующее задание →</a>
+        </div>
+
+        <script>
+            function changeText() {
+                const textElement = document.getElementById('demo-text');
+                textElement.textContent = 'Текст изменен с помощью JavaScript!';
+                textElement.style.color = '#ffd700';
+            }
+
+            function changeStyle() {
+                const container = document.getElementById('demo-container');
+                container.style.backgroundColor = '#333';
+                container.style.padding = '20px';
+                container.style.borderRadius = '10px';
+            }
+
+            function addElement() {
+                const list = document.getElementById('demo-list');
+                const newItem = document.createElement('li');
+                newItem.textContent = `Элемент ${list.children.length + 1}`;
+                newItem.style.color = '#00ff00';
+                list.appendChild(newItem);
+            }
+
+            function removeElement() {
+                const list = document.getElementById('demo-list');
+                if (list.children.length > 0) {
+                    list.removeChild(list.lastChild);
+                }
+            }
+
+            function toggleVisibility() {
+                const textElement = document.getElementById('demo-text');
+                if (textElement.style.display === 'none') {
+                    textElement.style.display = 'block';
+                } else {
+                    textElement.style.display = 'none';
+                }
+            }
+
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedJSAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedJSAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание завершено! Отличная работа! 🎉');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

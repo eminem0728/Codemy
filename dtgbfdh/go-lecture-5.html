@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 5: Структуры и методы - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .lecture-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-go.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 5: Структуры и методы</h1>
+            <div class="lecture-meta">
+                <span>🚀 Go</span>
+                <span>⏱️ 70 минут</span>
+                <span>🎯 Средний</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели лекции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Изучить определение и использование структур</li>
+                <li>Освоить работу с методами</li>
+                <li>Понять указатели и их применение</li>
+                <li>Научиться композиции структур</li>
+                <li>Изучить встроенные типы</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>📚 Структуры в Go</h2>
+
+            <div class="code-example">
+                <code>// Определение структуры
+type Person struct {
+    Name string
+    Age  int
+    City string
+}
+
+// Создание экземпляра структуры
+person1 := Person{Name: "Alice", Age: 25, City: "Moscow"}
+person2 := Person{"Bob", 30, "SPb"}  // порядок важен
+
+// Доступ к полям
+fmt.Println(person1.Name)  // Alice
+person1.Age = 26          // изменение поля
+
+// Анонимные структуры
+anonymous := struct {
+    ID   int
+    Data string
+}{
+    ID:   1,
+    Data: "test",
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>⚙️ Методы</h2>
+
+            <div class="code-example">
+                <code>// Определение метода
+func (p Person) String() string {
+    return fmt.Sprintf("%s (%d лет, %s)", p.Name, p.Age, p.City)
+}
+
+// Метод с указателем (для изменения полей)
+func (p *Person) Birthday() {
+    p.Age++
+}
+
+// Использование
+person := Person{"Alice", 25, "Moscow"}
+fmt.Println(person.String())  // Alice (25 лет, Moscow)
+person.Birthday()
+fmt.Println(person.Age)       // 26</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔄 Указатели и структуры</h2>
+
+            <div class="code-example">
+                <code>// Указатель на структуру
+person := &Person{Name: "Alice", Age: 25}
+
+// Автоматическое разыменование
+person.Age = 26  // не нужно *person.Age
+
+// Метод для указателя
+func (p *Person) SetName(name string) {
+    p.Name = name
+}
+
+// Создание указателя
+var p *Person = new(Person)
+p.Name = "Bob"
+
+// Или
+p2 := &Person{}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Композиция структур</h2>
+
+            <div class="code-example">
+                <code>// Встраивание структур
+type Address struct {
+    Street  string
+    City    string
+    Country string
+}
+
+type Employee struct {
+    Person  // встроенная структура
+    Address // встроенная структура
+    Salary  float64
+}
+
+// Использование
+emp := Employee{
+    Person:  Person{Name: "John", Age: 30, City: "NYC"},
+    Address: Address{"Main St", "NYC", "USA"},
+    Salary:  50000,
+}
+
+// Доступ к полям встроенных структур
+fmt.Println(emp.Name)      // John (из Person)
+fmt.Println(emp.Street)    // Main St (из Address)
+fmt.Println(emp.Salary)    // 50000</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Заключение</h2>
+            <p>В этой лекции мы изучили структуры и методы в Go. В следующей лекции изучим интерфейсы.</p>
+        </div>
+
+        <div class="navigation">
+            <a href="course-go.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(5)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить лекцию</button>
+            <a href="go-lecture-6.html" class="nav-button">Следующая лекция →</a>
+        </div>
+
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedGoLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedGoLectures', JSON.stringify(completedLectures));
+                    alert('Лекция завершена! Отличная работа! 🎉');
+                } else {
+                    alert('Эта лекция уже отмечена как завершенная.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

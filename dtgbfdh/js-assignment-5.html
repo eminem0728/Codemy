@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 5: Функции - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 5: Функции</h1>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Задача</h2>
+            <p>Создайте набор функций, демонстрирующих различные способы объявления и использования функций в JavaScript.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Решение</h2>
+
+            <div class="code-example">
+                <code>// script.js
+// Демонстрация функций в JavaScript
+
+console.log("=== ОБЪЯВЛЕНИЕ ФУНКЦИЙ ===");
+
+// Function Declaration
+function greet(name) {
+    return `Привет, ${name}!`;
+}
+
+console.log(greet("Alice"));
+
+// Function Expression
+const sayHello = function(name) {
+    return `Hello, ${name}!`;
+};
+
+console.log(sayHello("Bob"));
+
+// Arrow Function
+const welcome = (name) => {
+    return `Welcome, ${name}!`;
+};
+
+console.log(welcome("Charlie"));
+
+// Короткая arrow function
+const hi = name => `Hi, ${name}!`;
+console.log(hi("David"));
+
+console.log("\n=== ПАРАМЕТРЫ ФУНКЦИЙ ===");
+
+// Параметры по умолчанию
+function createUser(name, age = 18, city = "Москва") {
+    return {
+        name: name,
+        age: age,
+        city: city
+    };
+}
+
+console.log(createUser("Alice"));
+console.log(createUser("Bob", 25));
+console.log(createUser("Charlie", 30, "СПб"));
+
+// Rest параметры
+function sum(...numbers) {
+    return numbers.reduce((total, num) => total + num, 0);
+}
+
+console.log(`Сумма 1,2,3,4,5: ${sum(1, 2, 3, 4, 5)}`);
+console.log(`Сумма 10,20: ${sum(10, 20)}`);
+
+console.log("\n=== ФУНКЦИИ ВЫСШЕГО ПОРЯДКА ===");
+
+// Функция как параметр
+function applyOperation(a, b, operation) {
+    return operation(a, b);
+}
+
+function add(a, b) { return a + b; }
+function multiply(a, b) { return a * b; }
+
+console.log(`2 + 3 = ${applyOperation(2, 3, add)}`);
+console.log(`2 * 3 = ${applyOperation(2, 3, multiply)}`);
+
+// Возврат функции
+function createMultiplier(factor) {
+    return function(number) {
+        return number * factor;
+    };
+}
+
+const double = createMultiplier(2);
+const triple = createMultiplier(3);
+
+console.log(`2 * 5 = ${double(5)}`);
+console.log(`3 * 5 = ${triple(5)}`);
+
+console.log("\n=== РЕКУРСИЯ ===");
+
+// Рекурсивная функция
+function factorial(n) {
+    if (n <= 1) {
+        return 1;
+    }
+    return n * factorial(n - 1);
+}
+
+console.log(`5! = ${factorial(5)}`);
+console.log(`3! = ${factorial(3)}`);
+
+// Рекурсивная функция для Фибоначчи
+function fibonacci(n) {
+    if (n <= 1) {
+        return n;
+    }
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+console.log("Числа Фибоначчи:");
+for (let i = 0; i < 8; i++) {
+    console.log(`F(${i}) = ${fibonacci(i)}`);
+}
+
+console.log("\n=== ЗАМЫКАНИЯ ===");
+
+// Замыкание
+function createCounter() {
+    let count = 0;
+    
+    return {
+        increment: function() {
+            count++;
+            return count;
+        },
+        decrement: function() {
+            count--;
+            return count;
+        },
+        getCount: function() {
+            return count;
+        }
+    };
+}
+
+const counter = createCounter();
+console.log(`Счетчик: ${counter.getCount()}`);
+counter.increment();
+counter.increment();
+console.log(`После инкремента: ${counter.getCount()}`);
+counter.decrement();
+console.log(`После декремента: ${counter.getCount()}`);</code>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="course-js.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(5)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить задание</button>
+            <a href="js-assignment-6.html" class="nav-button">Следующее задание →</a>
+        </div>
+
+        <script>
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedJSAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedJSAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание завершено! Отличная работа! 🎉');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

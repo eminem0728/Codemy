@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 4: Функции - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .lecture-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .highlight-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .highlight-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .key-points {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .key-points h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-go.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 4: Функции</h1>
+            <div class="lecture-meta">
+                <span>🚀 Go</span>
+                <span>⏱️ 65 минут</span>
+                <span>🎯 Начинающий</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели лекции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Изучить определение и вызов функций</li>
+                <li>Освоить параметры и возвращаемые значения</li>
+                <li>Понять концепцию множественных возвратов</li>
+                <li>Научиться работать с анонимными функциями</li>
+                <li>Изучить замыкания и рекурсию</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>📚 Определение функций</h2>
+
+            <div class="code-example">
+                <code>// Базовый синтаксис функции
+func functionName(parameterName parameterType) returnType {
+    // тело функции
+    return value
+}
+
+// Примеры функций
+func greet(name string) {
+    fmt.Println("Привет,", name)
+}
+
+func add(a int, b int) int {
+    return a + b
+}
+
+func divide(a float64, b float64) (float64, error) {
+    if b == 0 {
+        return 0, errors.New("деление на ноль")
+    }
+    return a / b, nil
+}</code>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h4>💡 Множественные возвращаемые значения</h4>
+            <p>Одна из уникальных особенностей Go - возможность возвращать несколько значений:</p>
+            <div class="code-example">
+                <code>// Функция возвращает два значения
+func divide(a, b float64) (float64, error) {
+    if b == 0 {
+        return 0, fmt.Errorf("деление на ноль")
+    }
+    return a / b, nil
+}
+
+// Использование
+result, err := divide(10, 2)
+if err != nil {
+    fmt.Println("Ошибка:", err)
+} else {
+    fmt.Println("Результат:", result)
+}
+
+// Игнорирование одного из значений
+result2, _ := divide(8, 4)  // игнорируем ошибку
+
+// Именованные возвращаемые значения
+func calculate(a, b int) (sum, diff int) {
+    sum = a + b
+    diff = a - b
+    return  // возвращает именованные значения
+}</code>
+            </div>
+        </highlight-box>
+
+        <div class="content-section">
+            <h2>🔄 Анонимные функции и замыкания</h3>
+
+            <div class="code-example">
+                <code>// Анонимная функция
+func() {
+    fmt.Println("Это анонимная функция")
+}()
+
+// Анонимная функция с параметрами
+func(x, y int) int {
+    return x + y
+}(3, 5)  // Вызов сразу после определения
+
+// Присваивание анонимной функции переменной
+add := func(a, b int) int {
+    return a + b
+}
+result := add(10, 20)
+
+// Замыкание - функция, захватывающая переменные из внешней области
+func counter() func() int {
+    count := 0
+    return func() int {
+        count++
+        return count
+    }
+}
+
+increment := counter()
+fmt.Println(increment()) // 1
+fmt.Println(increment()) // 2
+fmt.Println(increment()) // 3</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔁 Рекурсия</h3>
+
+            <div class="code-example">
+                <code>// Факториал с рекурсией
+func factorial(n int) int {
+    if n <= 1 {
+        return 1
+    }
+    return n * factorial(n-1)
+}
+
+// Фибоначчи с рекурсией
+func fibonacci(n int) int {
+    if n <= 1 {
+        return n
+    }
+    return fibonacci(n-1) + fibonacci(n-2)
+}
+
+// Рекурсивный обход дерева (упрощенный пример)
+type Node struct {
+    value int
+    left  *Node
+    right *Node
+}
+
+func printTree(node *Node) {
+    if node == nil {
+        return
+    }
+    printTree(node.left)
+    fmt.Println(node.value)
+    printTree(node.right)
+}</code>
+            </div>
+        </div>
+
+        <div class="key-points">
+            <h4>🔑 Ключевые понятия:</h4>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>func:</strong> Ключевое слово для объявления функции</li>
+                <li><strong>Параметры:</strong> Входные данные функции</li>
+                <li><strong>Возврат:</strong> return для возврата значений</li>
+                <li><strong>Множественный возврат:</strong> Возможность вернуть несколько значений</li>
+                <li><strong>Анонимные функции:</strong> Функции без имени</li>
+                <li><strong>Замыкания:</strong> Функции, захватывающие внешние переменные</li>
+                <li><strong>Рекурсия:</strong> Функция, вызывающая сама себя</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🛠️ Продвинутые концепции функций</h3>
+
+            <h3>Функции как параметры</h3>
+            <div class="code-example">
+                <code>// Функция высшего порядка
+func applyOperation(a, b int, operation func(int, int) int) int {
+    return operation(a, b)
+}
+
+// Использование
+add := func(a, b int) int { return a + b }
+multiply := func(a, b int) int { return a * b }
+
+result1 := applyOperation(5, 3, add)      // 8
+result2 := applyOperation(5, 3, multiply) // 15</code>
+            </div>
+
+            <h3>Функции как возвращаемые значения</h3>
+            <div class="code-example">
+                <code>func createMultiplier(factor int) func(int) int {
+    return func(x int) int {
+        return x * factor
+    }
+}
+
+double := createMultiplier(2)
+triple := createMultiplier(3)
+
+fmt.Println(double(5))  // 10
+fmt.Println(triple(5))  // 15</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Заключение</h2>
+            <p>В этой лекции мы изучили функции в Go:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Определение и вызов функций</li>
+                <li>Параметры и возвращаемые значения</li>
+                <li>Множественный возврат значений</li>
+                <li>Анонимные функции и замыкания</li>
+                <li>Рекурсивные функции</li>
+                <li>Функции высшего порядка</li>
+            </ul>
+
+            <p style="margin-top: 20px; font-weight: bold;">В следующей лекции мы изучим структуры и методы!</p>
+        </div>
+
+        <div class="navigation">
+            <a href="course-go.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(4)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить лекцию</button>
+            <a href="go-lecture-5.html" class="nav-button">Следующая лекция →</a>
+        </div>
+
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedGoLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedGoLectures', JSON.stringify(completedLectures));
+                    alert('Лекция завершена! Отличная работа! 🎉');
+                } else {
+                    alert('Эта лекция уже отмечена как завершенная.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

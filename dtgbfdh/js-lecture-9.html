@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 9: ES6+ возможности - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 9: ES6+ возможности</h1>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели лекции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Изучить стрелочные функции</li>
+                <li>Освоить деструктуризацию</li>
+                <li>Понять spread и rest операторы</li>
+                <li>Научиться работе с модулями</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Стрелочные функции</h2>
+
+            <div class="code-example">
+                <code>// Обычная функция
+function add(a, b) {
+    return a + b;
+}
+
+// Стрелочная функция
+const add = (a, b) => a + b;
+
+// С телом функции
+const multiply = (a, b) => {
+    console.log('Умножение');
+    return a * b;
+};
+
+// С одним параметром (скобки необязательны)
+const square = x => x * x;
+
+// Без параметров
+const greet = () => 'Привет!';
+
+// В методах объектов
+const obj = {
+    name: 'Alice',
+    sayHello: () => {
+        console.log(`Привет, я ${this.name}`); // this не работает
+    },
+    sayHi() {
+        console.log(`Привет, я ${this.name}`); // this работает
+    }
+};</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔄 Деструктуризация</h2>
+
+            <div class="code-example">
+                <code>// Деструктуризация массива
+const numbers = [1, 2, 3, 4, 5];
+const [first, second, ...rest] = numbers;
+console.log(first, second, rest); // 1, 2, [3, 4, 5]
+
+// Пропуск элементов
+const [, , third] = numbers;
+console.log(third); // 3
+
+// Деструктуризация объекта
+const person = {
+    name: 'Alice',
+    age: 25,
+    city: 'Москва'
+};
+
+const {name, age, city} = person;
+console.log(name, age, city); // Alice 25 Москва
+
+// С новыми именами переменных
+const {name: personName, age: personAge} = person;
+console.log(personName, personAge); // Alice 25
+
+// Значения по умолчанию
+const {name, country = 'Россия'} = person;
+console.log(name, country); // Alice Россия
+
+// В функциях
+function printPerson({name, age}) {
+    console.log(`${name} (${age} лет)`);
+}
+printPerson(person); // Alice (25 лет)</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📦 Spread и Rest операторы</h2>
+
+            <div class="code-example">
+                <code>// Spread оператор для массивов
+const arr1 = [1, 2, 3];
+const arr2 = [4, 5, 6];
+const combined = [...arr1, ...arr2];
+console.log(combined); // [1, 2, 3, 4, 5, 6]
+
+// Копирование массива
+const copy = [...arr1];
+console.log(copy); // [1, 2, 3]
+
+// Spread для объектов
+const obj1 = {a: 1, b: 2};
+const obj2 = {c: 3, d: 4};
+const merged = {...obj1, ...obj2};
+console.log(merged); // {a: 1, b: 2, c: 3, d: 4}
+
+// Перезапись свойств
+const updated = {...obj1, b: 20};
+console.log(updated); // {a: 1, b: 20}
+
+// Rest оператор в функциях
+function sum(...numbers) {
+    return numbers.reduce((total, num) => total + num, 0);
+}
+console.log(sum(1, 2, 3, 4)); // 10
+
+// Rest в деструктуризации
+const [first, ...rest] = [1, 2, 3, 4, 5];
+console.log(first, rest); // 1, [2, 3, 4, 5]</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📚 Модули</h2>
+
+            <div class="code-example">
+                <code>// math.js - экспорт
+export const PI = 3.14159;
+
+export function add(a, b) {
+    return a + b;
+}
+
+export default function multiply(a, b) {
+    return a * b;
+}
+
+// main.js - импорт
+import multiply, { PI, add } from './math.js';
+
+console.log(PI); // 3.14159
+console.log(add(5, 3)); // 8
+console.log(multiply(5, 3)); // 15
+
+// Импорт всего
+import * as MathUtils from './math.js';
+console.log(MathUtils.PI);
+console.log(MathUtils.add(2, 3));
+
+// Динамический импорт
+const module = await import('./math.js');
+console.log(module.default(4, 5));</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔧 Другие возможности ES6+</h2>
+
+            <div class="code-example">
+                <code>// Template literals
+const name = 'Alice';
+const age = 25;
+const message = `Привет, меня зовут ${name} и мне ${age} лет!`;
+console.log(message);
+
+// Классы
+class Person {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    
+    greet() {
+        return `Привет, я ${this.name}!`;
+    }
+}
+
+const person = new Person('Alice', 25);
+console.log(person.greet());
+
+// Map и Set
+const myMap = new Map();
+myMap.set('key', 'value');
+console.log(myMap.get('key')); // value
+
+const mySet = new Set([1, 2, 2, 3]);
+console.log(mySet); // Set {1, 2, 3}
+
+// Symbol
+const sym = Symbol('unique');
+console.log(typeof sym); // symbol</code>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="course-js.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(9)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить лекцию</button>
+            <a href="js-lecture-10.html" class="nav-button">Следующая лекция →</a>
+        </div>
+
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedJSLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedJSLectures', JSON.stringify(completedLectures));
+                    alert('Лекция завершена! Отличная работа! 🎉');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 1: Первая программа - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .assignment-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .task-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .task-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .solution-box {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .solution-box h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-java.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 1: Первая программа</h1>
+            <div class="assignment-meta">
+                <span>☕ Java</span>
+                <span>⏱️ 30 минут</span>
+                <span>📝 Начальное</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Описание задания</h2>
+            <p>Создайте свою первую Java программу, которая демонстрирует основы синтаксиса языка и выводит персонализированное приветствие.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели задания</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Настроить среду разработки Java</li>
+                <li>Создать и скомпилировать Java программу</li>
+                <li>Изучить основную структуру Java класса</li>
+                <li>Использовать System.out.println() для вывода</li>
+                <li>Добавить комментарии в код</li>
+            </ul>
+        </div>
+
+        <div class="task-box">
+            <h4>📝 Задача</h4>
+            <p>Создайте Java программу с именем PersonalGreeting, которая:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Выводит приветствие с вашим именем</li>
+                <li>Отображает информацию о том, что вы изучаете Java</li>
+                <li>Показывает текущую дату и время</li>
+                <li>Содержит комментарии, объясняющие код</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>💡 Подсказки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Используйте класс Scanner для ввода имени с клавиатуры</li>
+                <li>Добавьте комментарии для объяснения каждого блока кода</li>
+                <li>Используйте разные методы System.out для разного форматирования</li>
+                <li>Не забудьте закрыть Scanner после использования</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Структура решения</h2>
+            
+            <h3>1. Импортируйте необходимые классы</h3>
+            <div class="code-example">
+                <code>import java.util.Scanner;
+import java.util.Date;</code>
+            </div>
+
+            <h3>2. Создайте основной класс</h3>
+            <div class="code-example">
+                <code>public class PersonalGreeting {
+    public static void main(String[] args) {
+        // Создание Scanner для ввода данных
+        Scanner scanner = new Scanner(System.in);
+        
+        // Ввод имени пользователя
+        System.out.print("Введите ваше имя: ");
+        String name = scanner.nextLine();
+        
+        // Создание объекта Date для текущего времени
+        Date currentDate = new Date();
+        
+        // Вывод персонализированного приветствия
+        System.out.println("\n=== ПЕРСОНАЛЬНОЕ ПРИВЕТСТВИЕ ===");
+        System.out.println("Привет, " + name + "!");
+        System.out.println("Добро пожаловать в мир Java программирования!");
+        System.out.println("Текущая дата и время: " + currentDate);
+        
+        // Закрытие Scanner
+        scanner.close();
+    }
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📊 Пример выполнения</h2>
+            <div class="code-example">
+                <code>=== ЗАПУСК ПРОГРАММЫ ===
+
+Введите ваше имя: Алексей
+
+=== ПЕРСОНАЛЬНОЕ ПРИВЕТСТВИЕ ===
+Привет, Алексей!
+Добро пожаловать в мир Java программирования!
+Текущая дата и время: Mon Dec 08 04:19:06 GMT 2024
+
+=== ПРОГРАММА ЗАВЕРШЕНА ===</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔧 Дополнительные возможности</h2>
+            <p>Попробуйте расширить программу:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Добавить ввод возраста и вывести сообщение с учетом возраста</li>
+                <li>Использовать различные методы форматирования вывода</li>
+                <li>Добавить ASCII-арт приветствие</li>
+                <li>Создать простой калькулятор для демонстрации арифметических операций</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Критерии оценки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Основная функциональность (40%):</strong> Программа компилируется</li>
+                и запускается <li><strong>Структура кода (30%):</strong> Правильная структура класса и методов</li>
+                <li><strong>Комментарии (20%):</strong> Код содержит понятные комментарии</li>
+                <li><strong>Дополнительные возможности (10%):</strong> Реализованы дополнительные функции</li>
+            </ul>
+        </div>
+
+        <div class="solution-box">
+            <h4>💡 Пример решения</h4>
+            <p>Нажмите кнопку ниже, чтобы посмотреть пример решения:</p>
+            <button onclick="toggleSolution()" class="nav-button" style="margin-top: 15px;">
+                Показать решение
+            </button>
+            
+            <div id="solution" style="display: none; margin-top: 20px;">
+                <div class="code-example">
+                    <code>/**
+ * Первая Java программа
+ * Автор: Студент CodeLearn
+ * Дата создания: 08.12.2024
+ * 
+ * Эта программа демонстрирует основы Java:
+ * - Импорт классов
+ * - Создание Scanner для ввода
+ * - Работа с переменными
+ * - Вывод информации
+ * - Форматирование текста
+ */
+
+import java.util.Scanner;
+import java.util.Date;
+
+public class PersonalGreeting {
+    
+    /**
+     * Главный метод программы
+     * @param args аргументы командной строки
+     */
+    public static void main(String[] args) {
+        // Создаем объект Scanner для ввода данных с клавиатуры
+        Scanner scanner = new Scanner(System.in);
+        
+        // Создаем объект Date для получения текущего времени
+        Date currentDate = new Date();
+        
+        // Приветствие пользователя
+        System.out.println("===================================");
+        System.out.println("    ДОБРО ПОЖАЛОВАТЬ В JAVA!    ");
+        System.out.println("===================================");
+        
+        // Запрашиваем имя пользователя
+        System.out.print("Введите ваше имя: ");
+        String userName = scanner.nextLine();
+        
+        // Запрашиваем возраст
+        System.out.print("Введите ваш возраст: ");
+        int age = scanner.nextInt();
+        
+        // Очищаем буфер после nextInt()
+        scanner.nextLine();
+        
+        // Запрашиваем город
+        System.out.print("Введите ваш город: ");
+        String city = scanner.nextLine();
+        
+        // Выводим персонализированное приветствие
+        System.out.println("\n" + "=".repeat(35));
+        System.out.println("     ПЕРСОНАЛЬНОЕ ПРИВЕТСТВИЕ");
+        System.out.println("=".repeat(35));
+        
+        // Основное приветствие
+        System.out.println("Привет, " + userName + "!");
+        System.out.println("Рады видеть " + age + "-летнего программиста из " + city + "!");
+        
+        // Информация о Java
+        System.out.println("\nВы изучаете Java - один из самых популярных языков программирования!");
+        System.out.println("Java используется для создания веб-приложений, мобильных приложений,");
+        System.out.println("корпоративного ПО и многого другого.");
+        
+        // Информация о времени
+        System.out.println("\nТекущая дата и время: " + currentDate);
+        
+        // Мотивационное сообщение
+        if (age < 18) {
+            System.out.println("\nВ молодом возрасте начинать программировать - отличная идея!");
+        } else if (age < 30) {
+            System.out.println("\nОтличный возраст для изучения программирования!");
+        } else {
+            System.out.println("\nНикогда не поздно начать изучать программирование!");
+        }
+        
+        System.out.println("Удачи в изучении Java! 🚀");
+        System.out.println("=".repeat(35));
+        
+        // Закрываем Scanner для освобождения ресурсов
+        scanner.close();
+        
+        System.out.println("\nПрограмма успешно завершена!");
+    }
+}</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🚀 Расширения</h2>
+            <p>После выполнения основного задания попробуйте добавить:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>ASCII-арт логотип Java</li>
+                <li>Вывод таблицы с информацией о системе</li>
+                <li>Простой калькулятор для арифметических операций</li>
+                <li>Конвертер валют или единиц измерения</li>
+                <li>Игру угадай число</li>
+            </ul>
+        </div>
+
+        <div class="navigation">
+            <a href="course-java.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(1)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить задание</button>
+            <a href="java-assignment-2.html" class="nav-button">Следующее задание →</a>
+        </div>
+        
+        <script>
+            function toggleSolution() {
+                const solution = document.getElementById('solution');
+                const button = event.target;
+                
+                if (solution.style.display === 'none') {
+                    solution.style.display = 'block';
+                    button.textContent = 'Скрыть решение';
+                } else {
+                    solution.style.display = 'none';
+                    button.textContent = 'Показать решение';
+                }
+            }
+            
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedJavaAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedJavaAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание завершено! Отличная работа! 🎉');
+                } else {
+                    alert('Это задание уже отмечено как завершенное.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

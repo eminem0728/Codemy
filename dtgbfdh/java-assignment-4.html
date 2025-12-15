@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 4: Калькулятор - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .assignment-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .task-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .task-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .solution-box {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .solution-box h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-java.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 4: Калькулятор</h1>
+            <div class="assignment-meta">
+                <span>☕ Java</span>
+                <span>⏱️ 90 минут</span>
+                <span>📝 Среднее</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Описание задания</h2>
+            <p>Создайте полнофункциональный консольный калькулятор с поддержкой базовых арифметических операций, обработкой ошибок и удобным пользовательским интерфейсом.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели задания</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Применить управляющие конструкции Java</li>
+                <li>Создать методы для различных операций</li>
+                <li>Реализовать обработку исключений</li>
+                <li>Создать дружелюбный пользовательский интерфейс</li>
+                <li>Обеспечить валидацию пользовательского ввода</li>
+                <li>Добавить дополнительные математические функции</li>
+            </ul>
+        </div>
+
+        <div class="task-box">
+            <h4>📝 Задача</h4>
+            <p>Создайте класс Calculator, который предоставляет:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Базовые арифметические операции (+, -, *, /)</li>
+                <li>Расширенные операции (степень, корень, проценты)</li>
+                <li>Тригонометрические функции</li>
+                <li>Обработку деления на ноль</li>
+                <li>Валидацию ввода пользователя</li>
+                <li>История вычислений</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>💡 Подсказки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Используйте switch для выбора операций</li>
+                <li>Создайте отдельные методы для каждого типа операций</li>
+                <li>Примените try-catch для обработки ошибок</li>
+                <li>Добавьте цикл do-while для повторения вычислений</li>
+                <li>Используйте Scanner для ввода данных</li>
+                <li>Реализуйте форматированный вывод результатов</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Структура решения</h2>
+            
+            <h3>1. Создайте основной класс калькулятора</h3>
+            <div class="code-example">
+                <code>public class Calculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        do {
+            displayMenu();
+            int choice = getUserChoice(scanner);
+            processChoice(choice, scanner);
+        } while (shouldContinue(scanner));
+        
+        scanner.close();
+    }
+}</code>
+            </div>
+
+            <h3>2. Создайте методы для операций</h3>
+            <div class="code-example">
+                <code>public static double add(double a, double b) {
+    return a + b;
+}
+
+public static double subtract(double a, double b) {
+    return a - b;
+}
+
+public static double multiply(double a, double b) {
+    return a * b;
+}
+
+public static double divide(double a, double b) {
+    if (b == 0) {
+        throw new ArithmeticException("Деление на ноль!");
+    }
+    return a / b;
+}</code>
+            </div>
+
+            <h3>3. Добавьте валидацию ввода</h3>
+            <div class="code-example">
+                <code>public static double getValidNumber(Scanner scanner, String prompt) {
+    double number;
+    while (true) {
+        System.out.print(prompt);
+        try {
+            number = scanner.nextDouble();
+            break;
+        } catch (Exception e) {
+            System.out.println("Ошибка! Введите корректное число.");
+            scanner.next(); // Очистка буфера
+        }
+    }
+    return number;
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📊 Пример выполнения</h2>
+            <div class="code-example">
+                <code>=== КОНСОЛЬНЫЙ КАЛЬКУЛЯТОР ===
+
+Выберите операцию:
+1. Сложение (+)
+2. Вычитание (-)
+3. Умножение (*)
+4. Деление (/)
+5. Степень (^)
+6. Корень квадратный (√)
+7. Процент (%)
+8. Тригонометрия
+9. История вычислений
+0. Выход
+
+Ваш выбор: 1
+
+Введите первое число: 15.5
+Введите второе число: 24.3
+
+Результат: 15.5 + 24.3 = 39.8
+
+Хотите выполнить еще одно вычисление? (да/нет): да
+
+=== НОВОЕ ВЫЧИСЛЕНИЕ ===
+
+Выберите операцию:
+...
+
+=== ИСТОРИЯ ВЫЧИСЛЕНИЙ ===
+1. 15.5 + 24.3 = 39.8
+2. 10.0 * 5.0 = 50.0
+3. 100.0 / 20.0 = 5.0
+
+Программа завершена. До свидания!</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔧 Дополнительные возможности</h2>
+            <p>Расширьте калькулятор:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Сохранение истории в файл</li>
+                <li>Научные функции (логарифмы, экспоненты)</li>
+                <li>Конвертер единиц измерения</li>
+                <li>Режим работы с комплексными числами</li>
+                <li>Калькулятор матриц</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Критерии оценки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Основная функциональность (40%):</strong> Все операции работают корректно</li>
+                <li><strong>Обработка ошибок (25%):</strong> Корректная обработка исключений</li>
+                <li><strong>Пользовательский интерфейс (20%):</strong> Удобство и дружелюбность</li>
+                <li><strong>Дополнительные функции (15%):</strong> Расширенный функционал</li>
+            </ul>
+        </div>
+
+        <div class="solution-box">
+            <h4>💡 Пример решения</h4>
+            <p>Нажмите кнопку ниже, чтобы посмотреть пример решения:</p>
+            <button onclick="toggleSolution()" class="nav-button" style="margin-top: 15px;">
+                Показать решение
+            </button>
+            
+            <div id="solution" style="display: none; margin-top: 20px;">
+                <div class="code-example">
+                    <code>import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Calculator {
+    private static List<String> calculationHistory = new ArrayList<>();
+    private static int calculationCount = 0;
+    
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("=".repeat(50));
+        System.out.println("    ДОБРО ПОЖАЛОВАТЬ В КОНСОЛЬНЫЙ КАЛЬКУЛЯТОР!");
+        System.out.println("=".repeat(50));
+        
+        do {
+            try {
+                displayMenu();
+                int choice = getValidChoice(scanner, 0, 9);
+                
+                if (choice == 0) {
+                    System.out.println("Спасибо за использование калькулятора!");
+                    break;
+                }
+                
+                processCalculation(choice, scanner);
+                
+            } catch (Exception e) {
+                System.out.println("Произошла ошибка: " + e.getMessage());
+                System.out.println("Попробуйте снова.");
+            }
+            
+        } while (shouldContinue(scanner));
+        
+        displayFinalStatistics();
+        scanner.close();
+    }
+    
+    /**
+     * Отображает главное меню калькулятора
+     */
+    public static void displayMenu() {
+        System.out.println("\n" + "-".repeat(40));
+        System.out.println("            ГЛАВНОЕ МЕНЮ");
+        System.out.println("-".repeat(40));
+        System.out.println("1.  Сложение (+)");
+        System.out.println("2.  Вычитание (-)");
+        System.out.println("3.  Умножение (*)");
+        System.out.println("4.  Деление (/)");
+        System.out.println("5.  Степень (^)");
+        System.out.println("6.  Корень квадратный (√)");
+        System.out.println("7.  Процент (%)");
+        System.out.println("8.  Тригонометрия");
+        System.out.println("9.  История вычислений");
+        System.out.println("0.  Выход");
+        System.out.println("-".repeat(40));
+    }
+    
+    /**
+     * Получает корректный выбор пользователя
+     */
+    public static int getValidChoice(Scanner scanner, int min, int max) {
+        int choice;
+        while (true) {
+            System.out.print("Ваш выбор (0-" + max + "): ");
+            try {
+                choice = scanner.nextInt();
+                if (choice >= min && choice <= max) {
+                    break;
+                } else {
+                    System.out.println("Ошибка! Выберите число от " + min + " до " + max);
+                }
+            } catch (Exception e) {
+                System.out.println("Ошибка! Введите корректное число.");
+                scanner.next(); // Очистка буфера
+            }
+        }
+        return choice;
+    }
+    
+    /**
+     * Получает корректное число от пользователя
+     */
+    public static double getValidNumber(Scanner scanner, String prompt) {
+        double number;
+        while (true) {
+            System.out.print(prompt);
+            try {
+                number = scanner.nextDouble();
+                break;
+            } catch (Exception e) {
+                System.out.println("Ошибка! Введите корректное число.");
+                scanner.next(); // Очистка буфера
+            }
+        }
+        return number;
+    }
+    
+    /**
+     * Обрабатывает выбранную операцию
+     */
+    public static void processCalculation(int choice, Scanner scanner) {
+        switch (choice) {
+            case 1:
+                basicOperation("+", (a, b) -> a + b, scanner);
+                break;
+            case 2:
+                basicOperation("-", (a, b) -> a - b, scanner);
+                break;
+            case 3:
+                basicOperation("*", (a, b) -> a * b, scanner);
+                break;
+            case 4:
+                basicOperation("/", (a, b) -> {
+                    if (b == 0) {
+                        throw new ArithmeticException("Деление на ноль!");
+                    }
+                    return a / b;
+                }, scanner);
+                break;
+            case 5:
+                powerOperation(scanner);
+                break;
+            case 6:
+                squareRootOperation(scanner);
+                break;
+            case 7:
+                percentageOperation(scanner);
+                break;
+            case 8:
+                trigonometryOperation(scanner);
+                break;
+            case 9:
+                displayHistory();
+                break;
+        }
+    }
+    
+    /**
+     * Выполняет базовую бинарную операцию
+     */
+    public static void basicOperation(String operator, MathOperation operation, Scanner scanner) {
+        System.out.println("\n" + "=".repeat(30));
+        System.out.println("    ОПЕРАЦИЯ: " + operator);
+        System.out.println("=".repeat(30));
+        
+        double a = getValidNumber(scanner, "Введите первое число: ");
+        double b = getValidNumber(scanner, "Введите второе число: ");
+        
+        try {
+            double result = operation.calculate(a, b);
+            String calculation = a + " " + operator + " " + b + " = " + formatResult(result);
+            displayResult(calculation, result);
+            addToHistory(calculation, result);
+        } catch (ArithmeticException e) {
+            System.out.println("ОШИБКА: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Операция возведения в степень
+     */
+    public static void powerOperation(Scanner scanner) {
+        System.out.println("\n" + "=".repeat(30));
+        System.out.println("    ОПЕРАЦИЯ: СТЕПЕНЬ");
+        System.out.println("=".repeat(30));
+        
+        double base = getValidNumber(scanner, "Введите основание: ");
+        double exponent = getValidNumber(scanner, "Введите показатель степени: ");
+        
+        double result = Math.pow(base, exponent);
+        String calculation = base + "^" + exponent + " = " + formatResult(result);
+        displayResult(calculation, result);
+        addToHistory(calculation, result);
+    }
+    
+    /**
+     * Операция извлечения корня
+     */
+    public static void squareRootOperation(Scanner scanner) {
+        System.out.println("\n" + "=".repeat(30));
+        System.out.println("    ОПЕРАЦИЯ: КОРЕНЬ КВАДРАТНЫЙ");
+        System.out.println("=".repeat(30));
+        
+        double number = getValidNumber(scanner, "Введите число: ");
+        
+        if (number < 0) {
+            System.out.println("ОШИБКА: Нельзя извлечь корень из отрицательного числа!");
+            return;
+        }
+        
+        double result = Math.sqrt(number);
+        String calculation = "√" + number + " = " + formatResult(result);
+        displayResult(calculation, result);
+        addToHistory(calculation, result);
+    }
+    
+    /**
+     * Операция вычисления процентов
+     */
+    public static void percentageOperation(Scanner scanner) {
+        System.out.println("\n" + "=".repeat(30));
+        System.out.println("    ОПЕРАЦИЯ: ПРОЦЕНТЫ");
+        System.out.println("=".repeat(30));
+        
+        double percentage = getValidNumber(scanner, "Введите процент: ");
+        double number = getValidNumber(scanner, "От какого числа: ");
+        
+        double result = (percentage / 100) * number;
+        String calculation = percentage + "% от " + number + " = " + formatResult(result);
+        displayResult(calculation, result);
+        addToHistory(calculation, result);
+    }
+    
+    /**
+     * Тригонометрические операции
+     */
+    public static void trigonometryOperation(Scanner scanner) {
+        System.out.println("\n" + "=".repeat(30));
+        System.out.println("    ТРИГОНОМЕТРИЯ");
+        System.out.println("=".repeat(30));
+        System.out.println("1. Синус (sin)");
+        System.out.println("2. Косинус (cos)");
+        System.out.println("3. Тангенс (tan)");
+        System.out.println("4. Арксинус (asin)");
+        System.out.println("5. Арккосинус (acos)");
+        System.out.println("6. Арктангенс (atan)");
+        
+        int trigChoice = getValidChoice(scanner, 1, 6);
+        double angle = getValidNumber(scanner, "Введите угол в радианах: ");
+        
+        double result = 0;
+        String operation = "";
+        
+        switch (trigChoice) {
+            case 1:
+                result = Math.sin(angle);
+                operation = "sin(" + angle + ")";
+                break;
+            case 2:
+                result = Math.cos(angle);
+                operation = "cos(" + angle + ")";
+                break;
+            case 3:
+                result = Math.tan(angle);
+                operation = "tan(" + angle + ")";
+                break;
+            case 4:
+                if (Math.abs(angle) <= 1) {
+                    result = Math.asin(angle);
+                    operation = "asin(" + angle + ")";
+                } else {
+                    System.out.println("ОШИБКА: Арксинус определен только для значений от -1 до 1");
+                    return;
+                }
+                break;
+            case 5:
+                if (Math.abs(angle) <= 1) {
+                    result = Math.acos(angle);
+                    operation = "acos(" + angle + ")";
+                } else {
+                    System.out.println("ОШИБКА: Арккосинус определен только для значений от -1 до 1");
+                    return;
+                }
+                break;
+            case 6:
+                result = Math.atan(angle);
+                operation = "atan(" + angle + ")";
+                break;
+        }
+        
+        String calculation = operation + " = " + formatResult(result);
+        displayResult(calculation, result);
+        addToHistory(calculation, result);
+    }
+    
+    /**
+     * Отображает результат вычисления
+     */
+    public static void displayResult(String calculation, double result) {
+        System.out.println("\n" + "🎯 РЕЗУЛЬТАТ:");
+        System.out.println(calculation);
+        System.out.println("Точный результат: " + result);
+    }
+    
+    /**
+     * Форматирует результат для отображения
+     */
+    public static String formatResult(double result) {
+        if (result == (long) result) {
+            return String.format("%d", (long) result);
+        } else {
+            return String.format("%.4f", result);
+        }
+    }
+    
+    /**
+     * Добавляет вычисление в историю
+     */
+    public static void addToHistory(String calculation, double result) {
+        calculationCount++;
+        String historyEntry = calculationCount + ". " + calculation;
+        calculationHistory.add(historyEntry);
+    }
+    
+    /**
+     * Отображает историю вычислений
+     */
+    public static void displayHistory() {
+        System.out.println("\n" + "=".repeat(50));
+        System.out.println("            ИСТОРИЯ ВЫЧИСЛЕНИЙ");
+        System.out.println("=".repeat(50));
+        
+        if (calculationHistory.isEmpty()) {
+            System.out.println("История вычислений пуста.");
+        } else {
+            for (String entry : calculationHistory) {
+                System.out.println(entry);
+            }
+        }
+        System.out.println("=".repeat(50));
+    }
+    
+    /**
+     * Спрашивает пользователя о продолжении работы
+     */
+    public static boolean shouldContinue(Scanner scanner) {
+        System.out.print("\nХотите выполнить еще одно вычисление? (да/нет): ");
+        String answer = scanner.next().toLowerCase();
+        scanner.nextLine(); // Очистка буфера
+        
+        return answer.equals("да") || answer.equals("yes") || 
+               answer.equals("y") || answer.equals("1");
+    }
+    
+    /**
+     * Отображает финальную статистику
+     */
+    public static void displayFinalStatistics() {
+        System.out.println("\n" + "=".repeat(50));
+        System.out.println("           ФИНАЛЬНАЯ СТАТИСТИКА");
+        System.out.println("=".repeat(50));
+        System.out.println("Всего выполнено вычислений: " + calculationCount);
+        System.out.println("Спасибо за использование калькулятора! 👋");
+        System.out.println("=".repeat(50));
+    }
+    
+    /**
+     * Функциональный интерфейс для математических операций
+     */
+    @FunctionalInterface
+    interface MathOperation {
+        double calculate(double a, double b);
+    }
+}</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🚀 Расширения</h2>
+            <p>После выполнения основного задания попробуйте добавить:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Сохранение истории в файл</li>
+                <li>Режим калькулятора дат</li>
+                <li>Конвертер валют</li>
+                <li>Графический интерфейс (GUI)</li>
+                <li>Калькулятор для работы с матрицами</li>
+            </ul>
+        </div>
+
+        <div class="navigation">
+            <a href="course-java.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(4)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить задание</button>
+            <a href="java-assignment-5.html" class="nav-button">Следующее задание →</a>
+        </div>
+        
+        <script>
+            function toggleSolution() {
+                const solution = document.getElementById('solution');
+                const button = event.target;
+                
+                if (solution.style.display === 'none') {
+                    solution.style.display = 'block';
+                    button.textContent = 'Скрыть решение';
+                } else {
+                    solution.style.display = 'none';
+                    button.textContent = 'Показать решение';
+                }
+            }
+            
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedJavaAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedJavaAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание завершено! Отличная работа! 🎉');
+                } else {
+                    alert('Это задание уже отмечено как завершенное.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

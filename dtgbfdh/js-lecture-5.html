@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 5: Функции - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 5: Функции</h1>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели лекции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Изучить объявление функций</li>
+                <li>Освоить параметры и возвращаемые значения</li>
+                <li>Понять область видимости</li>
+                <li>Научиться функциям высшего порядка</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>📚 Объявление функций</h2>
+
+            <div class="code-example">
+                <code>// Function Declaration
+function greet(name) {
+    return `Привет, ${name}!`;
+}
+
+// Function Expression
+const sayHello = function(name) {
+    return `Hello, ${name}!`;
+};
+
+// Arrow Function (ES6+)
+const welcome = (name) => {
+    return `Welcome, ${name}!`;
+};
+
+// Короткая запись arrow function
+const hi = name => `Hi, ${name}!`;
+
+// Вызов функций
+console.log(greet("Alice"));     // Привет, Alice!
+console.log(sayHello("Bob"));    // Hello, Bob!
+console.log(welcome("Charlie")); // Welcome, Charlie!
+console.log(hi("David"));        // Hi, David!</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔄 Параметры и возвраты</h2>
+
+            <div class="code-example">
+                <code>// Параметры по умолчанию
+function multiply(a, b = 1) {
+    return a * b;
+}
+
+console.log(multiply(5));     // 5
+console.log(multiply(5, 3));  // 15
+
+// Rest параметры
+function sum(...numbers) {
+    return numbers.reduce((total, num) => total + num, 0);
+}
+
+console.log(sum(1, 2, 3));        // 6
+console.log(sum(1, 2, 3, 4, 5)); // 15
+
+// Возврат объекта
+function createPerson(name, age) {
+    return {
+        name: name,
+        age: age,
+        greet() {
+            return `Привет, я ${this.name}!`;
+        }
+    };
+}
+
+const person = createPerson("Alice", 25);
+console.log(person.greet()); // Привет, я Alice!</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔍 Область видимости</h2>
+
+            <div class="code-example">
+                <code>// Глобальная область видимости
+let globalVar = "Я глобальная";
+
+function testScope() {
+    // Локальная область видимости
+    let localVar = "Я локальная";
+    
+    if (true) {
+        // Блочная область видимости
+        let blockVar = "Я в блоке";
+        var functionVar = "Я в функции"; // var игнорирует блоки
+        console.log(blockVar); // Доступно
+    }
+    
+    console.log(localVar);     // Доступно
+    console.log(functionVar);  // Доступно
+    // console.log(blockVar);  // Ошибка - не доступно
+}
+
+testScope();
+// console.log(localVar); // Ошибка - не доступно
+console.log(globalVar); // Доступно</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔁 Функции высшего порядка</h2>
+
+            <div class="code-example">
+                <code>// Функция как параметр
+function applyOperation(a, b, operation) {
+    return operation(a, b);
+}
+
+function add(a, b) { return a + b; }
+function multiply(a, b) { return a * b; }
+
+console.log(applyOperation(5, 3, add));      // 8
+console.log(applyOperation(5, 3, multiply)); // 15
+
+// Возврат функции
+function createMultiplier(factor) {
+    return function(number) {
+        return number * factor;
+    };
+}
+
+const double = createMultiplier(2);
+const triple = createMultiplier(3);
+
+console.log(double(5)); // 10
+console.log(triple(5)); // 15</code>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="course-js.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(5)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить лекцию</button>
+            <a href="js-lecture-6.html" class="nav-button">Следующая лекция →</a>
+        </div>
+
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedJSLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedJSLectures', JSON.stringify(completedLectures));
+                    alert('Лекция завершена! Отличная работа! 🎉');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

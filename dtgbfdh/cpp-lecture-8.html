@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 8: Перегрузка операторов - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .lecture-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .highlight-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .highlight-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .key-points {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .key-points h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-cpp.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 8: Перегрузка операторов</h1>
+            <div class="lecture-meta">
+                <span>⚡ C++</span>
+                <span>⏱️ 65 минут</span>
+                <span>🎯 Продвинутый</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели лекции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Изучить синтаксис перегрузки операторов</li>
+                <li>Освоить перегрузку арифметических операторов</li>
+                <li>Понять перегрузку операторов сравнения</li>
+                <li>Изучить перегрузку операторов ввода-вывода</li>
+                <li>Освоить правила перегрузки операторов</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🔧 Основы перегрузки операторов</h2>
+
+            <h3>Синтаксис перегрузки</h3>
+            <div class="code-example">
+                <code>class Complex {
+private:
+    double real;
+    double imag;
+
+public:
+    Complex(double r = 0, double i = 0) : real(r), imag(i) {}
+
+    // Перегрузка оператора +
+    Complex operator+(const Complex& other) const {
+        return Complex(real + other.real, imag + other.imag);
+    }
+
+    // Перегрузка оператора +=
+    Complex& operator+=(const Complex& other) {
+        real += other.real;
+        imag += other.imag;
+        return *this;
+    }
+
+    void display() const {
+        std::cout << real << " + " << imag << "i" << std::endl;
+    }
+};
+
+int main() {
+    Complex c1(3, 4);
+    Complex c2(1, 2);
+
+    Complex c3 = c1 + c2;  // Используем перегруженный +
+    c1 += c2;              // Используем перегруженный +=
+
+    std::cout << "c1: "; c1.display();
+    std::cout << "c3: "; c3.display();
+
+    return 0;
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>➕ Арифметические операторы</h2>
+
+            <h3>Бинарные операторы</h3>
+            <div class="code-example">
+                <code>class Vector2D {
+private:
+    double x, y;
+
+public:
+    Vector2D(double x = 0, double y = 0) : x(x), y(y) {}
+
+    // Перегрузка оператора +
+    Vector2D operator+(const Vector2D& other) const {
+        return Vector2D(x + other.x, y + other.y);
+    }
+
+    // Перегрузка оператора -
+    Vector2D operator-(const Vector2D& other) const {
+        return Vector2D(x - other.x, y - other.y);
+    }
+
+    // Перегрузка оператора * (скалярное произведение)
+    double operator*(const Vector2D& other) const {
+        return x * other.x + y * other.y;
+    }
+
+    // Перегрузка оператора * (умножение на скаляр)
+    Vector2D operator*(double scalar) const {
+        return Vector2D(x * scalar, y * scalar);
+    }
+
+    void display() const {
+        std::cout << "(" << x << ", " << y << ")" << std::endl;
+    }
+};
+
+int main() {
+    Vector2D v1(3, 4);
+    Vector2D v2(1, 2);
+
+    Vector2D sum = v1 + v2;
+    Vector2D diff = v1 - v2;
+    double dot = v1 * v2;
+    Vector2D scaled = v1 * 2.0;
+
+    std::cout << "v1 + v2 = "; sum.display();
+    std::cout << "v1 - v2 = "; diff.display();
+    std::cout << "v1 * v2 = " << dot << std::endl;
+    std::cout << "v1 * 2 = "; scaled.display();
+
+    return 0;
+}</code>
+            </div>
+
+            <h3>Унарные операторы</h3>
+            <div class="code-example">
+                <code>class Counter {
+private:
+    int value;
+
+public:
+    Counter(int v = 0) : value(v) {}
+
+    // Префиксный инкремент ++x
+    Counter& operator++() {
+        ++value;
+        return *this;
+    }
+
+    // Постфиксный инкремент x++
+    Counter operator++(int) {
+        Counter temp = *this;
+        ++value;
+        return temp;
+    }
+
+    // Унарный минус -x
+    Counter operator-() const {
+        return Counter(-value);
+    }
+
+    int getValue() const { return value; }
+};
+
+int main() {
+    Counter c(5);
+
+    std::cout << "Начальное значение: " << c.getValue() << std::endl;
+
+    ++c;  // Префиксный инкремент
+    std::cout << "После ++c: " << c.getValue() << std::endl;
+
+    Counter d = c++;  // Постфиксный инкремент
+    std::cout << "После c++: c = " << c.getValue()
+              << ", d = " << d.getValue() << std::endl;
+
+    Counter e = -c;   // Унарный минус
+    std::cout << " -c = " << e.getValue() << std::endl;
+
+    return 0;
+}</code>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h4>💡 Операторы сравнения</h4>
+            <div class="code-example">
+                <code>class Date {
+private:
+    int year, month, day;
+
+public:
+    Date(int y, int m, int d) : year(y), month(m), day(d) {}
+
+    // Перегрузка оператора ==
+    bool operator==(const Date& other) const {
+        return year == other.year &&
+               month == other.month &&
+               day == other.day;
+    }
+
+    // Перегрузка оператора !=
+    bool operator!=(const Date& other) const {
+        return !(*this == other);
+    }
+
+    // Перегрузка оператора <
+    bool operator<(const Date& other) const {
+        if (year != other.year) return year < other.year;
+        if (month != other.month) return month < other.month;
+        return day < other.day;
+    }
+
+    // Перегрузка оператора >
+    bool operator>(const Date& other) const {
+        return other < *this;
+    }
+
+    // Перегрузка оператора <=
+    bool operator<=(const Date& other) const {
+        return !(other < *this);
+    }
+
+    // Перегрузка оператора >=
+    bool operator>=(const Date& other) const {
+        return !(*this < other);
+    }
+
+    void display() const {
+        std::cout << year << "-" << month << "-" << day;
+    }
+};
+
+int main() {
+    Date d1(2023, 12, 25);
+    Date d2(2023, 12, 25);
+    Date d3(2024, 1, 1);
+
+    std::cout << "d1: "; d1.display(); std::cout << std::endl;
+    std::cout << "d2: "; d2.display(); std::cout << std::endl;
+    std::cout << "d3: "; d3.display(); std::cout << std::endl;
+
+    std::cout << "d1 == d2: " << (d1 == d2) << std::endl;
+    std::cout << "d1 != d3: " << (d1 != d3) << std::endl;
+    std::cout << "d1 < d3: " << (d1 < d3) << std::endl;
+
+    return 0;
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📥📤 Операторы ввода-вывода</h2>
+
+            <div class="code-example">
+                <code>class Point {
+private:
+    double x, y;
+
+public:
+    Point(double x = 0, double y = 0) : x(x), y(y) {}
+
+    // Дружественная функция для оператора <<
+    friend std::ostream& operator<<(std::ostream& os, const Point& p) {
+        os << "(" << p.x << ", " << p.y << ")";
+        return os;
+    }
+
+    // Дружественная функция для оператора >>
+    friend std::istream& operator>>(std::istream& is, Point& p) {
+        std::cout << "Введите координаты x и y: ";
+        is >> p.x >> p.y;
+        return is;
+    }
+};
+
+int main() {
+    Point p1(3.5, 2.1);
+
+    std::cout << "Точка p1: " << p1 << std::endl;
+
+    Point p2;
+    std::cin >> p2;  // Используем перегруженный >>
+
+    std::cout << "Точка p2: " << p2 << std::endl;
+
+    return 0;
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Оператор индексации []</h2>
+
+            <div class="code-example">
+                <code>class SafeArray {
+private:
+    int* data;
+    int size;
+
+public:
+    SafeArray(int s) : size(s) {
+        data = new int[size];
+        for (int i = 0; i < size; i++) {
+            data[i] = 0;
+        }
+    }
+
+    ~SafeArray() {
+        delete[] data;
+    }
+
+    // Перегрузка оператора []
+    int& operator[](int index) {
+        if (index < 0 || index >= size) {
+            std::cout << "Ошибка: индекс " << index << " вне диапазона!" << std::endl;
+            // Возвращаем первый элемент как fallback
+            static int dummy = 0;
+            return dummy;
+        }
+        return data[index];
+    }
+
+    // Константная версия для чтения
+    const int& operator[](int index) const {
+        if (index < 0 || index >= size) {
+            std::cout << "Ошибка: индекс " << index << " вне диапазона!" << std::endl;
+            static int dummy = 0;
+            return dummy;
+        }
+        return data[index];
+    }
+
+    int getSize() const { return size; }
+};
+
+int main() {
+    SafeArray arr(5);
+
+    // Запись значений
+    for (int i = 0; i < arr.getSize(); i++) {
+        arr[i] = (i + 1) * 10;
+    }
+
+    // Чтение значений
+    std::cout << "Элементы массива: ";
+    for (int i = 0; i < arr.getSize(); i++) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+
+    // Попытка доступа вне диапазона
+    arr[10] = 100;  // Ошибка!
+
+    return 0;
+}</code>
+            </div>
+        </div>
+
+        <div class="key-points">
+            <h4>🔑 Правила перегрузки операторов</h4>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Не все операторы можно перегружать:</strong> ::, ., .*, ?:</li>
+                <li><strong>Нельзя менять арность:</strong> Унарный оператор остается унарным</li>
+                <li><strong>Нельзя менять приоритет:</strong> Приоритет остается стандартным</li>
+                <li><strong>Хотя бы один операнд должен быть пользовательского типа</strong></li>
+                <li><strong>Дружественные функции:</strong> Для операторов << и >> часто используются</li>
+                <li><strong>Константность:</strong> Не забывайте const для методов, не изменяющих объект</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Заключение</h2>
+            <p>В этой лекции мы изучили:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Синтаксис перегрузки операторов</li>
+                <li>Перегрузку арифметических операторов (+, -, *, ++, --)</li>
+                <li>Операторы сравнения (==, !=, <, >, <=, >=)</li>
+                <li>Операторы ввода-вывода (<<, >>)</li>
+                <li>Оператор индексации ([])</li>
+                <li>Правила и ограничения перегрузки операторов</li>
+            </ul>
+
+            <p style="margin-top: 20px; font-weight: bold;">В следующей лекции мы изучим шаблоны (templates)!</p>
+        </div>
+
+        <div class="navigation">
+            <a href="course-cpp.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(8)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить лекцию</button>
+            <a href="cpp-lecture-9.html" class="nav-button">Следующая лекция →</a>
+        </div>
+
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedCPPLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedCPPLectures', JSON.stringify(completedLectures));
+                    alert('Лекция завершена! Отличная работа! 🎉');
+                } else {
+                    alert('Эта лекция уже отмечена как завершенная.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

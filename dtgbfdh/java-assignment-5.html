@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 5: Система управления студентами - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .assignment-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .task-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .task-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .solution-box {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .solution-box h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-java.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 5: Система управления студентами</h1>
+            <div class="assignment-meta">
+                <span>☕ Java</span>
+                <span>⏱️ 120 минут</span>
+                <span>📝 Среднее</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Описание задания</h2>
+            <p>Создайте комплексную систему управления студентами с использованием объектно-ориентированного программирования, включающую классы для студентов, преподавателей, курсов и управления группой.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели задания</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Применить принципы ООП: инкапсуляция, наследование, полиморфизм</li>
+                <li>Создать иерархию классов с наследованием</li>
+                <li>Реализовать коллекции для хранения данных</li>
+                <li>Создать пользовательский интерфейс с меню</li>
+                <li>Обеспечить валидацию данных</li>
+                <li>Добавить обработку исключений</li>
+            </ul>
+        </div>
+
+        <div class="task-box">
+            <h4>📝 Задача</h4>
+            <p>Создайте систему управления студентами, которая включает:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Базовый класс Person с общими свойствами</li>
+                <li>Производные классы Student и Teacher</li>
+                <li>Класс Course для представления курсов</li>
+                <li>Класс StudentManagementSystem для управления системой</li>
+                <li>Функции добавления, удаления, поиска студентов</li>
+                <li>Функции назначения курсов и расчета оценок</li>
+                <li>Отчеты и статистику по студентам</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>💡 Подсказки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Создайте базовый класс Person с общими методами</li>
+                <li>Используйте ArrayList для хранения коллекций объектов</li>
+                <li>Примените принцип инкапсуляции для защиты данных</li>
+                <li>Реализуйте методы toString() для удобного вывода</li>
+                <li>Добавьте equals() и hashCode() при необходимости</li>
+                <li>Создайте интерфейс Comparable для сортировки</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Структура решения</h2>
+            
+            <h3>1. Базовый класс Person</h3>
+            <div class="code-example">
+                <code>public abstract class Person {
+    protected String name;
+    protected String id;
+    protected int age;
+    protected String email;
+    
+    // Конструктор, геттеры, сеттеры
+    public abstract String getRole();
+    public abstract void displayInfo();
+}</code>
+            </div>
+
+            <h3>2. Класс Student</h3>
+            <div class="code-example">
+                <code>public class Student extends Person {
+    private String major;
+    private int year;
+    private double gpa;
+    private List<Course> enrolledCourses;
+    
+    // Конструктор и методы
+    public void enrollInCourse(Course course) { }
+    public void updateGrade(String courseName, double grade) { }
+    public double calculateGPA() { }
+}</code>
+            </div>
+
+            <h3>3. Класс Teacher</h3>
+            <div class="code-example">
+                <code>public class Teacher extends Person {
+    private String department;
+    private List<Course> teachingCourses;
+    
+    // Конструктор и методы
+    public void assignCourse(Course course) { }
+    public void gradeStudent(Student student, String course, double grade) { }
+}</code>
+            </div>
+
+            <h3>4. Основная система управления</h3>
+            <div class="code-example">
+                <code>public class StudentManagementSystem {
+    private List<Student> students;
+    private List<Teacher> teachers;
+    private List<Course> courses;
+    
+    // Методы для управления системой
+    public void addStudent(Student student) { }
+    public void addTeacher(Teacher teacher) { }
+    public void addCourse(Course course) { }
+    public Student findStudent(String id) { }
+    public void generateReports() { }
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📊 Пример выполнения</h2>
+            <div class="code-example">
+                <code>=== СИСТЕМА УПРАВЛЕНИЯ СТУДЕНТАМИ ===
+
+1. Добавить студента
+2. Добавить преподавателя
+3. Добавить курс
+4. Записать студента на курс
+5. Оценить студента
+6. Найти студента
+7. Показать всех студентов
+8. Показать статистику
+9. Сгенерировать отчет
+0. Выход
+
+Ваш выбор: 1
+
+Введите данные студента:
+Имя: Анна Петрова
+ID: S001
+Возраст: 20
+Email: anna@example.com
+Специальность: Информатика
+Курс: 3
+
+Студент успешно добавлен!
+
+=== СТАТИСТИКА ===
+Всего студентов: 25
+Всего преподавателей: 8
+Всего курсов: 12
+Средний GPA: 3.67
+Отличников (GPA > 3.8): 8</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔧 Дополнительные возможности</h2>
+            <p>Расширьте систему:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Сохранение данных в файл</li>
+                <li>Поиск студентов по различным критериям</li>
+                <li>Система уведомлений о дедлайнах</li>
+                <li>Расписание занятий</li>
+                <li>Экспорт отчетов в различные форматы</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Критерии оценки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Архитектура (30%):</strong> Правильное применение ООП принципов</li>
+                <li><strong>Функциональность (35%):</strong> Все функции работают корректно</li>
+                <li><strong>Пользовательский интерфейс (20%):</strong> Удобство использования</li>
+                <li><strong>Код качество (15%):</strong> Читаемость и организация кода</li>
+            </ul>
+        </div>
+
+        <div class="solution-box">
+            <h4>💡 Пример решения</h4>
+            <p>Нажмите кнопку ниже, чтобы посмотреть пример решения:</p>
+            <button onclick="toggleSolution()" class="nav-button" style="margin-top: 15px;">
+                Показать решение
+            </button>
+            
+            <div id="solution" style="display: none; margin-top: 20px;">
+                <div class="code-example">
+                    <code>import java.util.*;
+import java.time.LocalDate;
+
+public class StudentManagementSystem {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        UniversityManagementSystem system = new UniversityManagementSystem();
+        
+        System.out.println("=".repeat(60));
+        System.out.println("     ДОБРО ПОЖАЛОВАТЬ В СИСТЕМУ УПРАВЛЕНИЯ СТУДЕНТАМИ");
+        System.out.println("=".repeat(60));
+        
+        do {
+            displayMainMenu();
+            int choice = getValidChoice(scanner, 0, 12);
+            
+            switch (choice) {
+                case 0:
+                    System.out.println("Спасибо за использование системы!");
+                    break;
+                case 1:
+                    addStudentMenu(scanner, system);
+                    break;
+                case 2:
+                    addTeacherMenu(scanner, system);
+                    break;
+                case 3:
+                    addCourseMenu(scanner, system);
+                    break;
+                case 4:
+                    enrollStudentInCourse(scanner, system);
+                    break;
+                case 5:
+                    gradeStudent(scanner, system);
+                    break;
+                case 6:
+                    findStudent(scanner, system);
+                    break;
+                case 7:
+                    system.displayAllStudents();
+                    break;
+                case 8:
+                    system.displayStatistics();
+                    break;
+                case 9:
+                    generateReports(system);
+                    break;
+                case 10:
+                    system.displayAllTeachers();
+                    break;
+                case 11:
+                    system.displayAllCourses();
+                    break;
+                case 12:
+                    advancedFeatures(scanner, system);
+                    break;
+            }
+            
+            if (choice != 0) {
+                pressEnterToContinue(scanner);
+            }
+            
+        } while (true);
+    }
+    
+    public static void displayMainMenu() {
+        System.out.println("\n" + "-".repeat(50));
+        System.out.println("                   ГЛАВНОЕ МЕНЮ");
+        System.out.println("-".repeat(50));
+        System.out.println("1.  Добавить студента");
+        System.out.println("2.  Добавить преподавателя");
+        System.out.println("3.  Добавить курс");
+        System.out.println("4.  Записать студента на курс");
+        System.out.println("5.  Оценить студента");
+        System.out.println("6.  Найти студента");
+        System.out.println("7.  Показать всех студентов");
+        System.out.println("8.  Показать статистику");
+        System.out.println("9.  Сгенерировать отчет");
+        System.out.println("10. Показать всех преподавателей");
+        System.out.println("11. Показать все курсы");
+        System.out.println("12. Дополнительные функции");
+        System.out.println("0.  Выход");
+        System.out.println("-".repeat(50));
+    }
+    
+    public static int getValidChoice(Scanner scanner, int min, int max) {
+        int choice;
+        while (true) {
+            System.out.print("Ваш выбор (" + min + "-" + max + "): ");
+            try {
+                choice = scanner.nextInt();
+                if (choice >= min && choice <= max) {
+                    break;
+                } else {
+                    System.out.println("Ошибка! Выберите число от " + min + " до " + max);
+                }
+            } catch (Exception e) {
+                System.out.println("Ошибка! Введите корректное число.");
+                scanner.next();
+            }
+        }
+        return choice;
+    }
+    
+    // Дополнительные методы для меню...
+    // (Продолжение в следующих частях)
+}
+
+// Базовый класс Person
+abstract class Person {
+    protected String name;
+    protected String id;
+    protected int age;
+    protected String email;
+    protected LocalDate registrationDate;
+    
+    public Person(String name, String id, int age, String email) {
+        this.name = name;
+        this.id = id;
+        this.age = age;
+        this.email = email;
+        this.registrationDate = LocalDate.now();
+    }
+    
+    // Геттеры и сеттеры
+    public String getName() { return name; }
+    public String getId() { return id; }
+    public int getAge() { return age; }
+    public String getEmail() { return email; }
+    public LocalDate getRegistrationDate() { return registrationDate; }
+    
+    public void setName(String name) { this.name = name; }
+    public void setAge(int age) { this.age = age; }
+    public void setEmail(String email) { this.email = email; }
+    
+    public abstract String getRole();
+    public abstract void displayInfo();
+    
+    @Override
+    public String toString() {
+        return String.format("ID: %s, Имя: %s, Возраст: %d, Email: %s", 
+                           id, name, age, email);
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Person person = (Person) obj;
+        return Objects.equals(id, person.id);
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+}
+
+// Класс Student
+class Student extends Person implements Comparable<Student> {
+    private String major;
+    private int year;
+    private double gpa;
+    private List<Course> enrolledCourses;
+    private Map<String, Double> grades;
+    private int totalCredits;
+    
+    public Student(String name, String id, int age, String email, String major, int year) {
+        super(name, id, age, email);
+        this.major = major;
+        this.year = year;
+        this.gpa = 0.0;
+        this.enrolledCourses = new ArrayList<>();
+        this.grades = new HashMap<>();
+        this.totalCredits = 0;
+    }
+    
+    // Геттеры и сеттеры
+    public String getMajor() { return major; }
+    public int getYear() { return year; }
+    public double getGpa() { return gpa; }
+    public List<Course> getEnrolledCourses() { return new ArrayList<>(enrolledCourses); }
+    public int getTotalCredits() { return totalCredits; }
+    
+    public void setMajor(String major) { this.major = major; }
+    public void setYear(int year) { this.year = year; }
+    
+    public void enrollInCourse(Course course) {
+        if (!enrolledCourses.contains(course)) {
+            enrolledCourses.add(course);
+            totalCredits += course.getCredits();
+            course.addStudent(this);
+            System.out.println("Студент " + name + " записан на курс " + course.getName());
+        } else {
+            System.out.println("Студент уже записан на этот курс!");
+        }
+    }
+    
+    public void updateGrade(String courseName, double grade) {
+        if (grade <= 4.0) {
+            grades.put(courseName, grade);
+            calculateGPA();
+            System.out.println("Оценка для " + courseName + " обновлена: " + grade);
+        } else {
+            System.out.println("Ошибка! Оценка не может превышать 4.0");
+        }
+    }
+    
+    public double getGradeForCourse(String courseName) {
+        return grades.getOrDefault(courseName, 0.0);
+    }
+    
+    public void calculateGPA() {
+        if (grades.isEmpty()) {
+            gpa = 0.0;
+            return;
+        }
+        
+        double totalGradePoints = 0;
+        int totalCreditsWithGrades = 0;
+        
+        for (Map.Entry<String, Double> entry : grades.entrySet()) {
+            String courseName = entry.getKey();
+            double grade = entry.getValue();
+            
+            // Поиск курса для получения кредитов
+            for (Course course : enrolledCourses) {
+                if (course.getName().equals(courseName)) {
+                    totalGradePoints += grade * course.getCredits();
+                    totalCreditsWithGrades += course.getCredits();
+                    break;
+                }
+            }
+        }
+        
+        gpa = totalCreditsWithGrades > 0 ? totalGradePoints / totalCreditsWithGrades : 0.0;
+    }
+    
+    public boolean isEligibleForScholarship() {
+        return gpa >= 3.8;
+    }
+    
+    public String getAcademicStatus() {
+        if (gpa >= 3.8) return "Отличник";
+        if (gpa >= 3.0) return "Хорошист";
+        if (gpa >= 2.0) return "Троечник";
+        return "Неуспевающий";
+    }
+    
+    @Override
+    public String getRole() {
+        return "Студент";
+    }
+    
+    @Override
+    public void displayInfo() {
+        System.out.println("\n" + "=".repeat(40));
+        System.out.println("            ИНФОРМАЦИЯ О СТУДЕНТЕ");
+        System.out.println("=".repeat(40));
+        System.out.println("ID: " + id);
+        System.out.println("Имя: " + name);
+        System.out.println("Возраст: " + age);
+        System.out.println("Email: " + email);
+        System.out.println("Специальность: " + major);
+        System.out.println("Курс: " + year);
+        System.out.println("GPA: " + String.format("%.2f", gpa));
+        System.out.println("Статус: " + getAcademicStatus());
+        System.out.println("Стипендия: " + (isEligibleForScholarship() ? "Да" : "Нет"));
+        System.out.println("Записано курсов: " + enrolledCourses.size());
+        System.out.println("Всего кредитов: " + totalCredits);
+        
+        if (!grades.isEmpty()) {
+            System.out.println("\nОценки:");
+            for (Map.Entry<String, Double> entry : grades.entrySet()) {
+                System.out.println("  " + entry.getKey() + ": " + entry.getValue());
+            }
+        }
+        System.out.println("=".repeat(40));
+    }
+    
+    @Override
+    public int compareTo(Student other) {
+        return Double.compare(other.gpa, this.gpa); // Сортировка по GPA (убывание)
+    }
+}
+
+// Класс Teacher
+class Teacher extends Person {
+    private String department;
+    private String title;
+    private List<Course> teachingCourses;
+    private int yearsOfExperience;
+    
+    public Teacher(String name, String id, int age, String email, String department, String title, int yearsOfExperience) {
+        super(name, id, age, email);
+        this.department = department;
+        this.title = title;
+        this.yearsOfExperience = yearsOfExperience;
+        this.teachingCourses = new ArrayList<>();
+    }
+    
+    // Геттеры и сеттеры
+    public String getDepartment() { return department; }
+    public String getTitle() { return title; }
+    public int getYearsOfExperience() { return yearsOfExperience; }
+    public List<Course> getTeachingCourses() { return new ArrayList<>(teachingCourses); }
+    
+    public void setDepartment(String department) { this.department = department; }
+    public void setTitle(String title) { this.title = title; }
+    public void setYearsOfExperience(int yearsOfExperience) { this.yearsOfExperience = yearsOfExperience; }
+    
+    public void assignCourse(Course course) {
+        if (!teachingCourses.contains(course)) {
+            teachingCourses.add(course);
+            course.setInstructor(this);
+            System.out.println("Преподаватель " + name + " назначен на курс " + course.getName());
+        } else {
+            System.out.println("Преподаватель уже ведет этот курс!");
+        }
+    }
+    
+    public void gradeStudent(Student student, String courseName, double grade) {
+        if (teachingCourses.stream().anyMatch(c -> c.getName().equals(courseName))) {
+            student.updateGrade(courseName, grade);
+            System.out.println("Преподаватель " + name + " выставил оценку " + grade + " студенту " + student.getName());
+        } else {
+            System.out.println("Ошибка! Преподаватель не ведет этот курс!");
+        }
+    }
+    
+    @Override
+    public String getRole() {
+        return "Преподаватель";
+    }
+    
+    @Override
+    public void displayInfo() {
+        System.out.println("\n" + "=".repeat(40));
+        System.out.println("          ИНФОРМАЦИЯ О ПРЕПОДАВАТЕЛЕ");
+        System.out.println("=".repeat(40));
+        System.out.println("ID: " + id);
+        System.out.println("Имя: " + name);
+        System.out.println("Возраст: " + age);
+        System.out.println("Email: " + email);
+        System.out.println("Отдел: " + department);
+        System.out.println("Должность: " + title);
+        System.out.println("Стаж: " + yearsOfExperience + " лет");
+        System.out.println("Ведет курсов: " + teachingCourses.size());
+        
+        if (!teachingCourses.isEmpty()) {
+            System.out.println("\nКурсы:");
+            for (Course course : teachingCourses) {
+                System.out.println("  - " + course.getName());
+            }
+        }
+        System.out.println("=".repeat(40));
+    }
+}
+
+// Класс Course
+class Course {
+    private String code;
+    private String name;
+    private String description;
+    private int credits;
+    private int maxStudents;
+    private Teacher instructor;
+    private List<Student> enrolledStudents;
+    private String schedule;
+    private String room;
+    
+    public Course(String code, String name, String description, int credits, int maxStudents) {
+        this.code = code;
+        this.name = name;
+        this.description = description;
+        this.credits = credits;
+        this.maxStudents = maxStudents;
+        this.enrolledStudents = new ArrayList<>();
+        this.schedule = "";
+        this.room = "";
+    }
+    
+    // Геттеры и сеттеры
+    public String getCode() { return code; }
+    public String getName() { return name; }
+    public String getDescription() { return description; }
+    public int getCredits() { return credits; }
+    public int getMaxStudents() { return maxStudents; }
+    public Teacher getInstructor() { return instructor; }
+    public List<Student> getEnrolledStudents() { return new ArrayList<>(enrolledStudents); }
+    public String getSchedule() { return schedule; }
+    public String getRoom() { return room; }
+    public int getEnrolledCount() { return enrolledStudents.size(); }
+    
+    public void setInstructor(Teacher instructor) { this.instructor = instructor; }
+    public void setSchedule(String schedule) { this.schedule = schedule; }
+    public void setRoom(String room) { this.room = room; }
+    
+    public void addStudent(Student student) {
+        if (enrolledStudents.size() < maxStudents) {
+            enrolledStudents.add(student);
+            System.out.println("Студент " + student.getName() + " добавлен на курс " + name);
+        } else {
+            System.out.println("Курс " + name + " переполнен! Максимум: " + maxStudents);
+        }
+    }
+    
+    public void removeStudent(Student student) {
+        if (enrolledStudents.remove(student)) {
+            System.out.println("Студент " + student.getName() + " удален с курса " + name);
+        } else {
+            System.out.println("Студент не найден на курсе!");
+        }
+    }
+    
+    public double getAverageGrade() {
+        if (enrolledStudents.isEmpty()) return 0.0;
+        
+        double totalGrades = 0;
+        int studentsWithGrades = 0;
+        
+        for (Student student : enrolledStudents) {
+            double grade = student.getGradeForCourse(name);
+            if (grade > 0) {
+                totalGrades += grade;
+                studentsWithGrades++;
+            }
+        }
+        
+        return studentsWithGrades > 0 ? totalGrades / studentsWithGrades : 0.0;
+    }
+    
+    public void displayInfo() {
+        System.out.println("\n" + "=".repeat(50));
+        System.out.println("              ИНФОРМАЦИЯ О КУРСЕ");
+        System.out.println("=".repeat(50));
+        System.out.println("Код: " + code);
+        System.out.println("Название: " + name);
+        System.out.println("Описание: " + description);
+        System.out.println("Кредиты: " + credits);
+        System.out.println("Максимум студентов: " + maxStudents);
+        System.out.println("Записано студентов: " + enrolledStudents.size());
+        System.out.println("Средняя оценка: " + String.format("%.2f", getAverageGrade()));
+        
+        if (instructor != null) {
+            System.out.println("Преподаватель: " + instructor.getName());
+        } else {
+            System.out.println("Преподаватель: Не назначен");
+        }
+        
+        if (!schedule.isEmpty()) {
+            System.out.println("Расписание: " + schedule);
+        }
+        
+        if (!room.isEmpty()) {
+            System.out.println("Аудитория: " + room);
+        }
+        System.out.println("=".repeat(50));
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("%s - %s (%d кредитов)", code, name, credits);
+    }
+}
+
+// Основная система управления
+class UniversityManagementSystem {
+    private List<Student> students;
+    private List<Teacher> teachers;
+    private List<Course> courses;
+    private int studentCounter;
+    private int teacherCounter;
+    
+    public UniversityManagementSystem() {
+        this.students = new ArrayList<>();
+        this.teachers = new ArrayList<>();
+        this.courses = new ArrayList<>();
+        this.studentCounter = 1;
+        this.teacherCounter = 1;
+    }
+    
+    public void addStudent(Student student) {
+        students.add(student);
+        System.out.println("Студент " + student.getName() + " добавлен в систему");
+    }
+    
+    public void addTeacher(Teacher teacher) {
+        teachers.add(teacher);
+        System.out.println("Преподаватель " + teacher.getName() + " добавлен в систему");
+    }
+    
+    public void addCourse(Course course) {
+        courses.add(course);
+        System.out.println("Курс " + course.getName() + " добавлен в систему");
+    }
+    
+    public Student findStudent(String id) {
+        for (Student student : students) {
+            if (student.getId().equals(id)) {
+                return student;
+            }
+        }
+        return null;
+    }
+    
+    public Teacher findTeacher(String id) {
+        for (Teacher teacher : teachers) {
+            if (teacher.getId().equals(id)) {
+                return teacher;
+            }
+        }
+        return null;
+    }
+    
+    public Course findCourse(String code) {
+        for (Course course : courses) {
+            if (course.getCode().equals(code)) {
+                return course;
+            }
+        }
+        return null;
+    }
+    
+    public void displayAllStudents() {
+        if (students.isEmpty()) {
+            System.out.println("Студенты не найдены!");
+            return;
+        }
+        
+        System.out.println("\n" + "=".repeat(60));
+        System.out.println("                  ВСЕ СТУДЕНТЫ");
+        System.out.println("=".repeat(60));
+        
+        Collections.sort(students); // Сортировка по GPA
+        
+        for (int i = 0; i < students.size(); i++) {
+            Student student = students.get(i);
+            System.out.println((i + 1) + ". " + student.toString());
+            System.out.println("   GPA: " + String.format("%.2f", student.getGpa()) + 
+                             " | Статус: " + student.getAcademicStatus());
+        }
+        System.out.println("=".repeat(60));
+    }
+    
+    public void displayAllTeachers() {
+        if (teachers.isEmpty()) {
+            System.out.println("Преподаватели не найдены!");
+            return;
+        }
+        
+        System.out.println("\n" + "=".repeat(50));
+        System.out.println("                ВСЕ ПРЕПОДАВАТЕЛИ");
+        System.out.println("=".repeat(50));
+        
+        for (int i = 0; i < teachers.size(); i++) {
+            Teacher teacher = teachers.get(i);
+            System.out.println((i + 1) + ". " + teacher.toString());
+            System.out.println("   Курсов: " + teacher.getTeachingCourses().size());
+        }
+        System.out.println("=".repeat(50));
+    }
+    
+    public void displayAllCourses() {
+        if (courses.isEmpty()) {
+            System.out.println("Курсы не найдены!");
+            return;
+        }
+        
+        System.out.println("\n" + "=".repeat(50));
+        System.out.println("                  ВСЕ КУРСЫ");
+        System.out.println("=".repeat(50));
+        
+        for (int i = 0; i < courses.size(); i++) {
+            Course course = courses.get(i);
+            System.out.println((i + 1) + ". " + course.toString());
+            System.out.println("   Студентов: " + course.getEnrolledCount() + "/" + course.getMaxStudents());
+        }
+        System.out.println("=".repeat(50));
+    }
+    
+    public void displayStatistics() {
+        System.out.println("\n" + "=".repeat(50));
+        System.out.println("                СТАТИСТИКА");
+        System.out.println("=".repeat(50));
+        
+        System.out.println("Общая информация:");
+        System.out.println("  Всего студентов: " + students.size());
+        System.out.println("  Всего преподавателей: " + teachers.size());
+        System.out.println("  Всего курсов: " + courses.size());
+        
+        if (!students.isEmpty()) {
+            double totalGpa = students.stream().mapToDouble(Student::getGpa).sum();
+            double averageGpa = totalGpa / students.size();
+            long excellentStudents = students.stream().mapToLong(s -> s.isEligibleForScholarship() ? 1 : 0).sum();
+            
+            System.out.println("\nСтатистика студентов:");
+            System.out.println("  Средний GPA: " + String.format("%.2f", averageGpa));
+            System.out.println("  Студентов на стипендию: " + excellentStudents);
+            
+            // Распределение по статусам
+            long excellent = students.stream().mapToLong(s -> s.getAcademicStatus().equals("Отличник") ? 1 : 0).sum();
+            long good = students.stream().mapToLong(s -> s.getAcademicStatus().equals("Хорошист") ? 1 : 0).sum();
+            long average = students.stream().mapToLong(s -> s.getAcademicStatus().equals("Троечник") ? 1 : 0).sum();
+            long poor = students.stream().mapToLong(s -> s.getAcademicStatus().equals("Неуспевающий") ? 1 : 0).sum();
+            
+            System.out.println("  Распределение:");
+            System.out.println("    Отличники: " + excellent);
+            System.out.println("    Хорошисты: " + good);
+            System.out.println("    Троечники: " + average);
+            System.out.println("    Неуспевающие: " + poor);
+        }
+        
+        System.out.println("=".repeat(50));
+    }
+    
+    // Методы для работы с меню (реализация опущена для краткости)
+    // addStudentMenu, addTeacherMenu, addCourseMenu и другие...
+}</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🚀 Расширения</h2>
+            <p>После выполнения основного задания попробуйте добавить:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Сохранение данных в базу данных</li>
+                <li>Графический интерфейс (GUI)</li>
+                <li>Система уведомлений</li>
+                <li>Расписание занятий</li>
+                <li>Интеграцию с системой платежей</li>
+            </ul>
+        </div>
+
+        <div class="navigation">
+            <a href="course-java.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(5)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить задание</button>
+            <a href="java-assignment-6.html" class="nav-button">Следующее задание →</a>
+        </div>
+        
+        <script>
+            function toggleSolution() {
+                const solution = document.getElementById('solution');
+                const button = event.target;
+                
+                if (solution.style.display === 'none') {
+                    solution.style.display = 'block';
+                    button.textContent = 'Скрыть решение';
+                } else {
+                    solution.style.display = 'none';
+                    button.textContent = 'Показать решение';
+                }
+            }
+            
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedJavaAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedJavaAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание завершено! Отличная работа! 🎉');
+                } else {
+                    alert('Это задание уже отмечено как завершенное.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

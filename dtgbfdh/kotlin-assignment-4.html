@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 4: Список студентов - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .assignment-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .task-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .task-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .solution-box {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .solution-box h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-kotlin.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 4: Список студентов</h1>
+            <div class="assignment-meta">
+                <span>🅺 Kotlin</span>
+                <span>⏱️ 75 минут</span>
+                <span>📝 Практическое</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Описание задания</h2>
+            <p>Создайте систему управления списком студентов на Kotlin. Программа должна позволять добавлять, удалять, искать и отображать студентов с их оценками и контактной информацией.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели задания</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Работать с классами и объектами</li>
+                <li>Использовать коллекции для хранения данных</li>
+                <li>Реализовать поиск и фильтрацию</li>
+                <li>Создать интерактивное меню</li>
+                <li>Обрабатывать пользовательский ввод</li>
+                <li>Использовать data классы</li>
+            </ul>
+        </div>
+
+        <div class="task-box">
+            <h4>📝 Задача</h4>
+            <p>Создайте классы <code>Student</code>, <code>Grade</code> и систему управления студентами с различными функциями работы с данными.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>💡 Подсказки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Используйте data class для Student и Grade</li>
+                <li>Используйте MutableList для хранения студентов</li>
+                <li>Добавьте валидацию данных при вводе</li>
+                <li>Реализуйте поиск по имени и номеру студента</li>
+                <li>Добавьте сортировку по различным полям</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Структура решения</h2>
+            
+            <h3>1. Создайте data классы</h3>
+            <div class="code-example">
+                <code>data class Grade(val subject: String, val score: Double, val date: String)
+
+data class Student(
+    val id: String,
+    val name: String,
+    val email: String,
+    val phone: String,
+    val grades: MutableList<Grade> = mutableListOf()
+)</code>
+            </div>
+
+            <h3>2. Создайте класс StudentManager</h3>
+            <div class="code-example">
+                <code>class StudentManager {
+    private val students = mutableListOf<Student>()
+    
+    // Методы для управления студентами
+    fun addStudent(student: Student)
+    fun removeStudent(id: String): Boolean
+    fun findStudentById(id: String): Student?
+    fun findStudentByName(name: String): List<Student>
+    fun displayAllStudents()
+    fun addGradeToStudent(id: String, grade: Grade): Boolean
+}</code>
+            </div>
+
+            <h3>3. Создайте главное меню</h3>
+            <div class="code-example">
+                <code>fun main() {
+    val manager = StudentManager()
+    
+    while (true) {
+        println("\n=== СИСТЕМА УПРАВЛЕНИЯ СТУДЕНТАМИ ===")
+        // Меню с опциями
+    }
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📊 Пример работы программы</h2>
+            <div class="code-example">
+                <code>=== СИСТЕМА УПРАВЛЕНИЯ СТУДЕНТАМИ ===
+1. Добавить студента
+2. Удалить студента
+3. Найти студента
+4. Показать всех студентов
+5. Добавить оценку студенту
+6. Показать статистику
+7. Сортировать студентов
+0. Выход
+
+Ваш выбор: 1
+
+Введите ID студента: S001
+Введите имя: Алексей Иванов
+Введите email: alexey@example.com
+Введите телефон: +7-123-456-7890
+Студент успешно добавлен!
+
+=== СПИСОК СТУДЕНТОВ ===
+ID: S001, Имя: Алексей Иванов, Email: alexey@example.com
+ID: S002, Имя: Мария Петрова, Email: maria@example.com
+Средний балл: 4.2</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📚 Дополнительные функции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Статистика:</strong> Средний балл группы, лучшие/худшие студенты</li>
+                <li><strong>Фильтрация:</strong> По оценкам, факультету, году обучения</li>
+                <li><strong>Экспорт:</strong> Сохранение данных в файл</li>
+                <li><strong>Валидация:</strong> Проверка корректности email, телефона</li>
+                <li><strong>Поиск:</strong> Частичное совпадение имен</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Критерии оценки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Основная функциональность (40%):</strong> CRUD операции с студентами</li>
+                <li><strong>Структура данных (25%):</strong> Правильное использование data классов</li>
+                <li><strong>Пользовательский интерфейс (20%):</strong> Понятное меню и сообщения</li>
+                <li><strong>Валидация (15%):</strong> Обработка некорректного ввода</li>
+            </ul>
+        </div>
+
+        <div class="solution-box">
+            <h4>💡 Пример решения</h4>
+            <p>Нажмите кнопку ниже, чтобы посмотреть пример решения:</p>
+            <button onclick="toggleSolution()" class="nav-button" style="margin-top: 15px;">
+                Показать решение
+            </button>
+            
+            <div id="solution" style="display: none; margin-top: 20px;">
+                <div class="code-example">
+                    <code>data class Grade(val subject: String, val score: Double, val date: String) {
+    override fun toString(): String = "$subject: $score ($date)"
+}
+
+data class Student(
+    val id: String,
+    val name: String,
+    val email: String,
+    val phone: String,
+    val grades: MutableList<Grade> = mutableListOf()
+) {
+    fun getAverageGrade(): Double {
+        return if (grades.isEmpty()) 0.0 else grades.sumOf { it.score } / grades.size
+    }
+    
+    fun getHighestGrade(): Grade? {
+        return grades.maxByOrNull { it.score }
+    }
+    
+    fun getLowestGrade(): Grade? {
+        return grades.minByOrNull { it.score }
+    }
+    
+    override fun toString(): String {
+        val avgGrade = if (grades.isEmpty()) "Нет оценок" else String.format("%.2f", getAverageGrade())
+        return "ID: $id, Имя: $name, Email: $email, Средний балл: $avgGrade"
+    }
+}
+
+class StudentManager {
+    private val students = mutableListOf<Student>()
+    
+    fun addStudent(student: Student): Boolean {
+        return if (findStudentById(student.id) == null) {
+            students.add(student)
+            true
+        } else {
+            false // Студент с таким ID уже существует
+        }
+    }
+    
+    fun removeStudent(id: String): Boolean {
+        return students.removeIf { it.id == id }
+    }
+    
+    fun findStudentById(id: String): Student? {
+        return students.find { it.id == id }
+    }
+    
+    fun findStudentByName(name: String): List<Student> {
+        return students.filter { it.name.contains(name, ignoreCase = true) }
+    }
+    
+    fun findStudentByEmail(email: String): Student? {
+        return students.find { it.email == email }
+    }
+    
+    fun displayAllStudents() {
+        if (students.isEmpty()) {
+            println("Список студентов пуст")
+            return
+        }
+        
+        println("\\n=== СПИСОК СТУДЕНТОВ ===")
+        students.forEach { println(it) }
+    }
+    
+    fun addGradeToStudent(id: String, grade: Grade): Boolean {
+        val student = findStudentById(id)
+        return if (student != null) {
+            student.grades.add(grade)
+            true
+        } else {
+            false
+        }
+    }
+    
+    fun getStatistics(): Map<String, Any> {
+        val totalStudents = students.size
+        val studentsWithGrades = students.count { it.grades.isNotEmpty() }
+        val averageGroupScore = if (students.isNotEmpty()) {
+            students.map { it.getAverageGrade() }.average()
+        } else 0.0
+        
+        val bestStudent = students.maxByOrNull { it.getAverageGrade() }
+        val worstStudent = students.minByOrNull { it.getAverageGrade() }
+        
+        return mapOf(
+            "totalStudents" to totalStudents,
+            "studentsWithGrades" to studentsWithGrades,
+            "averageGroupScore" to averageGroupScore,
+            "bestStudent" to bestStudent,
+            "worstStudent" to worstStudent
+        )
+    }
+    
+    fun sortStudents(by: String): List<Student> {
+        return when (by.lowercase()) {
+            "name" -> students.sortedBy { it.name }
+            "id" -> students.sortedBy { it.id }
+            "average" -> students.sortedByDescending { it.getAverageGrade() }
+            else -> students
+        }
+    }
+    
+    fun filterStudents(minAverage: Double): List<Student> {
+        return students.filter { it.getAverageGrade() >= minAverage }
+    }
+}
+
+object StudentInputValidator {
+    fun isValidEmail(email: String): Boolean {
+        return email.contains("@") && email.contains(".")
+    }
+    
+    fun isValidPhone(phone: String): Boolean {
+        return phone.matches(Regex("\\+?[0-9\\-\\s\\(\\)]{10,}"))
+    }
+    
+    fun isValidGrade(score: Double): Boolean {
+        return score in 1.0..5.0
+    }
+}
+
+fun main() {
+    val manager = StudentManager()
+    
+    // Добавляем некоторых тестовых студентов
+    manager.addStudent(Student("S001", "Алексей Иванов", "alexey@example.com", "+7-123-456-7890"))
+    manager.addStudent(Student("S002", "Мария Петрова", "maria@example.com", "+7-234-567-8901"))
+    manager.addStudent(Student("S003", "Иван Сидоров", "ivan@example.com", "+7-345-678-9012"))
+    
+    // Добавляем оценки
+    manager.addGradeToStudent("S001", Grade("Математика", 4.5, "2024-01-15"))
+    manager.addGradeToStudent("S001", Grade("Физика", 4.0, "2024-01-20"))
+    manager.addGradeToStudent("S002", Grade("Математика", 5.0, "2024-01-15"))
+    manager.addGradeToStudent("S002", Grade("Программирование", 4.8, "2024-01-18"))
+    
+    while (true) {
+        println("\\n=== СИСТЕМА УПРАВЛЕНИЯ СТУДЕНТАМИ ===")
+        println("1. Добавить студента")
+        println("2. Удалить студента")
+        println("3. Найти студента")
+        println("4. Показать всех студентов")
+        println("5. Добавить оценку студенту")
+        println("6. Показать статистику")
+        println("7. Сортировать студентов")
+        println("8. Фильтровать студентов")
+        println("0. Выход")
+        
+        print("Ваш выбор: ")
+        val choice = readLine()?.toIntOrNull()
+        
+        when (choice) {
+            0 -> {
+                println("Спасибо за использование системы!")
+                break
+            }
+            1 -> addStudent(manager)
+            2 -> removeStudent(manager)
+            3 -> findStudent(manager)
+            4 -> manager.displayAllStudents()
+            5 -> addGrade(manager)
+            6 -> showStatistics(manager)
+            7 -> sortStudents(manager)
+            8 -> filterStudents(manager)
+            else -> println("Некорректный выбор. Попробуйте снова.")
+        }
+    }
+}
+
+fun addStudent(manager: StudentManager) {
+    print("Введите ID студента: ")
+    val id = readLine()?.trim() ?: ""
+    
+    if (manager.findStudentById(id) != null) {
+        println("Студент с таким ID уже существует!")
+        return
+    }
+    
+    print("Введите имя: ")
+    val name = readLine()?.trim() ?: ""
+    
+    print("Введите email: ")
+    val email = readLine()?.trim() ?: ""
+    if (!StudentInputValidator.isValidEmail(email)) {
+        println("Некорректный формат email!")
+        return
+    }
+    
+    print("Введите телефон: ")
+    val phone = readLine()?.trim() ?: ""
+    if (!StudentInputValidator.isValidPhone(phone)) {
+        println("Некорректный формат телефона!")
+        return
+    }
+    
+    val student = Student(id, name, email, phone)
+    if (manager.addStudent(student)) {
+        println("Студент успешно добавлен!")
+    } else {
+        println("Ошибка при добавлении студента")
+    }
+}
+
+fun removeStudent(manager: StudentManager) {
+    print("Введите ID студента для удаления: ")
+    val id = readLine()?.trim() ?: ""
+    
+    if (manager.removeStudent(id)) {
+        println("Студент удален успешно")
+    } else {
+        println("Студент с таким ID не найден")
+    }
+}
+
+fun findStudent(manager: StudentManager) {
+    println("Поиск по:")
+    println("1. ID")
+    println("2. Имени")
+    println("3. Email")
+    
+    print("Ваш выбор: ")
+    val searchType = readLine()?.toIntOrNull()
+    
+    when (searchType) {
+        1 -> {
+            print("Введите ID: ")
+            val id = readLine()?.trim() ?: ""
+            val student = manager.findStudentById(id)
+            if (student != null) {
+                println("Найден студент: $student")
+                if (student.grades.isNotEmpty()) {
+                    println("Оценки:")
+                    student.grades.forEach { println("  $it") }
+                }
+            } else {
+                println("Студент не найден")
+            }
+        }
+        2 -> {
+            print("Введите имя: ")
+            val name = readLine()?.trim() ?: ""
+            val students = manager.findStudentByName(name)
+            if (students.isNotEmpty()) {
+                println("Найдено студентов: ${students.size}")
+                students.forEach { println(it) }
+            } else {
+                println("Студенты не найдены")
+            }
+        }
+        3 -> {
+            print("Введите email: ")
+            val email = readLine()?.trim() ?: ""
+            val student = manager.findStudentByEmail(email)
+            if (student != null) {
+                println("Найден студент: $student")
+            } else {
+                println("Студент не найден")
+            }
+        }
+    }
+}
+
+fun addGrade(manager: StudentManager) {
+    print("Введите ID студента: ")
+    val id = readLine()?.trim() ?: ""
+    
+    val student = manager.findStudentById(id)
+    if (student == null) {
+        println("Студент не найден")
+        return
+    }
+    
+    print("Введите предмет: ")
+    val subject = readLine()?.trim() ?: ""
+    
+    print("Введите оценку (1.0-5.0): ")
+    val score = readLine()?.toDoubleOrNull()
+    if (score == null || !StudentInputValidator.isValidGrade(score)) {
+        println("Некорректная оценка!")
+        return
+    }
+    
+    print("Введите дату (ГГГГ-ММ-ДД): ")
+    val date = readLine()?.trim() ?: ""
+    
+    val grade = Grade(subject, score, date)
+    if (manager.addGradeToStudent(id, grade)) {
+        println("Оценка добавлена успешно")
+    } else {
+        println("Ошибка при добавлении оценки")
+    }
+}
+
+fun showStatistics(manager: StudentManager) {
+    val stats = manager.getStatistics()
+    println("\\n=== СТАТИСТИКА ===")
+    println("Всего студентов: ${stats["totalStudents"]}")
+    println("Студентов с оценками: ${stats["studentsWithGrades"]}")
+    println("Средний балл группы: ${String.format("%.2f", stats["averageGroupScore"] as Double)}")
+    
+    val bestStudent = stats["bestStudent"] as? Student
+    val worstStudent = stats["worstStudent"] as? Student
+    
+    if (bestStudent != null) {
+        println("Лучший студент: ${bestStudent.name} (${String.format("%.2f", bestStudent.getAverageGrade())})")
+    }
+    
+    if (worstStudent != null) {
+        println("Студент с наименьшим баллом: ${worstStudent.name} (${String.format("%.2f", worstStudent.getAverageGrade())})")
+    }
+}
+
+fun sortStudents(manager: StudentManager) {
+    println("Сортировать по:")
+    println("1. Имени")
+    println("2. ID")
+    println("3. Среднему баллу")
+    
+    print("Ваш выбор: ")
+    val sortBy = readLine()?.toIntOrNull()
+    
+    val sortedList = when (sortBy) {
+        1 -> manager.sortStudents("name")
+        2 -> manager.sortStudents("id")
+        3 -> manager.sortStudents("average")
+        else -> manager.students
+    }
+    
+    println("\\nОтсортированный список:")
+    sortedList.forEach { println(it) }
+}
+
+fun filterStudents(manager: StudentManager) {
+    print("Введите минимальный средний балл: ")
+    val minAverage = readLine()?.toDoubleOrNull()
+    
+    if (minAverage == null) {
+        println("Некорректное число!")
+        return
+    }
+    
+    val filtered = manager.filterStudents(minAverage)
+    println("\\nСтуденты с баллом >= $minAverage:")
+    if (filtered.isEmpty()) {
+        println("Ничего не найдено")
+    } else {
+        filtered.forEach { println(it) }
+    }
+}</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🚀 Расширения</h2>
+            <p>После выполнения основного задания попробуйте добавить:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Сохранение данных в файл JSON или CSV</li>
+                <li>Генерацию отчетов по успеваемости</li>
+                <li>Уведомления о задолженностях</li>
+                <li>Графическое представление статистики</li>
+                <li>Импорт данных из файла</li>
+            </ul>
+        </div>
+
+        <div class="navigation">
+            <a href="course-kotlin.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(4)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить задание</button>
+            <a href="kotlin-assignment-5.html" class="nav-button">Следующее задание →</a>
+        </div>
+        
+        <script>
+            function toggleSolution() {
+                const solution = document.getElementById('solution');
+                const button = event.target;
+                
+                if (solution.style.display === 'none') {
+                    solution.style.display = 'block';
+                    button.textContent = 'Скрыть решение';
+                } else {
+                    solution.style.display = 'none';
+                    button.textContent = 'Показать решение';
+                }
+            }
+            
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedKotlinAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedKotlinAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание завершено! Отличная работа! 🎓');
+                } else {
+                    alert('Это задание уже отмечено как завершенное.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

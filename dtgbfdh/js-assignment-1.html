@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 1: Hello World и основы - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .assignment-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .task-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .task-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .solution-box {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .solution-box h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-js.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 1: Hello World и основы</h1>
+            <div class="assignment-meta">
+                <span>🟨 JavaScript</span>
+                <span>⏱️ 30 минут</span>
+                <span>📝 Начинающий</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Описание задания</h2>
+            <p>Создайте свою первую программу на JavaScript, изучите базовый синтаксис и подключение к HTML. Это задание поможет вам освоить основы работы с JavaScript.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели задания</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Настроить среду разработки JavaScript</li>
+                <li>Создать и подключить JS файл к HTML</li>
+                <li>Изучить базовый синтаксис JavaScript</li>
+                <li>Освоить вывод информации в консоль</li>
+                <li>Понять структуру JavaScript программы</li>
+            </ul>
+        </div>
+
+        <div class="task-box">
+            <h4>📝 Задача</h4>
+            <p>Создайте HTML страницу с JavaScript, которая:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Выводит приветствие "Hello, JavaScript!" в консоль</li>
+                <li>Отображает информацию о версии JavaScript</li>
+                <li>Показывает текущую дату и время</li>
+                <li>Демонстрирует работу с переменными</li>
+                <li>Содержит комментарии, объясняющие код</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>💡 Подсказки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Создайте HTML файл с базовой структурой</li>
+                <li>Подключите внешний JavaScript файл</li>
+                <li>Используйте console.log() для вывода в консоль</li>
+                <li>Добавьте комментарии для объяснения кода</li>
+                <li>Откройте консоль браузера для просмотра результатов</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Структура решения</h2>
+            
+            <h3>1. Создайте index.html:</h3>
+            <div class="code-example">
+                <code><!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Моя первая JS программа</title>
+</head>
+<body>
+    <h1>Привет, JavaScript!</h1>
+    
+    <script src="script.js"></script>
+</body>
+</html></code>
+            </div>
+
+            <h3>2. Создайте script.js:</h3>
+            <div class="code-example">
+                <code>// script.js
+// Приветствие программы
+console.log("===================================");
+console.log("    ДОБРО ПОЖАЛОВАТЬ В JAVASCRIPT!    ");
+console.log("===================================");
+
+// Основные переменные
+const greeting = "Hello, JavaScript!";
+const version = "ES2023";
+const author = "Brendan Eich";
+
+// Вывод основной информации
+console.log(greeting);
+console.log("Версия:", version);
+console.log("Создатель:", author);
+
+// Работа со временем
+const currentTime = new Date();
+console.log("Текущее время:", currentTime.toLocaleString());
+
+// Дополнительная информация
+console.log("\nJavaScript - это мощный язык программирования!");
+console.log("Он используется для:");
+console.log("- Веб-разработки");
+console.log("- Серверного программирования (Node.js)");
+console.log("- Мобильной разработки");
+console.log("- Игр и многого другого");
+
+// Прощальное сообщение
+console.log("\n===================================");
+console.log("     ПРИЯТНОГО ПРОГРАММИРОВАНИЯ!     ");
+console.log("===================================");</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📊 Пример выполнения</h2>
+            <div class="code-example">
+                <code>=== ЗАПУСК ПРОГРАММЫ ===
+
+===================================
+    ДОБРО ПОЖАЛОВАТЬ В JAVASCRIPT!
+===================================
+Hello, JavaScript!
+Версия: ES2023
+Создатель: Brendan Eich
+Текущее время: 08.12.2024, 08:47:15
+
+JavaScript - это мощный язык программирования!
+Он используется для:
+- Веб-разработки
+- Серверного программирования (Node.js)
+- Мобильной разработки
+- Игр и многого другого
+
+===================================
+     ПРИЯТНОГО ПРОГРАММИРОВАНИЯ!
+===================================
+
+=== ПРОГРАММА ЗАВЕРШЕНА ===</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔧 Дополнительные возможности</h2>
+            <p>Попробуйте расширить программу:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Добавьте вывод в HTML документ с помощью document.write()</li>
+                <li>Реализуйте простой калькулятор в консоли</li>
+                <li>Добавьте интерактив с пользователем через prompt()</li>
+                <li>Создайте программу для конвертации температуры</li>
+                <li>Добавьте форматированный вывод с цветами в консоли</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Критерии оценки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Структура (30%):</strong> Правильная структура HTML и JS файлов</li>
+                <li><strong>Подключение (20%):</strong> Корректное подключение JS к HTML</li>
+                <li><strong>Функциональность (25%):</strong> Все требуемые функции реализованы</li>
+                <li><strong>Комментарии (15%):</strong> Код содержит понятные комментарии</li>
+                <li><strong>Вывод (10%):</strong> Результаты корректно выводятся в консоль</li>
+            </ul>
+        </div>
+
+        <div class="solution-box">
+            <h4>💡 Пример решения</h4>
+            <p>Нажмите кнопку ниже, чтобы посмотреть пример решения:</p>
+            <button onclick="toggleSolution()" class="nav-button" style="margin-top: 15px;">
+                Показать решение
+            </button>
+            
+            <div id="solution" style="display: none; margin-top: 20px;">
+                <div class="code-example">
+                    <code><!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя первая JS программа</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .info {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="info">
+        <h1>Привет, JavaScript!</h1>
+        <p>Откройте консоль браузера (F12), чтобы увидеть результаты.</p>
+        <p>Нажмите F12 → вкладка Console</p>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html></code>
+                </div>
+                <div class="code-example">
+                    <code>// script.js
+/**
+ * Первая программа на JavaScript
+ * Автор: Студент CodeLearn
+ * Дата создания: 08.12.2024
+ * 
+ * Эта программа демонстрирует основы JavaScript:
+ * - Вывод в консоль
+ * - Работа с переменными
+ * - Работа со временем
+ * - Комментарии в коде
+ */
+
+// Приветствие программы
+console.log("=".repeat(50));
+console.log("🚀 ДОБРО ПОЖАЛОВАТЬ В МИР JAVASCRIPT! 🚀");
+console.log("=".repeat(50));
+
+// Основная информация о JavaScript
+const languageInfo = {
+    name: "JavaScript",
+    version: "ES2023",
+    creator: "Brendan Eich",
+    year: 1995,
+    purpose: "Веб-разработка и не только"
+};
+
+// Вывод информации
+console.log("\n📋 ИНФОРМАЦИЯ О ЯЗЫКЕ:");
+console.log(`Название: ${languageInfo.name}`);
+console.log(`Версия: ${languageInfo.version}`);
+console.log(`Создатель: ${languageInfo.creator}`);
+console.log(`Год создания: ${languageInfo.year}`);
+console.log(`Назначение: ${languageInfo.purpose}`);
+
+// Работа со временем
+console.log("\n⏰ ТЕКУЩЕЕ ВРЕМЯ:");
+const now = new Date();
+console.log(`Полная дата: ${now.toString()}`);
+console.log(`Локальная дата: ${now.toLocaleDateString()}`);
+console.log(`Локальное время: ${now.toLocaleTimeString()}`);
+console.log(`Timestamp: ${now.getTime()}`);
+
+// Демонстрация переменных разных типов
+console.log("\n🔧 ДЕМОНСТРАЦИЯ ПЕРЕМЕННЫХ:");
+const stringVar = "Это строка";
+const numberVar = 42;
+const booleanVar = true;
+const arrayVar = [1, 2, 3, 4, 5];
+const objectVar = {name: "JavaScript", type: "programming language"};
+
+console.log(`Строка: ${stringVar}`);
+console.log(`Число: ${numberVar}`);
+console.log(`Булево: ${booleanVar}`);
+console.log(`Массив: [${arrayVar.join(", ")}]`);
+console.log(`Объект:`, objectVar);
+
+// Возможности JavaScript
+console.log("\n🎯 ВОЗМОЖНОСТИ JAVASCRIPT:");
+const features = [
+    "✅ Веб-разработка (Frontend)",
+    "✅ Серверное программирование (Node.js)",
+    "✅ Мобильная разработка (React Native)",
+    "✅ Десктопные приложения (Electron)",
+    "✅ Игровая разработка",
+    "✅ Интернет вещей (IoT)",
+    "✅ Машинное обучение (TensorFlow.js)"
+];
+
+features.forEach(feature => console.log(feature));
+
+// Мотивационное сообщение
+console.log("\n🎉 ПОЗДРАВЛЯЕМ!");
+console.log("Вы сделали первые шаги в мире JavaScript!");
+console.log("Продолжайте изучение и скоро вы сможете создавать");
+console.log("потрясающие веб-приложения и программы!");
+console.log("\n💡 Совет: Не бойтесь экспериментировать с кодом!");
+console.log("💡 Совет: Читайте документацию на MDN Web Docs!");
+console.log("💡 Совет: Практикуйтесь каждый день!");
+
+console.log("\n" + "=".repeat(50));
+console.log("🎊 УДАЧИ В ИЗУЧЕНИИ JAVASCRIPT! 🎊");
+console.log("=".repeat(50));</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🚀 Расширения</h2>
+            <p>После выполнения основного задания попробуйте добавить:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Интерактивный режим с вводом данных через prompt()</li>
+                <li>Вывод результатов в HTML документ</li>
+                <li>Создание простой игры "Угадай число"</li>
+                <li>Работа с localStorage для сохранения данных</li>
+                <li>Создание простого веб-калькулятора</li>
+            </ul>
+        </div>
+
+        <div class="navigation">
+            <a href="course-js.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(1)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить задание</button>
+            <a href="js-assignment-2.html" class="nav-button">Следующее задание →</a>
+        </div>
+        
+        <script>
+            function toggleSolution() {
+                const solution = document.getElementById('solution');
+                const button = event.target;
+                
+                if (solution.style.display === 'none') {
+                    solution.style.display = 'block';
+                    button.textContent = 'Скрыть решение';
+                } else {
+                    solution.style.display = 'none';
+                    button.textContent = 'Показать решение';
+                }
+            }
+            
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedJSAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedJSAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание завершено! Отличная работа! 🎉');
+                } else {
+                    alert('Это задание уже отмечено как завершенное.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

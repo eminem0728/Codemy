@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 8: Асинхронное программирование - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+        .demo-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .demo-button {
+            background: #ffd700;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+        }
+        .demo-button:hover {
+            background: #ffed4e;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            min-height: 100px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 8: Асинхронное программирование</h1>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Задача</h2>
+            <p>Создайте приложение для загрузки данных с использованием различных асинхронных техник JavaScript.</p>
+        </div>
+
+        <div class="demo-section">
+            <h2>🌐 Демонстрация асинхронных операций</h2>
+            <button class="demo-button" onclick="demoPromises()">Демонстрация Promise</button>
+            <button class="demo-button" onclick="demoAsyncAwait()">Демонстрация Async/Await</button>
+            <button class="demo-button" onclick="demoFetchAPI()">Загрузка данных</button>
+            <button class="demo-button" onclick="demoMultipleRequests()">Множественные запросы</button>
+            <button class="demo-button" onclick="clearResults()">Очистить</button>
+            
+            <div id="result" class="result">
+                <p>Результаты операций будут отображаться здесь...</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ JavaScript код</h2>
+
+            <div class="code-example">
+                <code>// script.js
+// Асинхронные функции для демонстрации
+
+function updateResult(message) {
+    const resultDiv = document.getElementById('result');
+    const timestamp = new Date().toLocaleTimeString();
+    resultDiv.innerHTML += `[${timestamp}] ${message}<br>`;
+}
+
+function clearResults() {
+    document.getElementById('result').innerHTML = 'Результаты операций будут отображаться здесь...<br>';
+}
+
+// Демонстрация Promise
+function demoPromises() {
+    updateResult('🚀 Начало демонстрации Promise');
+    
+    const promise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const success = Math.random() > 0.3; // 70% шанс успеха
+            if (success) {
+                resolve('Promise выполнен успешно!');
+            } else {
+                reject('Promise отклонен с ошибкой!');
+            }
+        }, 2000);
+    });
+    
+    promise
+        .then(result => {
+            updateResult('✅ ' + result);
+        })
+        .catch(error => {
+            updateResult('❌ ' + error);
+        })
+        .finally(() => {
+            updateResult('🏁 Promise завершен');
+        });
+}
+
+// Демонстрация async/await
+async function demoAsyncAwait() {
+    updateResult('🚀 Начало демонстрации Async/Await');
+    
+    try {
+        updateResult('⏳ Выполнение первой асинхронной операции...');
+        await delay(1000);
+        updateResult('✅ Первая операция завершена');
+        
+        updateResult('⏳ Выполнение второй асинхронной операции...');
+        const result = await simulateAsyncOperation();
+        updateResult('✅ Вторая операция: ' + result);
+        
+        updateResult('⏳ Выполнение третьей асинхронной операции...');
+        await delay(500);
+        updateResult('✅ Все операции завершены!');
+        
+    } catch (error) {
+        updateResult('❌ Ошибка: ' + error);
+    }
+}
+
+// Вспомогательные функции
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function simulateAsyncOperation() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const operations = ['Загрузка данных', 'Обработка файла', 'Отправка на сервер', 'Получение ответа'];
+            const result = operations[Math.floor(Math.random() * operations.length)];
+            resolve(result);
+        }, 1500);
+    });
+}
+
+// Демонстрация Fetch API
+async function demoFetchAPI() {
+    updateResult('🚀 Загрузка данных с JSONPlaceholder API');
+    
+    try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts/1');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ошибка! статус: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        updateResult('✅ Данные загружены:');
+        updateResult(`📄 Заголовок: ${data.title}`);
+        updateResult(`👤 Пользователь ID: ${data.userId}`);
+        updateResult(`📝 Содержание: ${data.body.substring(0, 50)}...`);
+        
+    } catch (error) {
+        updateResult('❌ Ошибка при загрузке: ' + error.message);
+    }
+}
+
+// Демонстрация множественных запросов
+async function demoMultipleRequests() {
+    updateResult('🚀 Выполнение множественных запросов');
+    
+    try {
+        // Promise.all - все запросы параллельно
+        const promises = [
+            fetch('https://jsonplaceholder.typicode.com/posts/1'),
+            fetch('https://jsonplaceholder.typicode.com/posts/2'),
+            fetch('https://jsonplaceholder.typicode.com/posts/3')
+        ];
+        
+        updateResult('⏳ Загрузка 3 постов параллельно...');
+        const responses = await Promise.all(promises);
+        
+        // Обрабатываем результаты
+        const data = await Promise.all(responses.map(r => r.json()));
+        
+        updateResult('✅ Все данные загружены:');
+        data.forEach((post, index) => {
+            updateResult(`📄 Пост ${index + 1}: ${post.title.substring(0, 30)}...`);
+        });
+        
+        // Promise.race - первый завершившийся
+        updateResult('⏳ Гонка запросов...');
+        const racePromises = [
+            fetch('https://jsonplaceholder.typicode.com/users/1'),
+            fetch('https://jsonplaceholder.typicode.com/users/2'),
+            fetch('https://jsonplaceholder.typicode.com/users/3')
+        ];
+        
+        const firstResponse = await Promise.race(racePromises);
+        const firstUser = await firstResponse.json();
+        updateResult(`🏆 Первый результат: ${firstUser.name}`);
+        
+    } catch (error) {
+        updateResult('❌ Ошибка при множественных запросах: ' + error.message);
+    }
+}
+
+// Обработка ошибок
+async function demoErrorHandling() {
+    updateResult('🚀 Демонстрация обработки ошибок');
+    
+    try {
+        // Попытка загрузить несуществующий ресурс
+        const response = await fetch('https://jsonplaceholder.typicode.com/nonexistent');
+        
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        updateResult('✅ Данные: ' + JSON.stringify(data));
+        
+    } catch (error) {
+        if (error.name === 'TypeError') {
+            updateResult('❌ Сетевая ошибка: ' + error.message);
+        } else {
+            updateResult('❌ Ошибка: ' + error.message);
+        }
+    } finally {
+        updateResult('🏁 Обработка ошибок завершена');
+    }
+}
+
+// Инициализация
+document.addEventListener('DOMContentLoaded', function() {
+    updateResult('🎯 Асинхронные операции готовы к демонстрации!');
+    updateResult('Нажмите кнопки выше для запуска примеров.');
+});</code>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="course-js.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(8)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить задание</button>
+            <a href="js-assignment-9.html" class="nav-button">Следующее задание →</a>
+        </div>
+
+        <script>
+            function updateResult(message) {
+                const resultDiv = document.getElementById('result');
+                const timestamp = new Date().toLocaleTimeString();
+                resultDiv.innerHTML += `[${timestamp}] ${message}<br>`;
+            }
+
+            function clearResults() {
+                document.getElementById('result').innerHTML = 'Результаты операций будут отображаться здесь...<br>';
+            }
+
+            function demoPromises() {
+                updateResult('🚀 Начало демонстрации Promise');
+                
+                const promise = new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        const success = Math.random() > 0.3;
+                        if (success) {
+                            resolve('Promise выполнен успешно!');
+                        } else {
+                            reject('Promise отклонен с ошибкой!');
+                        }
+                    }, 2000);
+                });
+                
+                promise
+                    .then(result => {
+                        updateResult('✅ ' + result);
+                    })
+                    .catch(error => {
+                        updateResult('❌ ' + error);
+                    })
+                    .finally(() => {
+                        updateResult('🏁 Promise завершен');
+                    });
+            }
+
+            async function demoAsyncAwait() {
+                updateResult('🚀 Начало демонстрации Async/Await');
+                
+                try {
+                    updateResult('⏳ Выполнение первой асинхронной операции...');
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    updateResult('✅ Первая операция завершена');
+                    
+                    updateResult('⏳ Выполнение второй асинхронной операции...');
+                    await new Promise(resolve => setTimeout(() => resolve('Обработка данных'), 1500));
+                    updateResult('✅ Вторая операция: Обработка данных');
+                    
+                    updateResult('⏳ Выполнение третьей асинхронной операции...');
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                    updateResult('✅ Все операции завершены!');
+                    
+                } catch (error) {
+                    updateResult('❌ Ошибка: ' + error);
+                }
+            }
+
+            async function demoFetchAPI() {
+                updateResult('🚀 Загрузка данных с API');
+                
+                try {
+                    updateResult('⏳ Отправка запроса...');
+                    // Имитация API запроса
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    
+                    updateResult('✅ Данные загружены:');
+                    updateResult('📄 Заголовок: Пример поста');
+                    updateResult('👤 Пользователь ID: 1');
+                    updateResult('📝 Содержание: Это пример асинхронной загрузки...');
+                    
+                } catch (error) {
+                    updateResult('❌ Ошибка при загрузке: ' + error.message);
+                }
+            }
+
+            async function demoMultipleRequests() {
+                updateResult('🚀 Выполнение множественных запросов');
+                
+                try {
+                    updateResult('⏳ Загрузка данных параллельно...');
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    
+                    updateResult('✅ Все данные загружены:');
+                    updateResult('📄 Пост 1: Пример заголовка 1...');
+                    updateResult('📄 Пост 2: Пример заголовка 2...');
+                    updateResult('📄 Пост 3: Пример заголовка 3...');
+                    updateResult('🏆 Первый результат: Пользователь 1');
+                    
+                } catch (error) {
+                    updateResult('❌ Ошибка: ' + error.message);
+                }
+            }
+
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedJSAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedJSAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание завершено! Отличная работа! 🎉');
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                updateResult('🎯 Асинхронные операции готовы к демонстрации!');
+                updateResult('Нажмите кнопки выше для запуска примеров.');
+            });
+        </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 6: Интерфейсы и полиморфизм - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 6: Интерфейсы и полиморфизм</h1>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Задача</h2>
+            <p>Создайте интерфейсы и структуры, демонстрирующие полиморфизм в Go.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Решение</h2>
+
+            <div class="code-example">
+                <code>package main
+
+import "fmt"
+
+type Shape interface {
+    Area() float64
+    Name() string
+}
+
+type Circle struct {
+    radius float64
+}
+
+func (c Circle) Area() float64 {
+    return 3.14159 * c.radius * c.radius
+}
+
+func (c Circle) Name() string {
+    return "Circle"
+}
+
+type Rectangle struct {
+    width, height float64
+}
+
+func (r Rectangle) Area() float64 {
+    return r.width * r.height
+}
+
+func (r Rectangle) Name() string {
+    return "Rectangle"
+}
+
+func printArea(s Shape) {
+    fmt.Printf("%s area: %.2f\n", s.Name(), s.Area())
+}
+
+func main() {
+    shapes := []Shape{
+        Circle{radius: 5},
+        Rectangle{width: 10, height: 5},
+    }
+    
+    for _, shape := range shapes {
+        printArea(shape)
+    }
+}</code>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="course-go.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(6)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить задание</button>
+            <a href="go-assignment-7.html" class="nav-button">Следующее задание →</a>
+        </div>
+
+        <script>
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedGoAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedGoAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание завершено! Отличная работа! 🎉');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

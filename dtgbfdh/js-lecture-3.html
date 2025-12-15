@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 3: Операторы и выражения - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 3: Операторы и выражения</h1>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели лекции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Изучить арифметические операторы</li>
+                <li>Освоить операторы сравнения и логические</li>
+                <li>Понять операторы присваивания</li>
+                <li>Научиться работе с условными операторами</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>📚 Арифметические операторы</h2>
+
+            <div class="code-example">
+                <code>let a = 10;
+let b = 3;
+
+console.log(a + b);  // 13 (сложение)
+console.log(a - b);  // 7 (вычитание)
+console.log(a * b);  // 30 (умножение)
+console.log(a / b);  // 3.333... (деление)
+console.log(a % b);  // 1 (остаток от деления)
+console.log(a ** b); // 1000 (возведение в степень)
+
+a++;  // инкремент
+b--;  // декремент</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔍 Операторы сравнения</h2>
+
+            <div class="code-example">
+                <code>console.log(5 == "5");   // true (нестрогое равенство)
+console.log(5 === "5");  // false (строгое равенство)
+console.log(5 != "5");   // false
+console.log(5 !== "5");  // true
+
+console.log(10 > 5);     // true
+console.log(10 < 5);     // false
+console.log(10 >= 10);   // true
+console.log(5 <= 3);     // false</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔄 Логические операторы</h2>
+
+            <div class="code-example">
+                <code>// Логическое И (AND)
+console.log(true && true);   // true
+console.log(true && false);  // false
+
+// Логическое ИЛИ (OR)
+console.log(true || false);  // true
+console.log(false || false); // false
+
+// Логическое НЕ (NOT)
+console.log(!true);          // false
+console.log(!false);         // true
+
+// Примеры использования
+let age = 25;
+let hasLicense = true;
+let canDrive = age >= 18 && hasLicense; // true</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📝 Операторы присваивания</h2>
+
+            <div class="code-example">
+                <code>let x = 10;
+
+x += 5;   // x = x + 5;  -> 15
+x -= 3;   // x = x - 3;  -> 12
+x *= 2;   // x = x * 2;  -> 24
+x /= 4;   // x = x / 4;  -> 6
+x %= 5;   // x = x % 5;  -> 1
+x **= 3;  // x = x ** 3; -> 1</code>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="course-js.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(3)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить лекцию</button>
+            <a href="js-lecture-4.html" class="nav-button">Следующая лекция →</a>
+        </div>
+
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedJSLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedJSLectures', JSON.stringify(completedLectures));
+                    alert('Лекция завершена! Отличная работа! 🎉');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

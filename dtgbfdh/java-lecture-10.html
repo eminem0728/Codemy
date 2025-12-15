@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 10: Файловый ввод-вывод - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .lecture-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .highlight-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .highlight-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .key-points {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .key-points h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-java.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 10: Файловый ввод-вывод</h1>
+            <div class="lecture-meta">
+                <span>☕ Java</span>
+                <span>⏱️ 65 минут</span>
+                <span>🎯 Продвинутый</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели лекции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Освоить работу с File, Path и Files API</li>
+                <li>Применить различные типы потоков (байтовые, символьные)</li>
+                <li>Реализовать буферизацию для эффективного ввода-вывода</li>
+                <li>Использовать сериализацию объектов</li>
+                <li>Обработать исключения ввода-вывода</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>📚 Работа с файлами в Java</h2>
+            <p>Java предоставляет несколько API для работы с файлами: старый java.io и новый java.nio (NIO.2). NIO.2 рекомендуется для новых проектов.</p>
+
+            <h3>Классы для работы с файлами:</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Path:</strong> Представляет путь к файлу или директории</li>
+                <li><strong>Paths:</strong> Утилитный класс для создания Path объектов</li>
+                <li><strong>Files:</strong> Утилитный класс с статическими методами для операций с файлами</li>
+                <li><strong>File:</strong> Старый класс (рекомендуется использовать Path)</li>
+            </ul>
+        </div>
+
+        <div class="highlight-box">
+            <h4>💡 Создание и проверка файлов</h4>
+            <div class="code-example">
+                <code>import java.nio.file.*;
+import java.io.IOException;
+
+public class FileOperations {
+    public static void main(String[] args) {
+        try {
+            // Создание Path объекта
+            Path filePath = Paths.get("example.txt");
+            Path dirPath = Paths.get("myfolder");
+
+            // Создание директории
+            Files.createDirectories(dirPath);
+
+            // Создание файла
+            if (!Files.exists(filePath)) {
+                Files.createFile(filePath);
+                System.out.println("Файл создан: " + filePath);
+            }
+
+            // Проверка свойств файла
+            System.out.println("Существует: " + Files.exists(filePath));
+            System.out.println("Это файл: " + Files.isRegularFile(filePath));
+            System.out.println("Размер: " + Files.size(filePath) + " байт");
+            System.out.println("Последнее изменение: " + Files.getLastModifiedTime(filePath));
+
+        } catch (IOException e) {
+            System.err.println("Ошибка: " + e.getMessage());
+        }
+    }
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>⚙️ Байтовые потоки</h2>
+
+            <p>Байтовые потоки используются для чтения и записи бинарных данных. Основные классы: InputStream и OutputStream.</p>
+
+            <div class="code-example">
+                <code>import java.io.*;
+import java.nio.file.*;
+
+public class ByteStreamExample {
+    public static void main(String[] args) {
+        Path source = Paths.get("input.bin");
+        Path target = Paths.get("output.bin");
+
+        try (InputStream in = Files.newInputStream(source);
+             OutputStream out = Files.newOutputStream(target)) {
+
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+
+            while ((bytesRead = in.read(buffer)) != -1) {
+                out.write(buffer, 0, bytesRead);
+            }
+
+            System.out.println("Копирование завершено");
+
+        } catch (IOException e) {
+            System.err.println("Ошибка копирования: " + e.getMessage());
+        }
+    }
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔤 Символьные потоки</h2>
+
+            <p>Символьные потоки используются для работы с текстовыми данными. Основные классы: Reader и Writer.</p>
+
+            <div class="code-example">
+                <code>import java.io.*;
+import java.nio.file.*;
+
+public class CharacterStreamExample {
+    public static void main(String[] args) {
+        Path filePath = Paths.get("text.txt");
+
+        // Запись текста в файл
+        try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
+            writer.write("Привет, мир!\n");
+            writer.write("Это пример работы с символьными потоками.\n");
+            writer.write("Java NIO.2 очень удобен для работы с файлами.");
+            System.out.println("Текст записан в файл");
+
+        } catch (IOException e) {
+            System.err.println("Ошибка записи: " + e.getMessage());
+        }
+
+        // Чтение текста из файла
+        try (BufferedReader reader = Files.newBufferedReader(filePath)) {
+            String line;
+            System.out.println("\nСодержимое файла:");
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+
+        } catch (IOException e) {
+            System.err.println("Ошибка чтения: " + e.getMessage());
+        }
+    }
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🗂️ Сериализация объектов</h2>
+
+            <p>Сериализация позволяет сохранять объекты в файлы и восстанавливать их. Класс должен реализовывать интерфейс Serializable.</p>
+
+            <div class="code-example">
+                <code>import java.io.*;
+import java.time.LocalDate;
+
+class Person implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private String name;
+    private int age;
+    private LocalDate birthDate;
+
+    public Person(String name, int age, LocalDate birthDate) {
+        this.name = name;
+        this.age = age;
+        this.birthDate = birthDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{name='" + name + "', age=" + age + ", birthDate=" + birthDate + "}";
+    }
+}
+
+public class SerializationExample {
+    public static void main(String[] args) {
+        Person person = new Person("Иван", 25, LocalDate.of(1999, 5, 15));
+
+        // Сериализация
+        try (ObjectOutputStream oos = new ObjectOutputStream(
+                new FileOutputStream("person.dat"))) {
+
+            oos.writeObject(person);
+            System.out.println("Объект сериализован");
+
+        } catch (IOException e) {
+            System.err.println("Ошибка сериализации: " + e.getMessage());
+        }
+
+        // Десериализация
+        try (ObjectInputStream ois = new ObjectInputStream(
+                new FileInputStream("person.dat"))) {
+
+            Person restoredPerson = (Person) ois.readObject();
+            System.out.println("Объект восстановлен: " + restoredPerson);
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Ошибка десериализации: " + e.getMessage());
+        }
+    }
+}</code>
+            </div>
+        </div>
+
+        <div class="key-points">
+            <h4>🔑 Ключевые понятия:</h4>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Поток (Stream):</strong> Последовательность данных</li>
+                <li><strong>Байтовый поток:</strong> Для бинарных данных</li>
+                <li><strong>Символьный поток:</strong> Для текстовых данных</li>
+                <li><strong>Буфер:</strong> Временное хранилище для оптимизации</li>
+                <li><strong>Сериализация:</strong> Сохранение объекта в поток</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🔄 Try-with-resources</h2>
+
+            <p>Try-with-resources автоматически закрывает ресурсы, реализующие AutoCloseable интерфейс.</p>
+
+            <div class="code-example">
+                <code>// Старый способ (нужно вручную закрывать)
+FileReader reader = null;
+try {
+    reader = new FileReader("file.txt");
+    // работа с файлом
+} finally {
+    if (reader != null) {
+        try {
+            reader.close();
+        } catch (IOException e) {
+            // обработка ошибки закрытия
+        }
+    }
+}
+
+// Новый способ (автоматическое закрытие)
+try (FileReader reader = new FileReader("file.txt");
+     BufferedReader br = new BufferedReader(reader)) {
+    // работа с файлом
+    String line;
+    while ((line = br.readLine()) != null) {
+        System.out.println(line);
+    }
+} catch (IOException e) {
+    System.err.println("Ошибка: " + e.getMessage());
+}
+// reader и br автоматически закрываются</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📊 Практический пример</h2>
+
+            <div class="code-example">
+                <code>import java.io.*;
+import java.nio.file.*;
+import java.util.*;
+
+public class FileProcessor {
+    // Подсчет статистики файла
+    public static Map<Character, Integer> countCharacters(Path filePath) throws IOException {
+        Map<Character, Integer> charCount = new HashMap<>();
+
+        try (BufferedReader reader = Files.newBufferedReader(filePath)) {
+            int ch;
+            while ((ch = reader.read()) != -1) {
+                char character = (char) ch;
+                if (Character.isLetter(character)) {
+                    charCount.put(character, charCount.getOrDefault(character, 0) + 1);
+                }
+            }
+        }
+
+        return charCount;
+    }
+
+    // Копирование файла с прогрессом
+    public static void copyWithProgress(Path source, Path target) throws IOException {
+        long fileSize = Files.size(source);
+
+        try (InputStream in = Files.newInputStream(source);
+             OutputStream out = Files.newOutputStream(target)) {
+
+            byte[] buffer = new byte[8192];
+            long totalBytes = 0;
+            int bytesRead;
+
+            while ((bytesRead = in.read(buffer)) != -1) {
+                out.write(buffer, 0, bytesRead);
+                totalBytes += bytesRead;
+
+                int progress = (int) ((totalBytes * 100) / fileSize);
+                System.out.print("\rПрогресс: " + progress + "%");
+            }
+            System.out.println("\nКопирование завершено!");
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        // Создание тестового файла
+        Path testFile = Paths.get("test.txt");
+        Files.write(testFile, "Hello, World!\nThis is a test file.\nJava File I/O is powerful!".getBytes());
+
+        // Подсчет символов
+        Map<Character, Integer> stats = countCharacters(testFile);
+        System.out.println("Статистика символов:");
+        stats.forEach((ch, count) -> System.out.println(ch + ": " + count));
+
+        // Копирование файла
+        Path copyFile = Paths.get("copy.txt");
+        copyWithProgress(testFile, copyFile);
+
+        // Очистка
+        Files.deleteIfExists(testFile);
+        Files.deleteIfExists(copyFile);
+    }
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Заключение</h2>
+            <p>В этой лекции мы изучили:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Работу с Path, Files и другими классами NIO.2</li>
+                <li>Байтовые и символьные потоки</li>
+                <li>Буферизацию для эффективного ввода-вывода</li>
+                <li>Сериализацию и десериализацию объектов</li>
+                <li>Try-with-resources для управления ресурсами</li>
+            </ul>
+
+            <p style="margin-top: 20px; font-weight: bold;">Поздравляем! Вы завершили курс основ Java! Теперь переходите к практическим заданиям для закрепления материала.</p>
+        </div>
+
+        <div class="navigation">
+            <a href="course-java.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(10)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить лекцию</button>
+            <a href="java-assignment-7.html" class="nav-button">К заданиям →</a>
+        </div>
+
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedJavaLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedJavaLectures', JSON.stringify(completedLectures));
+                    alert('Лекция завершена! Отличная работа! 🎉');
+                } else {
+                    alert('Эта лекция уже отмечена как завершенная.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

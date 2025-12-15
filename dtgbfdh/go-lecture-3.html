@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 3: Управляющие конструкции - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .lecture-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .highlight-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .highlight-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .key-points {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .key-points h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-go.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 3: Управляющие конструкции</h1>
+            <div class="lecture-meta">
+                <span>🚀 Go</span>
+                <span>⏱️ 55 минут</span>
+                <span>🎯 Начинающий</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели лекции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Изучить условные операторы в Go</li>
+                <li>Освоить циклы for и их разновидности</li>
+                <li>Понять операторы break и continue</li>
+                <li>Научиться использовать switch-case</li>
+                <li>Изучить идиому for-range</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>📚 Условные операторы</h2>
+
+            <h3>Оператор if</h3>
+            <div class="code-example">
+                <code>// Простой if
+age := 18
+if age >= 18 {
+    fmt.Println("Вы совершеннолетний")
+}
+
+// if с коротким объявлением переменной
+if x := 10; x > 5 {
+    fmt.Println("x больше 5")
+    fmt.Println("Значение x:", x)  // x доступна здесь
+}
+// x недоступна здесь
+
+// if-else
+temperature := 25
+if temperature > 30 {
+    fmt.Println("Жарко!")
+} else if temperature > 20 {
+    fmt.Println("Тепло")
+} else {
+    fmt.Println("Холодно")
+}</code>
+            </div>
+
+            <h3>Логические операторы в условиях</h3>
+            <div class="code-example">
+                <code>age := 25
+hasLicense := true
+isStudent := false
+
+// И (&&)
+if age >= 18 && hasLicense {
+    fmt.Println("Можно водить автомобиль")
+}
+
+// ИЛИ (||)
+if isStudent || age < 65 {
+    fmt.Println("Есть право на скидку")
+}
+
+// НЕ (!)
+if !isStudent {
+    fmt.Println("Полная стоимость билета")
+}</code>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h4>💡 Цикл for в Go</h4>
+            <p>В Go существует только один вид цикла - for, но он очень гибкий:</p>
+            <div class="code-example">
+                <code>// Полная форма for
+for i := 0; i < 10; i++ {
+    fmt.Println("Итерация:", i)
+}
+
+// Только условие (как while)
+counter := 0
+for counter < 5 {
+    fmt.Println("Счетчик:", counter)
+    counter++
+}
+
+// Бесконечный цикл
+for {
+    fmt.Println("Это будет выполняться вечно")
+    break  // Выход из цикла
+}
+
+// for с множественными переменными
+for i, j := 0, 10; i < j; i, j = i+1, j-1 {
+    fmt.Printf("i=%d, j=%d\n", i, j)
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔄 Операторы break и continue</h2>
+
+            <div class="code-example">
+                <code>// break - выход из цикла
+for i := 0; i < 10; i++ {
+    if i == 5 {
+        fmt.Println("Достигли 5, выходим")
+        break
+    }
+    fmt.Println("i =", i)
+}
+
+// continue - переход к следующей итерации
+for i := 0; i < 10; i++ {
+    if i%2 == 0 {
+        continue  // Пропускаем четные числа
+    }
+    fmt.Println("Нечетное число:", i)
+}
+
+// break и continue с метками
+outerLoop:
+for i := 0; i < 3; i++ {
+    for j := 0; j < 3; j++ {
+        if i == 1 && j == 1 {
+            break outerLoop  // Выход из внешнего цикла
+        }
+        fmt.Printf("i=%d, j=%d\n", i, j)
+    }
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔀 Switch-case в Go</h2>
+
+            <div class="code-example">
+                <code>// Простой switch
+day := 3
+switch day {
+case 1:
+    fmt.Println("Понедельник")
+case 2:
+    fmt.Println("Вторник")
+case 3:
+    fmt.Println("Среда")
+case 4:
+    fmt.Println("Четверг")
+case 5:
+    fmt.Println("Пятница")
+case 6:
+    fmt.Println("Суббота")
+case 7:
+    fmt.Println("Воскресенье")
+default:
+    fmt.Println("Неверный день")
+}
+
+// Switch без выражения (как if-else)
+score := 85
+switch {
+case score >= 90:
+    fmt.Println("Отлично")
+case score >= 80:
+    fmt.Println("Хорошо")
+case score >= 70:
+    fmt.Println("Удовлетворительно")
+default:
+    fmt.Println("Неудовлетворительно")
+}
+
+// Множественные значения в case
+month := "march"
+switch month {
+case "december", "january", "february":
+    fmt.Println("Зима")
+case "march", "april", "may":
+    fmt.Println("Весна")
+case "june", "july", "august":
+    fmt.Println("Лето")
+case "september", "october", "november":
+    fmt.Println("Осень")
+default:
+    fmt.Println("Неизвестный месяц")
+}</code>
+            </div>
+        </div>
+
+        <div class="key-points">
+            <h4>🔑 Ключевые понятия:</h4>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>if:</strong> Условный оператор с опциональным else</li>
+                <li><strong>for:</strong> Единственный цикл в Go, очень гибкий</li>
+                <li><strong>break:</strong> Выход из цикла</li>
+                <li><strong>continue:</strong> Переход к следующей итерации</li>
+                <li><strong>switch:</strong> Множественный выбор без fallthrough по умолчанию</li>
+                <li><strong>Метки:</strong> Для управления вложенными циклами</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🔍 For-range и работа с коллекциями</h2>
+
+            <div class="code-example">
+                <code>// Итерация по слайсу
+numbers := []int{1, 2, 3, 4, 5}
+for index, value := range numbers {
+    fmt.Printf("Индекс: %d, Значение: %d\n", index, value)
+}
+
+// Если не нужен индекс
+for _, value := range numbers {
+    fmt.Println("Значение:", value)
+}
+
+// Если не нужно значение
+for index := range numbers {
+    fmt.Println("Индекс:", index)
+}
+
+// Итерация по строке
+text := "Hello, Go!"
+for i, char := range text {
+    fmt.Printf("Позиция %d: %c\n", i, char)
+}
+
+// Итерация по map
+person := map[string]string{
+    "name": "Alice",
+    "age":  "25",
+    "city": "Moscow",
+}
+for key, value := range person {
+    fmt.Printf("%s: %s\n", key, value)
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🛠️ Практические примеры</h2>
+
+            <div class="code-example">
+                <code>package main
+
+import "fmt"
+
+func main() {
+    // Пример 1: Проверка числа на четность
+    number := 15
+    if number%2 == 0 {
+        fmt.Printf("%d - четное число\n", number)
+    } else {
+        fmt.Printf("%d - нечетное число\n", number)
+    }
+
+    // Пример 2: Определение времени года
+    month := 7
+    switch month {
+    case 12, 1, 2:
+        fmt.Println("Зима")
+    case 3, 4, 5:
+        fmt.Println("Весна")
+    case 6, 7, 8:
+        fmt.Println("Лето")
+    case 9, 10, 11:
+        fmt.Println("Осень")
+    default:
+        fmt.Println("Неверный месяц")
+    }
+
+    // Пример 3: Поиск максимального числа
+    numbers := []int{3, 7, 2, 9, 5}
+    max := numbers[0]
+    for _, num := range numbers {
+        if num > max {
+            max = num
+        }
+    }
+    fmt.Printf("Максимальное число: %d\n", max)
+
+    // Пример 4: Игра FizzBuzz
+    for i := 1; i <= 20; i++ {
+        if i%3 == 0 && i%5 == 0 {
+            fmt.Println("FizzBuzz")
+        } else if i%3 == 0 {
+            fmt.Println("Fizz")
+        } else if i%5 == 0 {
+            fmt.Println("Buzz")
+        } else {
+            fmt.Println(i)
+        }
+    }
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Заключение</h2>
+            <p>В этой лекции мы изучили управляющие конструкции Go:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Условные операторы if-else</li>
+                <li>Гибкий цикл for</li>
+                <li>Операторы break и continue</li>
+                <li>Switch-case конструкции</li>
+                <li>Итерацию по коллекциям с for-range</li>
+            </ul>
+
+            <p style="margin-top: 20px; font-weight: bold;">В следующей лекции мы изучим функции в Go!</p>
+        </div>
+
+        <div class="navigation">
+            <a href="course-go.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(3)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить лекцию</button>
+            <a href="go-lecture-4.html" class="nav-button">Следующая лекция →</a>
+        </div>
+
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedGoLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedGoLectures', JSON.stringify(completedLectures));
+                    alert('Лекция завершена! Отличная работа! 🎉');
+                } else {
+                    alert('Эта лекция уже отмечена как завершенная.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

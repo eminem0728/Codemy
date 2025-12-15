@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 9: Android приложение - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .assignment-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .task-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .task-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .solution-box {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .solution-box h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-kotlin.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 9: Android приложение</h1>
+            <div class="assignment-meta">
+                <span>🅺 Kotlin</span>
+                <span>⏱️ 180 минут</span>
+                <span>📱 Продвинутое</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Описание задания</h2>
+            <p>Создайте полнофункциональное Android приложение на Kotlin с современным Material Design интерфейсом, использующее архитектурные компоненты Android и корутины для асинхронных операций.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели задания</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Изучить архитектуру Android приложений</li>
+                <li>Использовать Jetpack компоненты</li>
+                <li>Работать с жизненным циклом Activity и Fragment</li>
+                <li>Реализовать навигацию между экранами</li>
+                <li>Создать современный Material Design UI</li>
+                <li>Использовать корутины для асинхронных операций</li>
+            </ul>
+        </div>
+
+        <div class="task-box">
+            <h4>📝 Задача</h4>
+            <p>Создайте Android приложение "Task Manager" - систему управления задачами с возможностью добавления, редактирования, удаления и поиска задач, используя современные Android архитектурные практики.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>💡 Подсказки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Используйте ViewModel и LiveData для MVVM архитектуры</li>
+                <li>Создайте Repository для работы с данными</li>
+                <li>Используйте Room для локального хранения данных</li>
+                <li>Применяйте Material Design компоненты</li>
+                <li>Реализуйте Navigation Component для навигации</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Структура приложения</h2>
+            
+            <h3>1. Создайте основные Activity и Fragment</h3>
+            <div class="code-example">
+                <code>// MainActivity.kt
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
+}
+
+// TaskListFragment.kt  
+class TaskListFragment : Fragment() {
+    private lateinit var viewModel: TaskViewModel
+    private lateinit var adapter: TaskAdapter
+}</code>
+            </div>
+
+            <h3>2. Создайте data классы</h3>
+            <div class="code-example">
+                <code>// Task.kt
+@Entity(tableName = "tasks")
+data class Task(
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
+    val title: String,
+    val description: String,
+    val isCompleted: Boolean = false,
+    val priority: TaskPriority = TaskPriority.MEDIUM,
+    val dueDate: Long? = null,
+    val createdAt: Long = System.currentTimeMillis()
+)
+
+enum class TaskPriority {
+    LOW, MEDIUM, HIGH
+}</code>
+            </div>
+
+            <h3>3. Создайте ViewModel</h3>
+            <div class="code-example">
+                <code>// TaskViewModel.kt
+class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
+    val allTasks: LiveData<List<Task>> = repository.getAllTasks()
+    
+    fun insert(task: Task) = viewModelScope.launch {
+        repository.insert(task)
+    }
+    
+    fun update(task: Task) = viewModelScope.launch {
+        repository.update(task)
+    }
+    
+    fun delete(task: Task) = viewModelScope.launch {
+        repository.delete(task)
+    }
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📱 Пользовательский интерфейс</h2>
+            
+            <h3>Главный экран - Список задач</h3>
+            <div class="code-example">
+                <code>=== TASK MANAGER ===
+┌─────────────────────────────────┐
+│ ☰ Task Manager    🔍 + 📊      │
+├─────────────────────────────────┤
+│                                 │
+│ ☑ Выучить Kotlin    🔴 ВЫСОКИЙ │
+│ ☐ Создать проект    🟡 СРЕДНИЙ│
+│ ☑ Прочитать книгу   🟢 НИЗКИЙ │
+│                                 │
+│ [Добавить задачу]               │
+│                                 │
+└─────────────────────────────────┘</code>
+            </div>
+
+            <h3>Экран добавления/редактирования</h3>
+            <div class="code-example">
+                <code>=== НОВАЯ ЗАДАЧА ===
+┌─────────────────────────────────┐
+│ ← Добавить задачу    ✅ Готово │
+├─────────────────────────────────┤
+│                                 │
+│ Название задачи:                │
+│ ┌─────────────────────────────┐ │
+│ │ Изучить Android...        │ │
+│ └─────────────────────────────┘ │
+│                                 │
+│ Описание:                       │
+│ ┌─────────────────────────────┐ │
+│ │ Изучить основы Android... │ │
+│ │ разработки на Kotlin      │ │
+│ └─────────────────────────────┘ │
+│                                 │
+│ Приоритет:                      │
+│ ○ Низкий  ● Средний  ○ Высокий │
+│                                 │
+│ Срок выполнения:                │
+│ ┌─────────────────────────────┐ │
+│ │ 15.12.2024                 │ │
+│ └─────────────────────────────┘ │
+└─────────────────────────────────┘</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔧 Функции приложения</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>CRUD операции:</strong> Создание, чтение, обновление, удаление задач</li>
+                <li><strong>Поиск:</strong> Фильтрация задач по названию и описанию</li>
+                <li><strong>Сортировка:</strong> По приоритету, дате создания, сроку выполнения</li>
+                <li><strong>Статистика:</strong> Количество выполненных/невыполненных задач</li>
+                <li><strong>Настройки:</strong> Темная/светлая тема, уведомления</li>
+                <li><strong>Экспорт:</strong> Сохранение списка задач в файл</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🗃️ Архитектурные компоненты</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>ViewModel:</strong> Управление состоянием UI</li>
+                <li><strong>LiveData:</strong> Наблюдение за изменениями данных</li>
+                <li><strong>Repository:</strong> Абстракция доступа к данным</li>
+                <li><strong>Room:</strong> Локальная база данных</li>
+                <li><strong>Navigation Component:</strong> Навигация между экранами</li>
+                <li><strong>Material Design:</strong> Современный дизайн интерфейса</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Критерии оценки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Архитектура (30%):</strong> Правильное использование MVVM</li>
+                <li><strong>Пользовательский интерфейс (25%):</strong> Material Design, удобство использования</li>
+                <li><strong>Функциональность (25%):</strong> Все CRUD операции работают</li>
+                <li><strong>Качество кода (20%):</strong> Читаемость, организация, комментарии</li>
+            </ul>
+        </div>
+
+        <div class="solution-box">
+            <h4>💡 Пример решения</h4>
+            <p>Нажмите кнопку ниже, чтобы посмотреть пример решения:</p>
+            <button onclick="toggleSolution()" class="nav-button" style="margin-top: 15px;">
+                Показать решение
+            </button>
+            
+            <div id="solution" style="display: none; margin-top: 20px;">
+                <div class="code-example">
+                    <code>// 1. Data классы и Entity
+package com.taskmanager.data
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "tasks")
+data class Task(
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
+    val title: String,
+    val description: String,
+    val isCompleted: Boolean = false,
+    val priority: TaskPriority = TaskPriority.MEDIUM,
+    val dueDate: Long? = null,
+    val createdAt: Long = System.currentTimeMillis(),
+    val updatedAt: Long = System.currentTimeMillis()
+)
+
+enum class TaskPriority(val displayName: String, val color: String) {
+    LOW("Низкий", "#4CAF50"),
+    MEDIUM("Средний", "#FF9800"), 
+    HIGH("Высокий", "#F44336")
+}
+
+// 2. DAO (Data Access Object)
+package com.taskmanager.data
+
+import androidx.lifecycle.LiveData
+import androidx.room.*
+
+@Dao
+interface TaskDao {
+    @Query("SELECT * FROM tasks ORDER BY createdAt DESC")
+    fun getAllTasks(): LiveData<List<Task>>
+    
+    @Query("SELECT * FROM tasks WHERE isCompleted = 0 ORDER BY priority DESC, createdAt DESC")
+    fun getPendingTasks(): LiveData<List<Task>>
+    
+    @Query("SELECT * FROM tasks WHERE title LIKE '%' || :query || '%' OR description LIKE '%' || :query || '%'")
+    fun searchTasks(query: String): LiveData<List<Task>>
+    
+    @Insert
+    suspend fun insert(task: Task): Long
+    
+    @Update
+    suspend fun update(task: Task)
+    
+    @Delete
+    suspend fun delete(task: Task)
+    
+    @Query("DELETE FROM tasks WHERE isCompleted = 1")
+    suspend fun deleteCompletedTasks()
+    
+    @Query("SELECT COUNT(*) FROM tasks WHERE isCompleted = 0")
+    fun getPendingTasksCount(): LiveData<Int>
+    
+    @Query("SELECT COUNT(*) FROM tasks WHERE isCompleted = 1")
+    fun getCompletedTasksCount(): LiveData<Int>
+}
+
+// 3. Database
+package com.taskmanager.data
+
+import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
+
+@Database(entities = [Task::class], version = 1, exportSchema = false)
+abstract class TaskDatabase : RoomDatabase() {
+    abstract fun taskDao(): TaskDao
+    
+    companion object {
+        @Volatile
+        private var INSTANCE: TaskDatabase? = null
+        
+        fun getDatabase(context: Context): TaskDatabase {
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    TaskDatabase::class.java,
+                    "task_database"
+                ).build()
+                INSTANCE = instance
+                instance
+            }
+        }
+    }
+}
+
+// 4. Repository
+package com.taskmanager.repository
+
+import androidx.lifecycle.LiveData
+import com.taskmanager.data.Task
+import com.taskmanager.data.TaskDao
+import com.taskmanager.data.TaskDatabase
+
+class TaskRepository(private val taskDao: TaskDao) {
+    val allTasks: LiveData<List<Task>> = taskDao.getAllTasks()
+    val pendingTasks: LiveData<List<Task>> = taskDao.getPendingTasks()
+    val pendingTasksCount: LiveData<Int> = taskDao.getPendingTasksCount()
+    val completedTasksCount: LiveData<Int> = taskDao.getCompletedTasksCount()
+    
+    suspend fun insert(task: Task): Long {
+        return taskDao.insert(task.copy(
+            createdAt = System.currentTimeMillis(),
+            updatedAt = System.currentTimeMillis()
+        ))
+    }
+    
+    suspend fun update(task: Task) {
+        taskDao.update(task.copy(updatedAt = System.currentTimeMillis()))
+    }
+    
+    suspend fun delete(task: Task) {
+        taskDao.delete(task)
+    }
+    
+    suspend fun deleteCompletedTasks() {
+        taskDao.deleteCompletedTasks()
+    }
+    
+    fun searchTasks(query: String): LiveData<List<Task>> {
+        return taskDao.searchTasks(query)
+    }
+}
+
+// 5. ViewModel
+package com.taskmanager.viewmodel
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.launch
+import com.taskmanager.data.Task
+import com.taskmanager.data.TaskPriority
+import com.taskmanager.repository.TaskRepository
+
+class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
+    
+    val allTasks: LiveData<List<Task>> = repository.allTasks
+    val pendingTasks: LiveData<List<Task>> = repository.pendingTasks
+    val pendingTasksCount: LiveData<Int> = repository.pendingTasksCount
+    val completedTasksCount: LiveData<Int> = repository.completedTasksCount
+    
+    private val _searchQuery = MutableLiveData<String>()
+    val searchQuery: LiveData<String> = _searchQuery
+    
+    private val _searchResults = MutableLiveData<List<Task>>()
+    val searchResults: LiveData<List<Task>> = _searchResults
+    
+    fun insertTask(title: String, description: String, priority: TaskPriority, dueDate: Long?) {
+        val task = Task(
+            title = title.trim(),
+            description = description.trim(),
+            priority = priority,
+            dueDate = dueDate,
+            isCompleted = false
+        )
+        
+        viewModelScope.launch {
+            repository.insert(task)
+        }
+    }
+    
+    fun updateTask(task: Task) {
+        viewModelScope.launch {
+            repository.update(task)
+        }
+    }
+    
+    fun deleteTask(task: Task) {
+        viewModelScope.launch {
+            repository.delete(task)
+        }
+    }
+    
+    fun toggleTaskCompletion(task: Task) {
+        val updatedTask = task.copy(
+            isCompleted = !task.isCompleted,
+            updatedAt = System.currentTimeMillis()
+        )
+        updateTask(updatedTask)
+    }
+    
+    fun searchTasks(query: String) {
+        _searchQuery.value = query
+        viewModelScope.launch {
+            repository.searchTasks(query).observeForever { results ->
+                _searchResults.value = results
+            }
+        }
+    }
+    
+    fun clearSearch() {
+        _searchQuery.value = ""
+        _searchResults.value = emptyList()
+    }
+    
+    fun deleteCompletedTasks() {
+        viewModelScope.launch {
+            repository.deleteCompletedTasks()
+        }
+    }
+}
+
+class TaskViewModelFactory(private val repository: TaskRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(TaskViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return TaskViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
+
+// 6. MainActivity
+package com.taskmanager
+
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
+
+class MainActivity : AppCompatActivity() {
+    
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        
+        setupNavigation()
+    }
+    
+    private fun setupNavigation() {
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavigationView.setupWithNavController(navController)
+    }
+}
+
+// 7. TaskListFragment
+package com.taskmanager.ui
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.taskmanager.R
+import com.taskmanager.data.Task
+import com.taskmanager.databinding.FragmentTaskListBinding
+import com.taskmanager.viewmodel.TaskViewModel
+import com.taskmanager.viewmodel.TaskViewModelFactory
+
+class TaskListFragment : Fragment() {
+    
+    private var _binding: FragmentTaskListBinding? = null
+    private val binding get() = _binding!!
+    
+    private lateinit var viewModel: TaskViewModel
+    private lateinit var taskAdapter: TaskAdapter
+    
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentTaskListBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+    
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        
+        setupViewModel()
+        setupRecyclerView()
+        setupFab()
+        observeData()
+    }
+    
+    private fun setupViewModel() {
+        val database = com.taskmanager.data.TaskDatabase.getDatabase(requireContext())
+        val repository = com.taskmanager.repository.TaskRepository(database.taskDao())
+        val factory = TaskViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, factory)[TaskViewModel::class.java]
+    }
+    
+    private fun setupRecyclerView() {
+        taskAdapter = TaskAdapter(
+            onTaskClick = { task -> navigateToTaskDetail(task) },
+            onTaskCheckChanged = { task -> viewModel.toggleTaskCompletion(task) },
+            onTaskDelete = { task -> viewModel.deleteTask(task) }
+        )
+        
+        binding.recyclerViewTasks.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = taskAdapter
+        }
+    }
+    
+    private fun setupFab() {
+        binding.fabAddTask.setOnClickListener {
+            navigateToAddTask()
+        }
+    }
+    
+    private fun observeData() {
+        viewModel.allTasks.observe(viewLifecycleOwner) { tasks ->
+            taskAdapter.submitList(tasks)
+        }
+    }
+    
+    private fun navigateToTaskDetail(task: Task) {
+        val action = TaskListFragmentDirections
+            .actionTaskListFragmentToTaskDetailFragment(task.id)
+        findNavController().navigate(action)
+    }
+    
+    private fun navigateToAddTask() {
+        findNavController().navigate(R.id.action_taskListFragment_to_addTaskFragment)
+    }
+    
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}
+
+// 8. TaskAdapter для RecyclerView
+package com.taskmanager.ui
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+.RecyclerView
+import com.taskmanager.dataimport androidx.recyclerview.widget.Task
+import com.taskmanager.data.TaskPriority
+import com.taskmanager.databinding.ItemTaskBinding
+
+class TaskAdapter(
+    private val onTaskClick: (Task) -> Unit,
+    private val onTaskCheckChanged: (Task) -> Unit,
+    private val onTaskDelete: (Task) -> Unit
+) : ListAdapter<Task, TaskAdapter.TaskViewHolder>(TaskDiffCallback()) {
+    
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
+        val binding = ItemTaskBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
+        return TaskViewHolder(binding)
+    }
+    
+    override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
+        holder.bind(getItem(position))
+    }
+    
+    inner class TaskViewHolder(
+        private val binding: ItemTaskBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        
+        fun bind(task: Task) {
+            binding.apply {
+                textViewTitle.text = task.title
+                textViewDescription.text = task.description
+                textViewPriority.text = task.priority.displayName
+                textViewPriority.setTextColor(
+                    android.graphics.Color.parseColor(task.priority.color)
+                )
+                checkboxCompleted.isChecked = task.isCompleted
+                
+                // Обработчики событий
+                root.setOnClickListener { onTaskClick(task) }
+                checkboxCompleted.setOnCheckedChangeListener { _, isChecked ->
+                    if (isChecked != task.isCompleted) {
+                        onTaskCheckChanged(task)
+                    }
+                }
+                imageButtonDelete.setOnClickListener { onTaskDelete(task) }
+                
+                // Форматирование даты
+                if (task.dueDate != null) {
+                    val formatter = java.text.SimpleDateFormat("dd.MM.yyyy", java.util.Locale.getDefault())
+                    textViewDueDate.text = formatter.format(java.util.Date(task.dueDate))
+                    textViewDueDate.visibility = android.view.View.VISIBLE
+                } else {
+                    textViewDueDate.visibility = android.view.View.GONE
+                }
+            }
+        }
+    }
+    
+    class TaskDiffCallback : DiffUtil.ItemCallback<Task>() {
+        override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean {
+            return oldItem.id == newItem.id
+        }
+        
+        override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
+            return oldItem == newItem
+        }
+    }
+}
+
+// 9. AddTaskFragment
+package com.taskmanager.ui
+
+import android.app.DatePickerDialog
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.taskmanager.R
+import com.taskmanager.data.TaskPriority
+import com.taskmanager.databinding.FragmentAddTaskBinding
+import com.taskmanager.viewmodel.TaskViewModel
+import com.taskmanager.viewmodel.TaskViewModelFactory
+import java.util.*
+
+class AddTaskFragment : Fragment() {
+    
+    private var _binding: FragmentAddTaskBinding? = null
+    private val binding get() = _binding!!
+    
+    private lateinit var viewModel: TaskViewModel
+    private var selectedDueDate: Long? = null
+    
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentAddTaskBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+    
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        
+        setupViewModel()
+        setupSpinner()
+        setupDatePicker()
+        setupSaveButton()
+    }
+    
+    private fun setupViewModel() {
+        val database = com.taskmanager.data.TaskDatabase.getDatabase(requireContext())
+        val repository = com.taskmanager.repository.TaskRepository(database.taskDao())
+        val factory = TaskViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, factory)[TaskViewModel::class.java]
+    }
+    
+    private fun setupSpinner() {
+        val priorities = TaskPriority.values().map { it.displayName }
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            priorities
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerPriority.adapter = adapter
+        binding.spinnerPriority.setSelection(1) // По умолчанию "Средний"
+    }
+    
+    private fun setupDatePicker() {
+        binding.buttonSelectDate.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val datePickerDialog = DatePickerDialog(
+                requireContext(),
+                { _, year, month, dayOfMonth ->
+                    val selectedCalendar = Calendar.getInstance().apply {
+                        set(year, month, dayOfMonth)
+                    }
+                    selectedDueDate = selectedCalendar.timeInMillis
+                    updateDateDisplay()
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            )
+            datePickerDialog.show()
+        }
+    }
+    
+    private fun updateDateDisplay() {
+        selectedDueDate?.let { timestamp ->
+            val formatter = java.text.SimpleDateFormat("dd.MM.yyyy", java.util.Locale.getDefault())
+            binding.textViewSelectedDate.text = formatter.format(java.util.Date(timestamp))
+            binding.textViewSelectedDate.visibility = View.VISIBLE
+            binding.buttonSelectDate.text = "Изменить дату"
+        }
+    }
+    
+    private fun setupSaveButton() {
+        binding.buttonSave.setOnClickListener {
+            saveTask()
+        }
+    }
+    
+    private fun saveTask() {
+        val title = binding.editTextTitle.text.toString().trim()
+        val description = binding.editTextDescription.text.toString().trim()
+        val priorityPosition = binding.spinnerPriority.selectedItemPosition
+        val priority = TaskPriority.values()[priorityPosition]
+        
+        if (title.isEmpty()) {
+            binding.editTextTitle.error = "Название обязательно"
+            return
+        }
+        
+        viewModel.insertTask(title, description, priority, selectedDueDate)
+        findNavController().navigateUp()
+    }
+    
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}
+
+// 10. Navigation directions
+package com.taskmanager.ui
+
+import androidx.navigation.ActionOnlyNavDirections
+import androidx.navigation.NavDirections
+
+sealed class TaskListFragmentDirections private constructor() {
+    companion object {
+        fun actionTaskListFragmentToTaskDetailFragment(taskId: Long): NavDirections =
+            ActionOnlyNavDirections(R.id.action_taskListFragment_to_taskDetailFragment, taskId)
+        
+        fun actionTaskListFragmentToAddTaskFragment(): NavDirections =
+            ActionOnlyNavDirections(R.id.action_taskListFragment_to_addTaskFragment)
+    }
+}
+
+// Этот код показывает основную структуру Android приложения на Kotlin
+// с использованием современных архитектурных компонентов:</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🚀 Расширения</h2>
+            <p>После выполнения основного задания попробуйте добавить:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Синхронизацию с облачным хранилищем</li>
+                <li>Уведомления о приближающихся сроках</li>
+                <li>Темную тему приложения</li>
+                <li>Экспорт задач в различные форматы</li>
+                <li>Интеграцию с календарем устройства</li>
+                <li>Голосовой ввод задач</li>
+            </ul>
+        </div>
+
+        <div class="navigation">
+            <a href="course-kotlin.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(9)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить задание</button>
+            <a href="kotlin-assignment-10.html" class="nav-button">Финальное задание →</a>
+        </div>
+        
+        <script>
+            function toggleSolution() {
+                const solution = document.getElementById('solution');
+                const button = event.target;
+                
+                if (solution.style.display === 'none') {
+                    solution.style.display = 'block';
+                    button.textContent = 'Скрыть решение';
+                } else {
+                    solution.style.display = 'none';
+                    button.textContent = 'Показать решение';
+                }
+            }
+            
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedKotlinAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedKotlinAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание завершено! Отличная работа! 📱');
+                } else {
+                    alert('Это задание уже отмечено как завершенное.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

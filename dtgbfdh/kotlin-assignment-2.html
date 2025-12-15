@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 2: Калькулятор - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .assignment-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .task-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .task-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .solution-box {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .solution-box h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-kotlin.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 2: Калькулятор</h1>
+            <div class="assignment-meta">
+                <span>🅺 Kotlin</span>
+                <span>⏱️ 45 минут</span>
+                <span>📝 Практическое</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Описание задания</h2>
+            <p>Создайте простой калькулятор на Kotlin, который будет выполнять базовые арифметические операции. Это задание поможет вам закрепить навыки работы с функциями, переменными и операторами.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели задания</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Создать функции для базовых арифметических операций</li>
+                <li>Научиться работать с пользовательским вводом</li>
+                <li>Обрабатывать различные типы операций</li>
+                <li>Добавить обработку ошибок и валидацию</li>
+                <li>Создать интерактивный интерфейс для калькулятора</li>
+            </ul>
+        </div>
+
+        <div class="task-box">
+            <h4>📝 Задача</h4>
+            <p>Создайте класс <code>Calculator</code> с методами для выполнения арифметических операций и простую программу для демонстрации его работы.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>💡 Подсказки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Используйте <code>when</code> для выбора операции</li>
+                <li>Обрабатывайте деление на ноль</li>
+                <li>Добавьте возможность выхода из программы</li>
+                <li>Форматируйте результаты вычислений</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Структура решения</h2>
+            
+            <h3>1. Создайте класс Calculator</h3>
+            <div class="code-example">
+                <code>class Calculator {
+    // Ваш код здесь
+}</code>
+            </div>
+
+            <h3>2. Добавьте методы для операций</h3>
+            <div class="code-example">
+                <code>// Базовые операции: +, -, *, /
+fun add(a: Double, b: Double): Double
+fun subtract(a: Double, b: Double): Double
+fun multiply(a: Double, b: Double): Double
+fun divide(a: Double, b: Double): Double
+
+// Дополнительные операции
+fun power(base: Double, exponent: Double): Double
+fun squareRoot(number: Double): Double</code>
+            </div>
+
+            <h3>3. Создайте главную программу</h3>
+            <div class="code-example">
+                <code>fun main() {
+    val calculator = Calculator()
+    
+    // Создайте интерактивный цикл
+    // Введите числа и операцию
+    // Выведите результат
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📊 Пример работы калькулятора</h2>
+            <div class="code-example">
+                <code>=== КАЛЬКУЛЯТОР ===
+Доступные операции:
+1. Сложение (+)
+2. Вычитание (-)
+3. Умножение (*)
+4. Деление (/)
+5. Возведение в степень (^)
+6. Квадратный корень (√)
+0. Выход
+
+Введите номер операции: 1
+Введите первое число: 15
+Введите второе число: 25
+Результат: 15.0 + 25.0 = 40.0
+
+Введите номер операции: 0
+До свидания!</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Критерии оценки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Функциональность (40%):</strong> Все базовые операции работают корректно</li>
+                <li><strong>Обработка ошибок (25%):</strong> Корректная обработка деления на ноль и некорректного ввода</li>
+                <li><strong>Пользовательский интерфейс (20%):</strong> Понятное меню и сообщения</li>
+                <li><strong>Код (15%):</strong> Читаемость и структурированность кода</li>
+            </ul>
+        </div>
+
+        <div class="solution-box">
+            <h4>💡 Пример решения</h4>
+            <p>Нажмите кнопку ниже, чтобы посмотреть пример решения:</p>
+            <button onclick="toggleSolution()" class="nav-button" style="margin-top: 15px;">
+                Показать решение
+            </button>
+            
+            <div id="solution" style="display: none; margin-top: 20px;">
+                <div class="code-example">
+                    <code>class Calculator {
+    fun add(a: Double, b: Double): Double = a + b
+    
+    fun subtract(a: Double, b: Double): Double = a - b
+    
+    fun multiply(a: Double, b: Double): Double = a * b
+    
+    fun divide(a: Double, b: Double): Double {
+        if (b == 0.0) {
+            throw IllegalArgumentException("Нельзя делить на ноль!")
+        }
+        return a / b
+    }
+    
+    fun power(base: Double, exponent: Double): Double {
+        return Math.pow(base, exponent)
+    }
+    
+    fun squareRoot(number: Double): Double {
+        if (number < 0) {
+            throw IllegalArgumentException("Нельзя извлечь корень из отрицательного числа!")
+        }
+        return Math.sqrt(number)
+    }
+}
+
+fun main() {
+    val calculator = Calculator()
+    
+    while (true) {
+        println("\n=== КАЛЬКУЛЯТОР ===")
+        println("Доступные операции:")
+        println("1. Сложение (+)")
+        println("2. Вычитание (-)")
+        println("3. Умножение (*)")
+        println("4. Деление (/)")
+        println("5. Возведение в степень (^)")
+        println("6. Квадратный корень (√)")
+        println("0. Выход")
+        
+        print("Введите номер операции: ")
+        val operation = readLine()?.toIntOrNull()
+        
+        when (operation) {
+            0 -> {
+                println("До свидания!")
+                break
+            }
+            1, 2, 3, 4, 5 -> {
+                try {
+                    print("Введите первое число: ")
+                    val a = readLine()?.toDoubleOrNull() 
+                        ?: throw IllegalArgumentException("Некорректное число!")
+                    
+                    if (operation == 6) {
+                        val result = calculator.squareRoot(a)
+                        println("√$a = $result")
+                    } else {
+                        print("Введите второе число: ")
+                        val b = readLine()?.toDoubleOrNull() 
+                            ?: throw IllegalArgumentException("Некорректное число!")
+                        
+                        val result = when (operation) {
+                            1 -> calculator.add(a, b)
+                            2 -> calculator.subtract(a, b)
+                            3 -> calculator.multiply(a, b)
+                            4 -> calculator.divide(a, b)
+                            5 -> calculator.power(a, b)
+                            else -> throw IllegalArgumentException("Неизвестная операция")
+                        }
+                        
+                        val operator = when (operation) {
+                            1 -> "+"
+                            2 -> "-"
+                            3 -> "*"
+                            4 -> "/"
+                            5 -> "^"
+                            else -> ""
+                        }
+                        
+                        println("Результат: $a $operator $b = $result")
+                    }
+                } catch (e: Exception) {
+                    println("Ошибка: ${e.message}")
+                }
+            }
+            else -> {
+                println("Некорректная операция. Попробуйте снова.")
+            }
+        }
+        
+        print("\nНажмите Enter для продолжения...")
+        readLine()
+    }
+}</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🚀 Дополнительные задания</h2>
+            <p>После выполнения основного задания, попробуйте добавить:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Поддержку скобок в выражениях</li>
+                <li>Историю вычислений</li>
+                <li>Работу с комплексными числами</li>
+                <li>Научные функции (sin, cos, log и т.д.)</li>
+                <li>Сохранение результатов в файл</li>
+            </ul>
+        </div>
+
+        <div class="navigation">
+            <a href="course-kotlin.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(2)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить задание</button>
+            <a href="kotlin-assignment-3.html" class="nav-button">Следующее задание →</a>
+        </div>
+        
+        <script>
+            function toggleSolution() {
+                const solution = document.getElementById('solution');
+                const button = event.target;
+                
+                if (solution.style.display === 'none') {
+                    solution.style.display = 'block';
+                    button.textContent = 'Скрыть решение';
+                } else {
+                    solution.style.display = 'none';
+                    button.textContent = 'Показать решение';
+                }
+            }
+            
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedKotlinAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedKotlinAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание завершено! Отличная работа! 🎉');
+                } else {
+                    alert('Это задание уже отмечено как завершенное.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

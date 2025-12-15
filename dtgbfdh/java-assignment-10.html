@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 10: Работа с файлами и потоками - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .assignment-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .task-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .task-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .solution-box {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .solution-box h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-java.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 10: Работа с файлами и потоками</h1>
+            <div class="assignment-meta">
+                <span>☕ Java</span>
+                <span>⏱️ 60 минут</span>
+                <span>📝 Продвинутое</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Описание задания</h2>
+            <p>Создайте многофункциональную утилиту для работы с файлами, которая демонстрирует различные виды потоков ввода-вывода, включая текстовые и бинарные файлы, буферизацию и сериализацию объектов.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели задания</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Освоить работу с File, Path и Files API</li>
+                <li>Применить различные типы потоков (байтовые, символьные)</li>
+                <li>Реализовать буферизацию для эффективного ввода-вывода</li>
+                <li>Использовать сериализацию объектов</li>
+                <li>Обработать исключения ввода-вывода</li>
+            </ul>
+        </div>
+
+        <div class="task-box">
+            <h4>📝 Задача</h4>
+            <p>Создайте класс FileProcessor с методами для:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Копирования файлов с отображением прогресса</li>
+                <li>Чтения и записи текстовых файлов</li>
+                <li>Сериализации и десериализации объектов</li>
+                <li>Анализа содержимого файлов (статистика)</li>
+                <li>Работы с временными файлами</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>💡 Подсказки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Используйте try-with-resources для автоматического закрытия потоков</li>
+                <li>Применяйте BufferedReader/BufferedWriter для текстовых файлов</li>
+                <li>Для бинарных файлов используйте FileInputStream/FileOutputStream</li>
+                <li>Классы ObjectOutputStream/ObjectInputStream для сериализации</li>
+                <li>Files API (NIO.2) для современных операций с файлами</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Структура решения</h2>
+            
+            <h3>1. Создайте класс для сериализуемых объектов</h3>
+            <div class="code-example">
+                <code>import java.io.Serializable;
+
+public class Person implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
+    private String name;
+    private int age;
+    private String email;
+    
+    public Person(String name, int age, String email) {
+        this.name = name;
+        this.age = age;
+        this.email = email;
+    }
+    
+    // Геттеры и сеттеры
+    // toString()
+}</code>
+            </div>
+
+            <h3>2. Создайте основной класс FileProcessor</h3>
+            <div class="code-example">
+                <code>import java.io.*;
+import java.nio.file.*;
+import java.util.*;
+
+public class FileProcessor {
+    
+    public void copyFileWithProgress(Path source, Path target) throws IOException {
+        try (InputStream in = Files.newInputStream(source);
+             OutputStream out = Files.newOutputStream(target)) {
+            
+            long fileSize = Files.size(source);
+            byte[] buffer = new byte[8192];
+            long bytesCopied = 0;
+            int bytesRead;
+            
+            while ((bytesRead = in.read(buffer)) != -1) {
+                out.write(buffer, 0, bytesRead);
+                bytesCopied += bytesRead;
+                
+                // Отображаем прогресс
+                int progress = (int) ((bytesCopied * 100) / fileSize);
+                System.out.print("\rПрогресс: " + progress + "%");
+            }
+            System.out.println("\nКопирование завершено!");
+        }
+    }
+    
+    public Map<String, Integer> analyzeTextFile(Path filePath) throws IOException {
+        Map<String, Integer> wordCount = new HashMap<>();
+        
+        try (BufferedReader reader = Files.newBufferedReader(filePath)) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] words = line.toLowerCase().split("\\W+");
+                for (String word : words) {
+                    if (!word.isEmpty()) {
+                        wordCount.put(word, wordCount.getOrDefault(word, 0) + 1);
+                    }
+                }
+            }
+        }
+        
+        return wordCount;
+    }
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📊 Пример выполнения</h2>
+            <div class="code-example">
+                <code>=== ФАЙЛОВЫЙ ПРОЦЕССОР ===
+
+1. Создание тестового файла...
+Файл создан: test.txt (1500 байт)
+
+2. Копирование файла...
+Прогресс: 100%
+Копирование завершено!
+
+3. Анализ текстового файла...
+Статистика слов:
+- java: 15
+- programming: 8
+- file: 12
+- stream: 6
+
+4. Сериализация объекта...
+Объект сериализован в person.dat
+
+5. Десериализация объекта...
+Десериализован: Person{name='Иван', age=25, email='ivan@example.com'}
+
+=== ПРОГРАММА ЗАВЕРШЕНА ===</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔧 Дополнительные возможности</h2>
+            <p>Расширьте утилиту:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Добавьте сжатие файлов (GZIP)</li>
+                <li>Реализуйте многопоточное копирование</li>
+                <li>Добавьте шифрование файлов</li>
+                <li>Создайте систему резервного копирования</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Критерии оценки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Файловые операции (25%):</strong> Корректная работа с Path и Files</li>
+                <li><strong>Потоки (25%):</strong> Правильное использование различных потоков</li>
+                <li><strong>Буферизация (15%):</strong> Эффективное использование буферов</li>
+                <li><strong>Сериализация (15%):</strong> Работа с объектами</li>
+                <li><strong>Обработка ошибок (10%):</strong> Корректная обработка IOException</li>
+                <li><strong>Читаемость (10%):</strong> Понятный и структурированный код</li>
+            </ul>
+        </div>
+
+        <div class="solution-box">
+            <h4>💡 Пример решения</h4>
+            <p>Нажмите кнопку ниже, чтобы посмотреть пример решения:</p>
+            <button onclick="toggleSolution()" class="nav-button" style="margin-top: 15px;">
+                Показать решение
+            </button>
+            
+            <div id="solution" style="display: none; margin-top: 20px;">
+                <div class="code-example">
+                    <code>import java.io.*;
+import java.nio.file.*;
+import java.util.*;
+import java.util.stream.Collectors;
+
+/**
+ * Класс для сериализации
+ */
+class Person implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
+    private String name;
+    private int age;
+    private String email;
+    
+    public Person(String name, int age, String email) {
+        this.name = name;
+        this.age = age;
+        this.email = email;
+    }
+    
+    // Геттеры
+    public String getName() { return name; }
+    public int getAge() { return age; }
+    public String getEmail() { return email; }
+    
+    @Override
+    public String toString() {
+        return "Person{name='" + name + "', age=" + age + ", email='" + email + "'}";
+    }
+}
+
+/**
+ * Многофункциональный файловый процессор
+ */
+public class FileProcessor {
+    
+    /**
+     * Копирование файла с отображением прогресса
+     */
+    public void copyFileWithProgress(Path source, Path target) throws IOException {
+        System.out.println("Копирование файла...");
+        
+        try (InputStream in = Files.newInputStream(source);
+             OutputStream out = Files.newOutputStream(target)) {
+            
+            long fileSize = Files.size(source);
+            byte[] buffer = new byte[8192]; // 8KB буфер
+            long bytesCopied = 0;
+            int bytesRead;
+            
+            while ((bytesRead = in.read(buffer)) != -1) {
+                out.write(buffer, 0, bytesRead);
+                bytesCopied += bytesRead;
+                
+                // Отображаем прогресс
+                int progress = (int) ((bytesCopied * 100) / fileSize);
+                System.out.print("\rПрогресс: " + progress + "%");
+            }
+            System.out.println("\nКопирование завершено!");
+        }
+    }
+    
+    /**
+     * Анализ текстового файла - подсчет слов
+     */
+    public Map<String, Integer> analyzeTextFile(Path filePath) throws IOException {
+        Map<String, Integer> wordCount = new HashMap<>();
+        
+        try (BufferedReader reader = Files.newBufferedReader(filePath)) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Разбиваем на слова, игнорируя пунктуацию
+                String[] words = line.toLowerCase().split("[\\W]+");
+                for (String word : words) {
+                    if (!word.isEmpty() && word.length() > 2) { // Игнорируем короткие слова
+                        wordCount.put(word, wordCount.getOrDefault(word, 0) + 1);
+                    }
+                }
+            }
+        }
+        
+        return wordCount;
+    }
+    
+    /**
+     * Запись текста в файл
+     */
+    public void writeTextToFile(Path filePath, String content) throws IOException {
+        try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
+            writer.write(content);
+        }
+    }
+    
+    /**
+     * Чтение всего текста из файла
+     */
+    public String readTextFromFile(Path filePath) throws IOException {
+        return Files.readString(filePath);
+    }
+    
+    /**
+     * Сериализация объекта
+     */
+    public void serializeObject(Object obj, Path filePath) throws IOException {
+        try (ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(filePath))) {
+            oos.writeObject(obj);
+        }
+    }
+    
+    /**
+     * Десериализация объекта
+     */
+    public Object deserializeObject(Path filePath) throws IOException, ClassNotFoundException {
+        try (ObjectInputStream ois = new ObjectInputStream(Files.newInputStream(filePath))) {
+            return ois.readObject();
+        }
+    }
+    
+    /**
+     * Получение статистики файла
+     */
+    public void printFileStatistics(Path filePath) throws IOException {
+        System.out.println("=== СТАТИСТИКА ФАЙЛА ===");
+        System.out.println("Имя файла: " + filePath.getFileName());
+        System.out.println("Размер: " + Files.size(filePath) + " байт");
+        System.out.println("Последнее изменение: " + Files.getLastModifiedTime(filePath));
+        System.out.println("Читаемый: " + Files.isReadable(filePath));
+        System.out.println("Записываемый: " + Files.isWritable(filePath));
+    }
+    
+    /**
+     * Создание временного файла с содержимым
+     */
+    public Path createTempFile(String content) throws IOException {
+        Path tempFile = Files.createTempFile("temp_", ".txt");
+        writeTextToFile(tempFile, content);
+        return tempFile;
+    }
+    
+    public static void main(String[] args) {
+        FileProcessor processor = new FileProcessor();
+        
+        try {
+            System.out.println("=== ФАЙЛОВЫЙ ПРОЦЕССОР ===\n");
+            
+            // 1. Создание тестового файла
+            System.out.println("1. Создание тестового файла...");
+            String testContent = """
+                Java programming is a powerful language for file processing.
+                Streams in Java provide efficient ways to handle input and output.
+                File operations include reading, writing, and copying files.
+                Serialization allows objects to be saved and loaded from files.
+                """;
+            
+            Path testFile = processor.createTempFile(testContent);
+            System.out.println("Файл создан: " + testFile.getFileName() + 
+                             " (" + Files.size(testFile) + " байт)\n");
+            
+            // 2. Копирование файла
+            System.out.println("2. Копирование файла...");
+            Path copyFile = Paths.get("copy_" + testFile.getFileName());
+            processor.copyFileWithProgress(testFile, copyFile);
+            System.out.println();
+            
+            // 3. Анализ файла
+            System.out.println("3. Анализ текстового файла...");
+            Map<String, Integer> wordStats = processor.analyzeTextFile(testFile);
+            
+            System.out.println("Статистика слов (топ 10):");
+            wordStats.entrySet().stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .limit(10)
+                .forEach(entry -> System.out.println("- " + entry.getKey() + ": " + entry.getValue()));
+            System.out.println();
+            
+            // 4. Сериализация
+            System.out.println("4. Сериализация объекта...");
+            Person person = new Person("Иван", 25, "ivan@example.com");
+            Path personFile = Paths.get("person.dat");
+            processor.serializeObject(person, personFile);
+            System.out.println("Объект сериализован в " + personFile.getFileName());
+            System.out.println();
+            
+            // 5. Десериализация
+            System.out.println("5. Десериализация объекта...");
+            Person deserializedPerson = (Person) processor.deserializeObject(personFile);
+            System.out.println("Десериализован: " + deserializedPerson);
+            System.out.println();
+            
+            // 6. Статистика файла
+            processor.printFileStatistics(testFile);
+            
+            // Очистка
+            Files.deleteIfExists(testFile);
+            Files.deleteIfExists(copyFile);
+            Files.deleteIfExists(personFile);
+            
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Ошибка: " + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        System.out.println("\n=== ПРОГРАММА ЗАВЕРШЕНА ===");
+    }
+}</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🚀 Расширения</h2>
+            <p>После выполнения основного задания попробуйте добавить:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Поддержку ZIP архивов</li>
+                <li>Шифрование файлов с использованием Cipher streams</li>
+                <li>Многопоточная обработка больших файлов</li>
+                <li>Интеграцию с сетевыми потоками</li>
+                <li>Обработку изображений и бинарных файлов</li>
+            </ul>
+        </div>
+
+        <div class="navigation">
+            <a href="course-java.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(10)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить задание</button>
+            <span class="nav-button" style="background: rgba(255,255,255,0.2); cursor: default;">Конец курса 🎉</span>
+        </div>
+        
+        <script>
+            function toggleSolution() {
+                const solution = document.getElementById('solution');
+                const button = event.target;
+                
+                if (solution.style.display === 'none') {
+                    solution.style.display = 'block';
+                    button.textContent = 'Скрыть решение';
+                } else {
+                    solution.style.display = 'none';
+                    button.textContent = 'Показать решение';
+                }
+            }
+            
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedJavaAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedJavaAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание завершено! Поздравляем с завершением курса Java! 🎉');
+                } else {
+                    alert('Это задание уже отмечено как завершенное.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

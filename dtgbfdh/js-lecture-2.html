@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 2: Переменные и типы данных - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .lecture-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-js.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 2: Переменные и типы данных</h1>
+            <div class="lecture-meta">
+                <span>🟨 JavaScript</span>
+                <span>⏱️ 50 минут</span>
+                <span>🎯 Начинающий</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели лекции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Изучить объявление переменных</li>
+                <li>Понять различные типы данных</li>
+                <li>Освоить работу с примитивами и объектами</li>
+                <li>Научиться преобразованию типов</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>📚 Переменные в JavaScript</h2>
+
+            <div class="code-example">
+                <code>// Объявление переменных
+var oldWay = "старый способ";  // устаревший
+let modernWay = "современный способ";
+const constant = "константа";
+
+// Примитивные типы данных
+let string = "Hello, World!";
+let number = 42;
+let boolean = true;
+let undefinedVar;
+let nullVar = null;
+let symbol = Symbol('unique');
+let bigInt = 123n;
+
+// Объекты
+let object = {name: "Alice", age: 25};
+let array = [1, 2, 3, 4, 5];
+
+// Динамическая типизация
+let dynamic = "string";
+dynamic = 123;        // теперь число
+dynamic = true;       // теперь булево
+dynamic = [1, 2, 3];  // теперь массив</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔄 Преобразование типов</h2>
+
+            <div class="code-example">
+                <code>// Явное преобразование
+let str = String(123);        // "123"
+let num = Number("456");      // 456
+let bool = Boolean(1);        // true
+
+// Неявное преобразование
+let result = "5" + 3;         // "53" (конкатенация)
+let result2 = "5" - 3;        // 2 (вычитание)
+
+// Специальные случаи
+Number("123abc");             // NaN
+Number("");                   // 0
+Number(null);                 // 0
+Number(undefined);            // NaN
+Boolean(0);                   // false
+Boolean("");                  // false
+Boolean(null);                // false
+Boolean(undefined);           // false</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Заключение</h2>
+            <p>В этой лекции мы изучили переменные и типы данных в JavaScript. В следующей лекции изучим операторы и выражения.</p>
+        </div>
+
+        <div class="navigation">
+            <a href="course-js.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(2)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить лекцию</button>
+            <a href="js-lecture-3.html" class="nav-button">Следующая лекция →</a>
+        </div>
+
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedJSLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedJSLectures', JSON.stringify(completedLectures));
+                    alert('Лекция завершена! Отличная работа! 🎉');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

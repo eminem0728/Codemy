@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 4: Функции в Kotlin - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .lecture-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .highlight {
+            background: rgba(255, 215, 0, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #ffd700;
+        }
+        .tip-box {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .tip-box h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .warning-box {
+            background: rgba(255, 165, 0, 0.1);
+            border: 1px solid rgba(255, 165, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .warning-box h4 {
+            color: #ffa726;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-kotlin.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 4: Функции в Kotlin</h1>
+            <div class="lecture-meta">
+                <span>🅺 Kotlin</span>
+                <span>⏱️ 70 минут</span>
+                <span>📚 Средний</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели урока</h2>
+            <p>К концу этой лекции вы сможете:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Объявлять и вызывать функции в Kotlin</li>
+                <li>Использовать параметры функций</li>
+                <li>Работать с возвращаемыми значениями</li>
+                <li>Создавать функции с переменным количеством параметров</li>
+                <li>Использовать именованные аргументы</li>
+                <li>Создавать локальные функции</li>
+                <li>Применять функции высшего порядка</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>📝 Основы функций</h2>
+            
+            <h3>Объявление функции</h3>
+            <p>Функции в Kotlin объявляются с помощью ключевого слова <span class="highlight">fun</span>:</p>
+            
+            <div class="code-example">
+                <code>// Простая функция без параметров<br>fun greet() {<br>&nbsp;&nbsp;&nbsp;&nbsp;println("Привет, мир!")<br>}<br><br>// Вызов функции<br>greet()  // Выводит: Привет, мир!</code>
+            </div>
+
+            <h3>Функции с параметрами</h3>
+            <div class="code-example">
+                <code>// Функция с одним параметром<br>fun greet(name: String) {<br>&nbsp;&nbsp;&nbsp;&nbsp;println("Привет, $name!")<br>}<br><br>// Функция с несколькими параметрами<br>fun add(a: Int, b: Int) {<br>&nbsp;&nbsp;&nbsp;&nbsp;println("$a + $b = ${a + b}")<br>}<br><br>// Вызов функций<br>greet("Алексей")    // Выводит: Привет, Алексей!<br>add(5, 3)          // Выводит: 5 + 3 = 8</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>↩️ Возвращаемые значения</h2>
+            
+            <h3>Функции с возвращаемым значением</h3>
+            <div class="code-example">
+                <code>// Функция возвращает значение<br>fun square(number: Int): Int {<br>&nbsp;&nbsp;&nbsp;&nbsp;return number * number<br>}<br><br>// Использование возвращаемого значения<br>val result = square(4)  // result = 16<br>println("4 в квадрате = $result")<br><br>// Можно не указывать тип, если он выводится<br>fun double(number: Int) = number * 2<br>val doubled = double(5)  // doubled = 10</code>
+            </div>
+
+            <h3>Unit тип (void)</h3>
+            <p>Если функция не возвращает значение, её тип - <span class="highlight">Unit</span>:</p>
+            
+            <div class="code-example">
+                <code>// Явное указание Unit (необязательно)<br>fun printMessage(message: String): Unit {<br>&nbsp;&nbsp;&nbsp;&nbsp;println(message)<br>}<br><br>// Эквивалент без указания типа<br>fun printMessage(message: String) {<br>&nbsp;&nbsp;&nbsp;&nbsp;println(message)<br>}</code>
+            </div>
+
+            <div class="tip-box">
+                <h4>💡 Вывод типа</h4>
+                <p>Компилятор Kotlin может вывести тип возвращаемого значения, но для ясности кода рекомендуется указывать его явно.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎛️ Параметры функций</h2>
+            
+            <h3>Параметры по умолчанию</h3>
+            <p>Kotlin поддерживает значения параметров по умолчанию:</p>
+            
+            <div class="code-example">
+                <code>// Параметр с значением по умолчанию<br>fun greet(name: String, greeting: String = "Привет") {<br>&nbsp;&nbsp;&nbsp;&nbsp;println("$greeting, $name!")<br>}<br><br>// Вызовы с разными аргументами<br>greet("Алексей")              // Привет, Алексей!<br>greet("Мария", "Здравствуй")  // Здравствуй, Мария!</code>
+            </div>
+
+            <h3>Именованные аргументы</h3>
+            <div class="code-example">
+                <code>// Функция с несколькими параметрами<br>fun createUser(name: String, age: Int, isActive: Boolean = true) {<br>&nbsp;&nbsp;&nbsp;&nbsp;println("Пользователь: $name, возраст: $age, активен: $isActive")<br>}<br><br>// Различные способы вызова<br>createUser("Алексей", 25)                    // Позиционные аргументы<br>createUser(name = "Мария", age = 30)        // Именованные аргументы<br>createUser("Иван", isActive = false, age = 28)  // Смешанные аргументы</code>
+            </div>
+
+            <h3>Переменное количество параметров (vararg)</h3>
+            <div class="code-example">
+                <code>// Функция с vararg параметром<br>fun sum(vararg numbers: Int): Int {<br>&nbsp;&nbsp;&nbsp;&nbsp;return numbers.sum()<br>}<br><br>// Вызовы с разным количеством аргументов<br>println(sum())                    // 0<br>println(sum(1, 2, 3))           // 6<br>println(sum(10, 20, 30, 40))    // 100<br><br>// Передача массива в vararg функцию<br>val array = intArrayOf(5, 6, 7)<br>println(sum(*array))  // 18 (оператор spread)</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔄 Локальные функции</h2>
+            
+            <p>Функции могут быть объявлены внутри других функций:</p>
+            
+            <div class="code-example">
+                <code>fun validatePassword(password: String): Boolean {<br><br>&nbsp;&nbsp;&nbsp;&nbsp;// Локальная функция<br>&nbsp;&nbsp;&nbsp;&nbsp;fun hasMinLength(text: String): Boolean {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return text.length >= 8<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>&nbsp;&nbsp;&nbsp;&nbsp;fun hasUppercase(text: String): Boolean {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return text.any { it.isUpperCase() }<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>&nbsp;&nbsp;&nbsp;&nbsp;fun hasDigit(text: String): Boolean {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return text.any { it.isDigit() }<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>&nbsp;&nbsp;&nbsp;&nbsp;// Проверяем пароль<br>&nbsp;&nbsp;&nbsp;&nbsp;return hasMinLength(password) && hasUppercase(password) && hasDigit(password)<br>}<br><br>// Использование<br>println(validatePassword("Pass123"))  // true<br>println(validatePassword("weak"))     // false</code>
+            </div>
+
+            <div class="tip-box">
+                <h4>💡 Преимущества локальных функций</h4>
+                <p>Локальные функции имеют доступ к переменным внешней функции и помогают избежать дублирования кода.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔧 Функции высшего порядка</h2>
+            
+            <p>Функции могут принимать другие функции как параметры и возвращать функции:</p>
+            
+            <div class="code-example">
+                <code>// Функция принимает другую функцию как параметр<br>fun applyOperation(a: Int, b: Int, operation: (Int, Int) -> Int): Int {<br>&nbsp;&nbsp;&nbsp;&nbsp;return operation(a, b)<br>}<br><br>// Создание функций для передачи<br>val add = { x: Int, y: Int -> x + y }<br>val multiply = { x: Int, y: Int -> x * y }<br><br>// Использование<br>val result1 = applyOperation(5, 3, add)        // 8<br>val result2 = applyOperation(5, 3, multiply)   // 15<br><br>// Передача лямбда-выражения напрямую<br>val result3 = applyOperation(10, 2) { x, y -> x - y }  // 8</code>
+            </div>
+
+            <h3>Возвращение функции из функции</h3>
+            <div class="code-example">
+                <code>// Функция возвращает другую функцию<br>fun getOperation(operationType: String): (Int, Int) -> Int {<br>&nbsp;&nbsp;&nbsp;&nbsp;return when (operationType) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"add" -> { x, y -> x + y }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"subtract" -> { x, y -> x - y }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"multiply" -> { x, y -> x * y }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"divide" -> { x, y -> if (y != 0) x / y else 0 }<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else -> { x, y -> 0 }<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}<br><br>// Использование<br>val operation = getOperation("multiply")<br>println(operation(6, 4))  // 24</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🚀 Inline функции</h2>
+            
+            <p>Для повышения производительности можно использовать <span class="highlight">inline</span> функции:</p>
+            
+            <div class="code-example">
+                <code>// Inline функция<br>inline fun measureTime(block: () -> Unit): Long {<br>&nbsp;&nbsp;&nbsp;&nbsp;val start = System.currentTimeMillis()<br>&nbsp;&nbsp;&nbsp;&nbsp;block()<br>&nbsp;&nbsp;&nbsp;&nbsp;return System.currentTimeMillis() - start<br>}<br><br>// Использование<br>val time = measureTime {<br>&nbsp;&nbsp;&nbsp;&nbsp;// Выполняем какую-то работу<br>&nbsp;&nbsp;&nbsp;&nbsp;Thread.sleep(100)<br>&nbsp;&nbsp;&nbsp;&nbsp;println("Работа завершена")<br>}<br>println("Время выполнения: ${time}мс")</code>
+            </div>
+
+            <div class="tip-box">
+                <h4>💡 Inline функции</h4>
+                <p>Inline функции копируются в место вызова на этапе компиляции, что может улучшить производительность при работе с лямбда-выражениями.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔍 Функции-расширения</h2>
+            
+            <p>Kotlin позволяет добавлять новые методы к существующим классам:</p>
+            
+            <div class="code-example">
+                <code>// Расширение для String<br>fun String.isPalindrome(): Boolean {<br>&nbsp;&nbsp;&nbsp;&nbsp;val cleaned = this.lowercase().replace(" ", "")<br>&nbsp;&nbsp;&nbsp;&nbsp;return cleaned == cleaned.reversed()<br>}<br><br>// Расширение для Int<br>fun Int.isEven(): Boolean = this % 2 == 0<br><br>// Использование расширений<br>val text = "А роза упала на лапу Азора"<br>println("Это палиндром: ${text.isPalindrome()}")  // true<br><br>val number = 42<br>println("Число четное: ${number.isEven()}")  // true</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>💻 Практические примеры</h2>
+            
+            <h3>Пример 1: Математические функции</h3>
+            <div class="code-example">
+                <code>// Математические утилиты<br>fun calculate(operation: String, vararg numbers: Double): Double {<br>&nbsp;&nbsp;&nbsp;&nbsp;return when (operation) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"sum" -> numbers.sum()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"average" -> if (numbers.isNotEmpty()) numbers.average() else 0.0<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"max" -> numbers.maxOrNull() ?: 0.0<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"min" -> numbers.minOrNull() ?: 0.0<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else -> 0.0<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}<br><br>// Использование<br>println("Сумма: ${calculate("sum", 1.0, 2.5, 3.7)}")           // 7.2<br>println("Среднее: ${calculate("average", 10.0, 20.0)}")      // 15.0</code>
+            </div>
+
+            <h3>Пример 2: Валидация данных</h3>
+            <div class="code-example">
+                <code>// Функция для проверки email<br>fun String.isValidEmail(): Boolean {<br>&nbsp;&nbsp;&nbsp;&nbsp;val emailRegex = Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")<br>&nbsp;&nbsp;&nbsp;&nbsp;return emailRegex.matches(this)<br>}<br><br>// Функция для проверки телефона<br>fun String.isValidPhone(): Boolean {<br>&nbsp;&nbsp;&nbsp;&nbsp;val phoneRegex = Regex("^\\+?[1-9]\\d{1,14}$")<br>&nbsp;&nbsp;&nbsp;&nbsp;return phoneRegex.matches(this)<br>}<br><br>// Использование<br>val email = "user@example.com"<br>val phone = "+1234567890"<br><br>println("Email корректный: ${email.isValidEmail()}")     // true<br>println("Телефон корректный: ${phone.isValidPhone()}")    // true</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Заключение</h2>
+            <p>В этой лекции мы изучили:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Основы объявления и вызова функций</li>
+                <li>Параметры функций и возвращаемые значения</li>
+                <li>Параметры по умолчанию и именованные аргументы</li>
+                <li>Функции с переменным количеством параметров (vararg)</li>
+                <li>Локальные функции</li>
+                <li>Функции высшего порядка</li>
+                <li>Inline функции и функции-расширения</li>
+            </ul>
+            
+            <div class="tip-box">
+                <h4>🎯 Следующие шаги</h4>
+                <p>Функции - это основа Kotlin. В следующей лекции мы изучим классы и объекты - как создавать собственные типы данных и работать с ними.</p>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="course-kotlin.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(4)" class="nav-button" style="border: none; cursor: pointer;">✅ Отметить как изученное</button>
+            <a href="kotlin-lecture-5.html" class="nav-button">Следующая лекция →</a>
+        </div>
+        
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedKotlinLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedKotlinLectures', JSON.stringify(completedLectures));
+                    alert('Лекция отмечена как изученная! Прогресс обновлен.');
+                } else {
+                    alert('Эта лекция уже отмечена как изученная.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

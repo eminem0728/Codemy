@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 1: Введение в Kotlin - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .lecture-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .highlight {
+            background: rgba(255, 215, 0, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #ffd700;
+        }
+        .tip-box {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .tip-box h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-kotlin.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 1: Введение в Kotlin</h1>
+            <div class="lecture-meta">
+                <span>🅺 Kotlin</span>
+                <span>⏱️ 50 минут</span>
+                <span>📚 Средний</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели урока</h2>
+            <p>К концу этой лекции вы сможете:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Понять историю и философию языка Kotlin</li>
+                <li>Установить и настроить IntelliJ IDEA</li>
+                <li>Создать первый Kotlin проект</li>
+                <li>Освоить базовый синтаксис языка</li>
+                <li>Понять преимущества Kotlin над Java</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>📜 История Kotlin</h2>
+            <p>Kotlin был создан компанией <span class="highlight">JetBrains</span> в 2011 году. Назван в честь острова Котлин, расположенного рядом с Санкт-Петербургом, где находится офис JetBrains.</p>
+            
+            <h3>Ключевые даты:</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>2011</strong> - Первая версия Kotlin</li>
+                <li><strong>2016</strong> - Kotlin 1.0 - первая стабильная версия</li>
+                <li><strong>2017</strong> - Google объявил официальную поддержку Kotlin для Android</li>
+                <li><strong>2019</strong> - Kotlin стал предпочтительным языком для Android</li>
+                <li><strong>2020</strong> - Kotlin Multiplatform для кроссплатформенной разработки</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🌟 Особенности Kotlin</h2>
+            
+            <h3>100% совместимость с Java</h3>
+            <p>Kotlin полностью совместим с Java, что означает возможность постепенной миграции проектов.</p>
+
+            <h3>Null Safety</h3>
+            <p>Встроенная защита от <span class="highlight">NullPointerException</span> - одной из самых частых ошибок в Java.</p>
+
+            <h3>Conciseness</h3>
+            <p>Kotlin требует значительно меньше кода по сравнению с Java для достижения тех же результатов.</p>
+
+            <h3>Функциональное программирование</h3>
+            <p>Поддержка функциональных конструкций: лямбда-выражения, функции высшего порядка.</p>
+
+            <h3>Smart Casts</h3>
+            <p>Автоматическое приведение типов, когда компилятор может доказать безопасность операции.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>💻 Установка IntelliJ IDEA</h2>
+            
+            <h3>Скачивание и установка</h3>
+            <p>Перейдите на <span class="highlight">jetbrains.com</span> и скачайте IntelliJ IDEA Community Edition (бесплатная версия).</p>
+
+            <div class="tip-box">
+                <h4>💡 Важно!</h4>
+                <p>IntelliJ IDEA Community Edition полностью поддерживает Kotlin и идеально подходит для изучения языка.</p>
+            </div>
+
+            <h3>Создание первого проекта</h3>
+            <p>После установки IntelliJ IDEA:</p>
+            <ol style="margin-left: 20px; margin-top: 10px;">
+                <li>Откройте IntelliJ IDEA</li>
+                <li>Выберите "Create New Project"</li>
+                <li>Выберите "Kotlin" → "JVM | IDEA"</li>
+                <li>Введите имя проекта: "MyFirstKotlinProject"</li>
+                <li>Нажмите "Finish"</li>
+            </ol>
+        </div>
+
+        <div class="content-section">
+            <h2>🚀 Ваша первая программа</h2>
+            
+            <h3>Hello World на Kotlin</h3>
+            <p>Создайте новый файл <span class="highlight">Main.kt</span> и напишите:</p>
+            
+            <div class="code-example">
+                <code>fun main() {<br>&nbsp;&nbsp;&nbsp;&nbsp;println("Привет, мир!")<br>}</code>
+            </div>
+
+            <h3>Запуск программы</h3>
+            <p>Нажмите зеленую стрелку рядом с функцией main или используйте Ctrl+Shift+F10.</p>
+
+            <div class="tip-box">
+                <h4>💡 Функция println()</h4>
+                <p>Функция <code>println()</code> выводит текст на экран и переходит на новую строку. Есть также <code>print()</code> без перевода строки.</p>
+            </div>
+
+            <h3>Более интересный пример</h3>
+            <p>Попробуйте создать интерактивную программу:</p>
+            
+            <div class="code-example">
+                <code>fun main() {<br>&nbsp;&nbsp;&nbsp;&nbsp;println("Как вас зовут?")<br>&nbsp;&nbsp;&nbsp;&nbsp;val name = readLine()<br>&nbsp;&nbsp;&nbsp;&nbsp;println("Привет, $name!")<br>}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Основы синтаксиса</h2>
+            
+            <h3>Функции</h3>
+            <p>В Kotlin функции объявляются с помощью ключевого слова <code>fun</code>:</p>
+            
+            <div class="code-example">
+                <code>fun greet(name: String): String {<br>&nbsp;&nbsp;&nbsp;&nbsp;return "Привет, $name!"<br>}<br><br>fun main() {<br>&nbsp;&nbsp;&nbsp;&nbsp;println(greet("Алексей"))<br>}</code>
+            </div>
+
+            <h3>Переменные</h3>
+            <p>Kotlin различает изменяемые и неизменяемые переменные:</p>
+            
+            <div class="code-example">
+                <code>val immutable = "Нельзя изменить"  // неизменяемая<br>var mutable = "Можно изменить"   // изменяемая</code>
+            </div>
+
+            <h3>Типы данных</h3>
+            <p>Kotlin автоматически определяет тип переменной:</p>
+            
+            <div class="code-example">
+                <code>val age = 25           // Int<br>val name = "Алексей"   // String<br>val price = 19.99       // Double<br>val isStudent = true     // Boolean</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Заключение</h2>
+            <p>В этой лекции мы изучили основы Kotlin:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Поняли историю и особенности языка</li>
+                <li>Установили IntelliJ IDEA</li>
+                <li>Создали первый Kotlin проект</li>
+                <li>Написали первые программы</li>
+                <li>Изучили базовый синтаксис</li>
+            </ul>
+            
+            <div class="tip-box">
+                <h4>🎯 Следующие шаги</h4>
+                <p>Теперь вы готовы изучить основы синтаксиса Kotlin более подробно. В следующей лекции мы рассмотрим типы данных, переменные и основные операторы.</p>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="course-kotlin.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(1)" class="nav-button" style="border: none; cursor: pointer;">✅ Отметить как изученное</button>
+            <a href="placeholder.html" class="nav-button">Следующая лекция →</a>
+        </div>
+        
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedKotlinLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedKotlinLectures', JSON.stringify(completedLectures));
+                    alert('Лекция отмечена как изученная! Прогресс обновлен.');
+                } else {
+                    alert('Эта лекция уже отмечена как изученная.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

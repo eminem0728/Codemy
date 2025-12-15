@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 3: Типы данных и переменные - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .lecture-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .highlight {
+            background: rgba(255, 215, 0, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #ffd700;
+        }
+        .tip-box {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .tip-box h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .warning-box {
+            background: rgba(255, 165, 0, 0.1);
+            border: 1px solid rgba(255, 165, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .warning-box h4 {
+            color: #ffa726;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-kotlin.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 3: Типы данных и переменные</h1>
+            <div class="lecture-meta">
+                <span>🅺 Kotlin</span>
+                <span>⏱️ 60 минут</span>
+                <span>📚 Средний</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели урока</h2>
+            <p>К концу этой лекции вы сможете:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Понимать основные типы данных в Kotlin</li>
+                <li>Различать изменяемые и неизменяемые переменные</li>
+                <li>Работать с различными числовыми типами</li>
+                <li>Использовать строки и символы</li>
+                <li>Понимать вывод типов (type inference)</li>
+                <li>Работать с константами</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>📝 Переменные в Kotlin</h2>
+            
+            <h3>Ключевые слова var и val</h3>
+            <p>Kotlin различает два типа переменных:</p>
+            
+            <div class="code-example">
+                <code>// val (value) - неизменяемая переменная (как final в Java)<br>val name = "Алексей"<br>// name = "Мария"  // Ошибка компиляции!<br><br>// var (variable) - изменяемая переменная<br>var age = 25<br>age = 26  // OK</code>
+            </div>
+
+            <div class="tip-box">
+                <h4>💡 Рекомендация</h4>
+                <p>По умолчанию используйте <code>val</code> для всех переменных. Переходите на <code>var</code> только если нужно изменить значение.</p>
+            </div>
+
+            <h3>Явное указание типа</h3>
+            <p>Можно явно указать тип переменной:</p>
+            
+            <div class="code-example">
+                <code>val name: String = "Алексей"<br>var age: Int = 25<br>var price: Double = 19.99<br>var isStudent: Boolean = true</code>
+            </div>
+
+            <h3>Отложенная инициализация</h3>
+            <p>Иногда нужно отложить инициализацию:</p>
+            
+            <div class="code-example">
+                <code>// lateinit только для var и не-примитивных типов<br>lateinit var userName: String<br><br>// lazy для отложенной инициализации val<br>val message: String by lazy {<br>&nbsp;&nbsp;&nbsp;&nbsp;"Привет, мир!"<br>}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔢 Числовые типы данных</h2>
+            
+            <h3>Целочисленные типы</h3>
+            <div class="code-example">
+                <code>// Размеры и диапазоны<br>val byteVal: Byte = 127        // 8 бит: -128 до 127<br>val shortVal: Short = 32767    // 16 бит: -32768 до 32767<br>val intVal: Int = 2147483647   // 32 бит: -2³¹ до 2³¹-1<br>val longVal: Long = 9223372036854775807L  // 64 бит<br><br>// Тип по умолчанию для целых чисел - Int<br>val number = 42  // это Int</code>
+            </div>
+
+            <h3>Числа с плавающей точкой</h3>
+            <div class="code-example">
+                <code>// Типы с плавающей точкой<br>val floatVal: Float = 3.14f     // 32 бит (нужна f-суффикс)<br>val doubleVal: Double = 3.14159  // 64 бит<br><br>// Тип по умолчанию для дробных чисел - Double<br>val pi = 3.14159  // это Double</code>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ Важно</h4>
+                <p>Для <code>Float</code> обязательно добавляйте суффикс <code>f</code> или <code>F</code>. Без него число будет считаться <code>Double</code>.</p>
+            </div>
+
+            <h3>Преобразование типов</h3>
+            <p>Kotlin не выполняет автоматическое преобразование типов:</p>
+            
+            <div class="code-example">
+                <code>val intNumber = 100<br>val longNumber = intNumber.toLong()  // Явное преобразование<br><br>// Доступные методы преобразования<br>val stringNum = "42"<br>val parsedInt = stringNum.toInt()<br>val parsedDouble = stringNum.toDouble()<br>val parsedLong = stringNum.toLong()</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📜 Строки и символы</h2>
+            
+            <h3>Строки (String)</h3>
+            <p>Строки в Kotlin неизменяемы:</p>
+            
+            <div class="code-example">
+                <code>// Создание строк<br>val singleLine = "Это однострочная строка"<br>val multiLine = """<br>&nbsp;&nbsp;&nbsp;&nbsp;Это многострочная<br>&nbsp;&nbsp;&nbsp;&nbsp;строка<br>"""<br><br>// Экранирование<br>val escaped = "Он сказал: \"Привет!\""</code>
+            </div>
+
+            <h3>Интерполяция строк</h3>
+            <p>Kotlin поддерживает интерполяцию строк:</p>
+            
+            <div class="code-example">
+                <code>val name = "Алексей"<br>val age = 25<br><br>// Простая интерполяция<br>val greeting = "Привет, $name!"<br><br>// С выражениями<br>val message = "Через год $name будет ${age + 1} лет"<br><br>// Длинные выражения<br>val fullInfo = """<br>&nbsp;&nbsp;&nbsp;&nbsp;Имя: $name<br>&nbsp;&nbsp;&nbsp;&nbsp;Возраст: $age<br>&nbsp;&nbsp;&nbsp;&nbsp;Категория: ${if (age >= 18) "Взрослый" else "Ребенок"}<br>"""</code>
+            </div>
+
+            <h3>Методы работы со строками</h3>
+            <div class="code-example">
+                <code>val text = "Hello, World!"<br><br>// Длина строки<br>val length = text.length  // 13<br><br>// Доступ к символам<br>val firstChar = text[0]  // 'H'<br>val lastChar = text.last()  // '!'<br><br>// Проверки<br>val isEmpty = text.isEmpty()  // false<br>val isBlank = text.isBlank()  // false<br><br>// Поиск<br>val containsWorld = text.contains("World")  // true<br>val startsWithHello = text.startsWith("Hello")  // true<br>val endsWithExclamation = text.endsWith("!")  // true</code>
+            </div>
+
+            <h3>Символы (Char)</h3>
+            <div class="code-example">
+                <code>val letter = 'A'<br>val digit = '5'<br>val symbol = '@'<br><br>// Проверки символов<br>val isLetter = letter.isLetter()  // true<br>val isDigit = digit.isDigit()  // true<br>val isWhitespace = ' '.isWhitespace()  // true<br><br>// Преобразования<br>val upperCase = letter.uppercaseChar()  // 'A'<br>val lowerCase = letter.lowercaseChar()  // 'a'</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔤 Логический тип</h2>
+            
+            <p>Boolean может принимать значения <code>true</code> или <code>false</code>:</p>
+            
+            <div class="code-example">
+                <code>val isKotlinFun = true<br>val isJavaDifficult = false<br><br>// Логические операции<br>val result1 = true && false  // false (И)<br>val result2 = true || false  // true (ИЛИ)<br>val result3 = !true          // false (НЕ)<br><br>// Операции сравнения<br>val x = 10<br>val isPositive = x > 0  // true<br>val isEven = x % 2 == 0     // true<br>val inRange = x in 1..20    // true</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📊 Массивы</h2>
+            
+            <h3>Создание массивов</h3>
+            <div class="code-example">
+                <code>// Массив целых чисел<br>val numbers = arrayOf(1, 2, 3, 4, 5)<br><br>// Массив строк<br>val names = arrayOf("Алексей", "Мария", "Иван")<br><br>// С указанием типа<br>val doubles = doubleArrayOf(1.1, 2.2, 3.3)<br>val chars = charArrayOf('a', 'b', 'c')<br><br>// Массив с размером<br>val zeros = IntArray(5)  // [0, 0, 0, 0, 0]</code>
+            </div>
+
+            <h3>Работа с массивами</h3>
+            <div class="code-example">
+                <code>val fruits = arrayOf("Яблоко", "Банан", "Апельсин")<br><br>// Доступ к элементам<br>val firstFruit = fruits[0]  // "Яблоко"<br>val lastFruit = fruits.last()  // "Апельсин"<br><br>// Изменение элементов<br>fruits[1] = "Груша"  // Теперь fruits = ["Яблоко", "Груша", "Апельсин"]<br><br>// Размер массива<br>val size = fruits.size  // 3<br><br>// Итерация по массиву<br>for (fruit in fruits) {<br>&nbsp;&nbsp;&nbsp;&nbsp;println(fruit)<br>}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔒 Константы</h2>
+            
+            <p>Для констант используйте ключевое слово <code>const</code>:</p>
+            
+            <div class="code-example">
+                <code>// Константы времени компиляции (const val)<br>const val PI = 3.14159<br>const val MAX_USERS = 1000<br>const val APP_VERSION = "1.0.0"<br><br>// Обычные неизменяемые переменные (val)<br>val userCount = 42<br>val currentTime = System.currentTimeMillis()<br><br>// Константы можно использовать в аннотациях и качестве аргументов по умолчанию</code>
+            </div>
+
+            <div class="tip-box">
+                <h4>💡 const vs val</h4>
+                <p><code>const val</code> - для значений, известных во время компиляции. <code>val</code> - для значений, вычисляемых во время выполнения.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔍 Вывод типов (Type Inference)</h2>
+            
+            <p>Kotlin автоматически определяет тип переменной:</p>
+            
+            <div class="code-example">
+                <code>// Типы определяются автоматически<br>val name = "Алексей"          // String<br>val age = 25                  // Int<br>val price = 19.99             // Double<br>val isStudent = true           // Boolean<br>val letters = listOf('a', 'b') // List<Char><br><br>// Явное указание типов (иногда необходимо)<br>val emptyList: List<String> = emptyList()<br>val nullableString: String? = null</code>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ Когда нужно указывать типы явно</h4>
+                <p>Иногда компилятор не может вывести тип, особенно с дженериками или nullable типами. В таких случаях указывайте тип явно.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>💻 Практические примеры</h2>
+            
+            <h3>Пример 1: Работа с различными типами</h3>
+            <div class="code-example">
+                <code>fun main() {<br>&nbsp;&nbsp;&nbsp;&nbsp;// Строки и интерполяция<br>&nbsp;&nbsp;&nbsp;&nbsp;val userName = "Анна"<br>&nbsp;&nbsp;&nbsp;&nbsp;val userAge = 22<br>&nbsp;&nbsp;&nbsp;&nbsp;val greeting = "Привет, $userName! Тебе $userAge лет."<br>&nbsp;&nbsp;&nbsp;&nbsp;println(greeting)<br><br>&nbsp;&nbsp;&nbsp;&nbsp;// Массивы<br>&nbsp;&nbsp;&nbsp;&nbsp;val scores = intArrayOf(85, 90, 78, 92, 88)<br>&nbsp;&nbsp;&nbsp;&nbsp;println("Количество оценок: ${scores.size}")<br>&nbsp;&nbsp;&nbsp;&nbsp;println("Средняя оценка: ${scores.average()}")<br><br>&nbsp;&nbsp;&nbsp;&nbsp;// Логические операции<br>&nbsp;&nbsp;&nbsp;&nbsp;val hasGoodGrades = scores.all { it >= 80 }<br>&nbsp;&nbsp;&nbsp;&nbsp;println("Все оценки хорошие: $hasGoodGrades")<br>}</code>
+            </div>
+
+            <h3>Пример 2: Конвертер валют</h3>
+            <div class="code-example">
+                <code>fun main() {<br>&nbsp;&nbsp;&nbsp;&nbsp;const val USD_TO_RUB = 75.0<br>&nbsp;&nbsp;&nbsp;&nbsp;const val EUR_TO_RUB = 85.0<br><br>&nbsp;&nbsp;&nbsp;&nbsp;print("Введите сумму в долларах: ")<br>&nbsp;&nbsp;&nbsp;&nbsp;val usdAmount = readLine()?.toDoubleOrNull() ?: 0.0<br><br>&nbsp;&nbsp;&nbsp;&nbsp;if (usdAmount > 0) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;val rubAmount = usdAmount * USD_TO_RUB<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;println("$usdAmount USD = $rubAmount RUB")<br>&nbsp;&nbsp;&nbsp;&nbsp;} else {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;println("Неверная сумма")<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Заключение</h2>
+            <p>В этой лекции мы изучили:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Изменяемые (<code>var</code>) и неизменяемые (<code>val</code>) переменные</li>
+                <li>Числовые типы: <code>Byte</code>, <code>Short</code>, <code>Int</code>, <code>Long</code>, <code>Float</code>, <code>Double</code></li>
+                <li>Строки и символы с интерполяцией</li>
+                <li>Логический тип <code>Boolean</code></li>
+                <li>Массивы и работа с ними</li>
+                <li>Константы и вывод типов</li>
+            </ul>
+            
+            <div class="tip-box">
+                <h4>🎯 Следующие шаги</h4>
+                <p>Теперь вы понимаете основы типов данных Kotlin. В следующей лекции мы изучим функции - как их объявлять, использовать параметры и возвращаемые значения.</p>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="course-kotlin.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(3)" class="nav-button" style="border: none; cursor: pointer;">✅ Отметить как изученное</button>
+            <a href="kotlin-lecture-4.html" class="nav-button">Следующая лекция →</a>
+        </div>
+        
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedKotlinLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedKotlinLectures', JSON.stringify(completedLectures));
+                    alert('Лекция отмечена как изученная! Прогресс обновлен.');
+                } else {
+                    alert('Эта лекция уже отмечена как изученная.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 3: Управляющие конструкции - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .lecture-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .highlight-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .highlight-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .key-points {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .key-points h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-cpp.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 3: Управляющие конструкции</h1>
+            <div class="lecture-meta">
+                <span>⚡ C++</span>
+                <span>⏱️ 50 минут</span>
+                <span>🎯 Средний</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели лекции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Изучить условные операторы if-else</li>
+                <li>Освоить циклы for, while, do-while</li>
+                <li>Понять операторы break и continue</li>
+                <li>Изучить switch-case конструкцию</li>
+                <li>Научиться использовать тернарный оператор</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🔀 Условные операторы</h2>
+
+            <h3>Оператор if</h3>
+            <div class="code-example">
+                <code>#include <iostream>
+
+int main() {
+    int age = 18;
+
+    if (age >= 18) {
+        std::cout << "Вы совершеннолетний" << std::endl;
+    }
+
+    return 0;
+}</code>
+            </div>
+
+            <h3>Оператор if-else</h3>
+            <div class="code-example">
+                <code>if (age >= 18) {
+    std::cout << "Доступ разрешен" << std::endl;
+} else {
+    std::cout << "Доступ запрещен" << std::endl;
+}</code>
+            </div>
+
+            <h3>Оператор if-else if</h3>
+            <div class="code-example">
+                <code>int score = 85;
+
+if (score >= 90) {
+    std::cout << "Отлично!" << std::endl;
+} else if (score >= 75) {
+    std::cout << "Хорошо" << std::endl;
+} else if (score >= 60) {
+    std::cout << "Удовлетворительно" << std::endl;
+} else {
+    std::cout << "Неудовлетворительно" << std::endl;
+}</code>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h4>💡 Тернарный оператор</h4>
+            <div class="code-example">
+                <code>// Синтаксис: условие ? значение_если_true : значение_если_false
+
+int a = 10, b = 20;
+int max = (a > b) ? a : b;  // max = 20
+
+std::string result = (score >= 60) ? "Прошел" : "Не прошел";
+
+std::cout << "Результат: " << result << std::endl;</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔄 Циклы</h2>
+
+            <h3>Цикл for</h3>
+            <div class="code-example">
+                <code>// Вывод чисел от 1 до 5
+for (int i = 1; i <= 5; i++) {
+    std::cout << i << " ";
+}
+std::cout << std::endl;
+
+// Вывод четных чисел от 2 до 10
+for (int i = 2; i <= 10; i += 2) {
+    std::cout << i << " ";
+}</code>
+            </div>
+
+            <h3>Цикл while</h3>
+            <div class="code-example">
+                <code>int counter = 1;
+
+while (counter <= 5) {
+    std::cout << "Итерация " << counter << std::endl;
+    counter++;
+}
+
+// Цикл с условием
+int number;
+std::cout << "Введите число (0 для выхода): ";
+std::cin >> number;
+
+while (number != 0) {
+    std::cout << "Вы ввели: " << number << std::endl;
+    std::cout << "Введите число (0 для выхода): ";
+    std::cin >> number;
+}</code>
+            </div>
+
+            <h3>Цикл do-while</h3>
+            <div class="code-example">
+                <code>int choice;
+
+do {
+    std::cout << "Меню:" << std::endl;
+    std::cout << "1. Новая игра" << std::endl;
+    std::cout << "2. Загрузить игру" << std::endl;
+    std::cout << "3. Выход" << std::endl;
+    std::cout << "Выберите опцию: ";
+    std::cin >> choice;
+
+    switch (choice) {
+        case 1:
+            std::cout << "Начинаем новую игру!" << std::endl;
+            break;
+        case 2:
+            std::cout << "Загружаем игру..." << std::endl;
+            break;
+        case 3:
+            std::cout << "До свидания!" << std::endl;
+            break;
+        default:
+            std::cout << "Неверный выбор!" << std::endl;
+    }
+} while (choice != 3);</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎛️ Операторы break и continue</h2>
+
+            <h3>Оператор break</h3>
+            <div class="code-example">
+                <code>// Прерывание цикла при определенном условии
+for (int i = 1; i <= 10; i++) {
+    if (i == 7) {
+        std::cout << "Нашли число 7, прерываем цикл" << std::endl;
+        break;  // Выход из цикла
+    }
+    std::cout << i << " ";
+}
+
+// Поиск в массиве
+int numbers[] = {1, 3, 5, 7, 9, 2, 4, 6, 8, 10};
+int target = 7;
+bool found = false;
+
+for (int num : numbers) {
+    if (num == target) {
+        found = true;
+        break;
+    }
+}
+
+if (found) {
+    std::cout << "Число найдено!" << std::endl;
+}</code>
+            </div>
+
+            <h3>Оператор continue</h3>
+            <div class="code-example">
+                <code>// Пропуск четных чисел
+for (int i = 1; i <= 10; i++) {
+    if (i % 2 == 0) {
+        continue;  // Пропускаем четные числа
+    }
+    std::cout << i << " ";  // Выведет: 1 3 5 7 9
+}
+
+// Фильтрация данных
+std::string words[] = {"hello", "", "world", "", "c++", ""};
+
+for (const std::string& word : words) {
+    if (word.empty()) {
+        continue;  // Пропускаем пустые строки
+    }
+    std::cout << word << " ";
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔀 Конструкция switch-case</h2>
+
+            <div class="code-example">
+                <code>int dayOfWeek = 3;
+std::string dayName;
+
+switch (dayOfWeek) {
+    case 1:
+        dayName = "Понедельник";
+        break;
+    case 2:
+        dayName = "Вторник";
+        break;
+    case 3:
+        dayName = "Среда";
+        break;
+    case 4:
+        dayName = "Четверг";
+        break;
+    case 5:
+        dayName = "Пятница";
+        break;
+    case 6:
+        dayName = "Суббота";
+        break;
+    case 7:
+        dayName = "Воскресенье";
+        break;
+    default:
+        dayName = "Неверный день";
+        break;
+}
+
+std::cout << "День недели: " << dayName << std::endl;</code>
+            </div>
+
+            <h3>Switch с группировкой case</h3>
+            <div class="code-example">
+                <code>char grade = 'B';
+
+switch (grade) {
+    case 'A':
+    case 'B':
+    case 'C':
+        std::cout << "Прошел курс" << std::endl;
+        break;
+    case 'D':
+    case 'F':
+        std::cout << "Не прошел курс" << std::endl;
+        break;
+    default:
+        std::cout << "Неверная оценка" << std::endl;
+}</code>
+            </div>
+        </div>
+
+        <div class="key-points">
+            <h4>🔑 Ключевые понятия</h4>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>if-else:</strong> Условное выполнение кода</li>
+                <li><strong>for:</strong> Цикл с известным количеством итераций</li>
+                <li><strong>while:</strong> Цикл с условием в начале</li>
+                <li><strong>do-while:</strong> Цикл с условием в конце</li>
+                <li><strong>break:</strong> Прерывание выполнения цикла</li>
+                <li><strong>continue:</strong> Пропуск текущей итерации</li>
+                <li><strong>switch-case:</strong> Множественный выбор</li>
+                <li><strong>Тернарный оператор:</strong> Условное присваивание в одну строку</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Заключение</h2>
+            <p>В этой лекции мы изучили:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Условные операторы if-else и тернарный оператор</li>
+                <li>Все виды циклов: for, while, do-while</li>
+                <li>Операторы break и continue для управления циклами</li>
+                <li>Конструкцию switch-case для множественного выбора</li>
+                <li>Примеры практического применения управляющих конструкций</li>
+            </ul>
+
+            <p style="margin-top: 20px; font-weight: bold;">В следующей лекции мы изучим функции в C++!</p>
+        </div>
+
+        <div class="navigation">
+            <a href="course-cpp.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(3)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить лекцию</button>
+            <a href="cpp-lecture-4.html" class="nav-button">Следующая лекция →</a>
+        </div>
+
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedCPPLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedCPPLectures', JSON.stringify(completedLectures));
+                    alert('Лекция завершена! Отличная работа! 🎉');
+                } else {
+                    alert('Эта лекция уже отмечена как завершенная.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

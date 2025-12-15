@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 8: Перегрузка операторов - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .assignment-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .task-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .task-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .solution-box {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .solution-box h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-cpp.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 8: Перегрузка операторов</h1>
+            <div class="assignment-meta">
+                <span>⚡ C++</span>
+                <span>⏱️ 65 минут</span>
+                <span>📝 Продвинутый</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Описание задания</h2>
+            <p>Создайте классы с перегруженными операторами, демонстрирующие различные виды перегрузки операторов в C++.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели задания</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Освоить перегрузку арифметических операторов</li>
+                <li>Применить перегрузку операторов сравнения</li>
+                <li>Реализовать операторы ввода-вывода</li>
+                <li>Создать оператор индексации</li>
+                <li>Демонстрировать правильное использование friend функций</li>
+            </ul>
+        </div>
+
+        <div class="task-box">
+            <h4>📝 Задача</h4>
+            <p>Создайте программу OperatorOverloadDemo, которая:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Реализует класс комплексных чисел с перегруженными операторами</li>
+                <li>Создает класс матрицы с операторами</li>
+                <li>Демонстрирует операторы ввода-вывода</li>
+                <li>Включает оператор индексации для безопасного доступа</li>
+                <li>Показывает все виды перегрузки операторов</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Критерии оценки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Арифметические операторы (25%):</strong> +, -, *, /, += и т.д.</li>
+                <li><strong>Операторы сравнения (20%):</strong> ==, !=, <, >, <=, >=</li>
+                <li><strong>Ввод/вывод (20%):</strong> << и >></li>
+                <li><strong>Индексация (15%):</strong> [] с проверкой границ</li>
+                <li><strong>Другие операторы (20%):</strong> ++, --, =, () и т.д.</li>
+            </ul>
+        </div>
+
+        <div class="solution-box">
+            <h4>💡 Пример решения</h4>
+            <p>Нажмите кнопку ниже, чтобы посмотреть пример решения:</p>
+            <button onclick="toggleSolution()" class="nav-button" style="margin-top: 15px;">
+                Показать решение
+            </button>
+
+            <div id="solution" style="display: none; margin-top: 20px;">
+                <div class="code-example">
+                    <code>/**
+ * Демонстрация перегрузки операторов в C++
+ * Автор: Студент CodeLearn
+ * Дата: 08.12.2024
+ */
+
+#include <iostream>
+#include <cmath>
+
+// Класс комплексных чисел
+class Complex {
+private:
+    double real;
+    double imag;
+
+public:
+    Complex(double r = 0, double i = 0) : real(r), imag(i) {}
+
+    // Перегрузка оператора +
+    Complex operator+(const Complex& other) const {
+        return Complex(real + other.real, imag + other.imag);
+    }
+
+    // Перегрузка оператора -
+    Complex operator-(const Complex& other) const {
+        return Complex(real - other.real, imag - other.imag);
+    }
+
+    // Перегрузка оператора *
+    Complex operator*(const Complex& other) const {
+        return Complex(real * other.real - imag * other.imag,
+                      real * other.imag + imag * other.real);
+    }
+
+    // Перегрузка оператора +=
+    Complex& operator+=(const Complex& other) {
+        real += other.real;
+        imag += other.imag;
+        return *this;
+    }
+
+    // Перегрузка оператора ==
+    bool operator==(const Complex& other) const {
+        return std::abs(real - other.real) < 1e-10 &&
+               std::abs(imag - other.imag) < 1e-10;
+    }
+
+    // Перегрузка оператора !=
+    bool operator!=(const Complex& other) const {
+        return !(*this == other);
+    }
+
+    // Дружественная функция для оператора <<
+    friend std::ostream& operator<<(std::ostream& os, const Complex& c) {
+        os << c.real;
+        if (c.imag >= 0) os << " + ";
+        else os << " - ";
+        os << std::abs(c.imag) << "i";
+        return os;
+    }
+
+    // Дружественная функция для оператора >>
+    friend std::istream& operator>>(std::istream& is, Complex& c) {
+        std::cout << "Введите действительную часть: ";
+        is >> c.real;
+        std::cout << "Введите мнимую часть: ";
+        is >> c.imag;
+        return is;
+    }
+
+    double getReal() const { return real; }
+    double getImag() const { return imag; }
+    double getMagnitude() const { return std::sqrt(real * real + imag * imag); }
+};
+
+// Класс безопасного массива
+class SafeArray {
+private:
+    int* data;
+    int size;
+
+public:
+    SafeArray(int s) : size(s) {
+        if (s <= 0) throw std::invalid_argument("Размер должен быть положительным");
+        data = new int[size];
+        for (int i = 0; i < size; i++) {
+            data[i] = 0;
+        }
+    }
+
+    ~SafeArray() {
+        delete[] data;
+    }
+
+    // Перегрузка оператора []
+    int& operator[](int index) {
+        if (index < 0 || index >= size) {
+            throw std::out_of_range("Индекс вне диапазона");
+        }
+        return data[index];
+    }
+
+    // Константная версия для чтения
+    const int& operator[](int index) const {
+        if (index < 0 || index >= size) {
+            throw std::out_of_range("Индекс вне диапазона");
+        }
+        return data[index];
+    }
+
+    // Перегрузка оператора =
+    SafeArray& operator=(const SafeArray& other) {
+        if (this != &other) {
+            if (size != other.size) {
+                delete[] data;
+                size = other.size;
+                data = new int[size];
+            }
+            for (int i = 0; i < size; i++) {
+                data[i] = other.data[i];
+            }
+        }
+        return *this;
+    }
+
+    int getSize() const { return size; }
+
+    // Перегрузка оператора <<
+    friend std::ostream& operator<<(std::ostream& os, const SafeArray& arr) {
+        os << "[";
+        for (int i = 0; i < arr.size; i++) {
+            os << arr.data[i];
+            if (i < arr.size - 1) os << ", ";
+        }
+        os << "]";
+        return os;
+    }
+};
+
+// Класс счетчика с перегрузкой ++ и --
+class Counter {
+private:
+    int value;
+
+public:
+    Counter(int v = 0) : value(v) {}
+
+    // Префиксный инкремент
+    Counter& operator++() {
+        ++value;
+        return *this;
+    }
+
+    // Постфиксный инкремент
+    Counter operator++(int) {
+        Counter temp = *this;
+        ++value;
+        return temp;
+    }
+
+    // Префиксный декремент
+    Counter& operator--() {
+        --value;
+        return *this;
+    }
+
+    // Постфиксный декремент
+    Counter operator--(int) {
+        Counter temp = *this;
+        --value;
+        return temp;
+    }
+
+    // Перегрузка оператора ()
+    void operator()(int newValue) {
+        value = newValue;
+    }
+
+    int getValue() const { return value; }
+
+    // Перегрузка оператора <<
+    friend std::ostream& operator<<(std::ostream& os, const Counter& c) {
+        os << "Counter: " << c.value;
+        return os;
+    }
+};
+
+int main() {
+    std::cout << "=== ДЕМОНСТРАЦИЯ ПЕРЕГРУЗКИ ОПЕРАТОРОВ ===\n\n";
+
+    // Работа с комплексными числами
+    std::cout << "=== КОМПЛЕКСНЫЕ ЧИСЛА ===\n";
+    Complex c1(3, 4);
+    Complex c2(1, 2);
+
+    std::cout << "c1 = " << c1 << std::endl;
+    std::cout << "c2 = " << c2 << std::endl;
+    std::cout << "c1 + c2 = " << (c1 + c2) << std::endl;
+    std::cout << "c1 * c2 = " << (c1 * c2) << std::endl;
+
+    Complex c3 = c1;
+    c3 += c2;
+    std::cout << "c1 += c2: " << c3 << std::endl;
+    std::cout << "c1 == c2: " << (c1 == c2) << std::endl;
+
+    // Ввод комплексного числа
+    Complex c4;
+    std::cin >> c4;
+    std::cout << "Введенное число: " << c4 << std::endl;
+    std::cout << "Модуль: " << c4.getMagnitude() << std::endl;
+
+    // Работа с безопасным массивом
+    std::cout << "\n=== БЕЗОПАСНЫЙ МАССИВ ===\n";
+    try {
+        SafeArray arr(5);
+
+        // Заполнение массива
+        for (int i = 0; i < arr.getSize(); i++) {
+            arr[i] = (i + 1) * 10;
+        }
+
+        std::cout << "Массив: " << arr << std::endl;
+
+        // Попытка доступа вне границ
+        std::cout << "arr[2] = " << arr[2] << std::endl;
+        // std::cout << arr[10] << std::endl; // Это вызовет исключение
+
+    } catch (const std::exception& e) {
+        std::cout << "Ошибка: " << e.what() << std::endl;
+    }
+
+    // Работа со счетчиком
+    std::cout << "\n=== СЧЕТЧИК ===\n";
+    Counter counter(5);
+    std::cout << counter << std::endl;
+
+    ++counter;
+    std::cout << "После ++counter: " << counter << std::endl;
+
+    Counter oldValue = counter++;
+    std::cout << "После counter++: " << counter << " (старое значение: " << oldValue << ")" << std::endl;
+
+    --counter;
+    std::cout << "После --counter: " << counter << std::endl;
+
+    counter(100);  // Использование оператора ()
+    std::cout << "После counter(100): " << counter << std::endl;
+
+    std::cout << "\n=== ПРОГРАММА ЗАВЕРШЕНА ===" << std::endl;
+
+    return 0;
+}</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="course-cpp.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(8)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить задание</button>
+            <a href="cpp-assignment-9.html" class="nav-button">Следующее задание →</a>
+        </div>
+
+        <script>
+            function toggleSolution() {
+                const solution = document.getElementById('solution');
+                const button = event.target;
+
+                if (solution.style.display === 'none') {
+                    solution.style.display = 'block';
+                    button.textContent = 'Скрыть решение';
+                } else {
+                    solution.style.display = 'none';
+                    button.textContent = 'Показать решение';
+                }
+            }
+
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedCPPAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedCPPAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание завершено! Отличная работа! 🎉');
+                } else {
+                    alert('Это задание уже отмечено как завершенное.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

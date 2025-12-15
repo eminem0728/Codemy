@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 3: Управляющие конструкции - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .assignment-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .task-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .task-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .solution-box {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .solution-box h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-java.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 3: Управляющие конструкции</h1>
+            <div class="assignment-meta">
+                <span>☕ Java</span>
+                <span>⏱️ 60 минут</span>
+                <span>📝 Начальное</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Описание задания</h2>
+            <p>Создайте интерактивную игру "Угадай число" с использованием управляющих конструкций Java: условных операторов, циклов и обработки пользовательского ввода.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели задания</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Применить условные операторы if-else</li>
+                <li>Использовать циклы для повторения действий</li>
+                <li>Работать с вводом пользователя через Scanner</li>
+                <li>Реализовать логику игры с подсказками</li>
+                <li>Добавить обработку ошибок и валидацию ввода</li>
+            </ul>
+        </div>
+
+        <div class="task-box">
+            <h4>📝 Задача</h4>
+            <p>Создайте класс NumberGuessingGame, который:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Генерирует случайное число от 1 до 100</li>
+                <li>Предоставляет игроку 7 попыток для</li>
+                угадывания <li>Дает подсказки ("больше" или "меньше")</li>
+                <li>Подсчитывает количество попыток</li>
+                <li>Позволяет играть несколько раундов подряд</li>
+                <li>Показывает статистику игры</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>💡 Подсказки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Используйте Math.random() для генерации случайного числа</li>
+                <li>Примените цикл while для основного игрового процесса</li>
+                <li>Используйте do-while для валидации пользовательского ввода</li>
+                <li>Добавьте switch для различных уровней сложности</li>
+                <li>Реализуйте break и continue для управления циклами</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Структура решения</h2>
+            
+            <h3>1. Создайте основной класс игры</h3>
+            <div class="code-example">
+                <code>public class NumberGuessingGame {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        do {
+            playRound(scanner);
+        } while (shouldPlayAgain(scanner));
+        
+        scanner.close();
+    }
+}</code>
+            </div>
+
+            <h3>2. Реализуйте методы игры</h3>
+            <div class="code-example">
+                <code>public static void playRound(Scanner scanner) {
+    int secretNumber = generateSecretNumber();
+    int attempts = 0;
+    int maxAttempts = 7;
+    
+    System.out.println("Я загадал число от 1 до 100.");
+    
+    while (attempts < maxAttempts) {
+        // Получение числа от пользователя
+        int guess = getUserGuess(scanner);
+        attempts++;
+        
+        // Проверка угадал ли
+        if (guess == secretNumber) {
+            // Угадал!
+            break;
+        }
+        
+        // Подсказка
+        giveHint(guess, secretNumber);
+    }
+}</code>
+            </div>
+
+            <h3>3. Добавьте вспомогательные методы</h3>
+            <div class="code-example">
+                <code>public static int generateSecretNumber() {
+    return (int) (Math.random() * 100) + 1;
+}
+
+public static int getUserGuess(Scanner scanner) {
+    // Валидация ввода
+}
+
+public static void giveHint(int guess, int secretNumber) {
+    if (guess < secretNumber) {
+        System.out.println("Загаданное число БОЛЬШЕ " + guess);
+    } else {
+        System.out.println("Загаданное число МЕНЬШЕ " + guess);
+    }
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📊 Пример выполнения</h2>
+            <div class="code-example">
+                <code>=== ИГРА УГАДАЙ ЧИСЛО ===
+
+Я загадал число от 1 до 100.
+У вас есть 7 попыток.
+
+Введите ваше число: 50
+Загаданное число МЕНЬШЕ 50
+Попытка 1 из 7. Осталось попыток: 6
+---
+
+Введите ваше число: 25
+Загаданное число БОЛЬШЕ 25
+Попытка 2 из 7. Осталось попыток: 5
+---
+
+Введите ваше число: 37
+🎉 ПОЗДРАВЛЯЕМ! Вы угадали с 3 попытки!
+
+Хотите сыграть еще раз? (да/нет): да
+
+=== НОВЫЙ РАУНД ===
+
+Я загадал число от 1 до 100.
+У вас есть 7 попыток.
+
+...
+
+Игра окончена. До свидания!</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔧 Дополнительные возможности</h2>
+            <p>Расширьте игру:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Добавьте разные уровни сложности (легкий, средний, сложный)</li>
+                <li>Реализуйте систему очков и достижений</li>
+                <li>Добавьте статистику игр (лучший результат, среднее количество попыток)</li>
+                <li>Создайте подсказки диапазона ("между 30 и 50")</li>
+                <li>Добавьте звуковые сигналы или ASCII-арт</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Критерии оценки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Основная функциональность (40%):</strong> Игра работает корректно</li>
+                <li><strong>Управляющие конструкции (30%):</strong> Правильное использование if-else, while, do-while</li>
+                <li><strong>Пользовательский интерфейс (20%):</strong> Понятный и дружелюбный интерфейс</li>
+                <li><strong>Дополнительные возможности (10%):</strong> Расширенный функционал</li>
+            </ul>
+        </div>
+
+        <div class="solution-box">
+            <h4>💡 Пример решения</h4>
+            <p>Нажмите кнопку ниже, чтобы посмотреть пример решения:</p>
+            <button onclick="toggleSolution()" class="nav-button" style="margin-top: 15px;">
+                Показать решение
+            </button>
+            
+            <div id="solution" style="display: none; margin-top: 20px;">
+                <div class="code-example">
+                    <code>import java.util.Scanner;
+
+public class NumberGuessingGame {
+    private static int totalGames = 0;
+    private static int totalWins = 0;
+    private static int bestScore = Integer.MAX_VALUE;
+    
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("=".repeat(50));
+        System.out.println("      ДОБРО ПОЖАЛОВАТЬ В ИГРУ УГАДАЙ ЧИСЛО!");
+        System.out.println("=".repeat(50));
+        
+        do {
+            playRound(scanner);
+            totalGames++;
+        } while (shouldPlayAgain(scanner));
+        
+        printFinalStatistics();
+        scanner.close();
+    }
+    
+    /**
+     * Играет один раунд игры
+     */
+    public static void playRound(Scanner scanner) {
+        int secretNumber = generateSecretNumber();
+        int attempts = 0;
+        int maxAttempts = getMaxAttempts();
+        boolean isWon = false;
+        
+        System.out.println("\n" + "-".repeat(40));
+        System.out.println("      НОВЫЙ РАУНД!");
+        System.out.println("-".repeat(40));
+        
+        // Инструкции для игрока
+        printInstructions();
+        
+        // Основной игровой цикл
+        while (attempts < maxAttempts) {
+            int guess = getValidGuess(scanner, attempts + 1, maxAttempts);
+            attempts++;
+            
+            // Проверка угадал ли
+            if (guess == secretNumber) {
+                isWon = true;
+                break;
+            }
+            
+            // Подсказка
+            giveHint(guess, secretNumber);
+            showAttemptsLeft(attempts, maxAttempts);
+        }
+        
+        // Результат раунда
+        if (isWon) {
+            handleWin(attempts, secretNumber);
+            totalWins++;
+            if (attempts < bestScore) {
+                bestScore = attempts;
+            }
+        } else {
+            handleLoss(secretNumber);
+        }
+    }
+    
+    /**
+     * Генерирует случайное число от 1 до 100
+     */
+    public static int generateSecretNumber() {
+        return (int) (Math.random() * 100) + 1;
+    }
+    
+    /**
+     * Получает количество попыток в зависимости от сложности
+     */
+    public static int getMaxAttempts() {
+        System.out.println("\nВыберите уровень сложности:");
+        System.out.println("1. Легкий (10 попыток)");
+        System.out.println("2. Средний (7 попыток)");
+        System.out.println("3. Сложный (5 попыток)");
+        System.out.print("Ваш выбор: ");
+        
+        Scanner scanner = new Scanner(System.in);
+        int choice = getValidChoice(scanner, 1, 3);
+        
+        switch (choice) {
+            case 1: return 10;
+            case 2: return 7;
+            case 3: return 5;
+            default: return 7;
+        }
+    }
+    
+    /**
+     * Получает правильный выбор пользователя
+     */
+    public static int getValidChoice(Scanner scanner, int min, int max) {
+        int choice;
+        do {
+            choice = scanner.nextInt();
+            if (choice < min || choice > max) {
+                System.out.print("Неверный выбор! Попробуйте еще раз (" + min + "-" + max + "): ");
+            }
+        } while (choice < min || choice > max);
+        return choice;
+    }
+    
+    /**
+     * Получает правильное предположение игрока
+     */
+    public static int getValidGuess(Scanner scanner, int attemptNumber, int maxAttempts) {
+        int guess;
+        do {
+            System.out.print("Попытка " + attemptNumber + " из " + maxAttempts + 
+                           ". Введите число (1-100): ");
+            guess = scanner.nextInt();
+            
+            if (guess < 1 || guess > 100) {
+                System.out.println("Ошибка! Число должно быть от 1 до 100!");
+            }
+        } while (guess < 1 || guess > 100);
+        
+        return guess;
+    }
+    
+    /**
+     * Дает подсказку игроку
+     */
+    public static void giveHint(int guess, int secretNumber) {
+        if (guess < secretNumber) {
+            System.out.println("❌ Загаданное число БОЛЬШЕ " + guess);
+        } else {
+            System.out.println("❌ Загаданное число МЕНЬШЕ " + guess);
+        }
+        
+        // Дополнительные подсказки для близких попыток
+        int difference = Math.abs(guess - secretNumber);
+        if (difference <= 3) {
+            System.out.println("🔥 Очень близко! Вы рядом!");
+        } else if (difference <= 5) {
+            System.out.println("🌡️ Тепло! Приближаетесь!");
+        }
+    }
+    
+    /**
+     * Показывает оставшиеся попытки
+     */
+    public static void showAttemptsLeft(int attempts, int maxAttempts) {
+        int remaining = maxAttempts - attempts;
+        if (remaining > 0) {
+            System.out.println("⏳ Осталось попыток: " + remaining);
+        }
+        System.out.println("-".repeat(30));
+    }
+    
+    /**
+     * Обрабатывает победу
+     */
+    public static void handleWin(int attempts, int secretNumber) {
+        System.out.println("\n🎉 ПОЗДРАВЛЯЕМ! 🎉");
+        System.out.println("Вы угадали число " + secretNumber + " с " + attempts + " попытки!");
+        
+        // Оценка результата
+        if (attempts == 1) {
+            System.out.println("🏆 НЕВЕРОЯТНО! Вы угадали с первого раза!");
+        } else if (attempts <= 3) {
+            System.out.println("⭐ ОТЛИЧНО! Отличный результат!");
+        } else if (attempts <= 5) {
+            System.out.println("👍 ХОРОШО! Неплохой результат!");
+        } else {
+            System.out.println("✅ ВЫ СПРАВИЛИСЬ!");
+        }
+    }
+    
+    /**
+     * Обрабатывает поражение
+     */
+    public static void handleLoss(int secretNumber) {
+        System.out.println("\n😞 К сожалению, попытки закончились!");
+        System.out.println("Загаданное число было: " + secretNumber);
+        System.out.println("Не расстраивайтесь, попробуйте еще раз!");
+    }
+    
+    /**
+     * Спрашивает хочет ли игрок играть еще
+     */
+    public static boolean shouldPlayAgain(Scanner scanner) {
+        System.out.print("\nХотите сыграть еще раз? (да/нет): ");
+        String answer = scanner.next().toLowerCase();
+        
+        // Очистка буфера
+        scanner.nextLine();
+        
+        return answer.equals("да") || answer.equals("yes") || 
+               answer.equals("y") || answer.equals("1");
+    }
+    
+    /**
+     * Печатает инструкции
+     */
+    public static void printInstructions() {
+        System.out.println("Правила игры:");
+        System.out.println("• Я загадаю число от 1 до 100");
+        System.out.println("• У вас есть ограниченное количество попыток");
+        System.out.println("• После каждой попытки я скажу больше или меньше");
+        System.out.println("• Удачи!");
+    }
+    
+    /**
+     * Печатает финальную статистику
+     */
+    public static void printFinalStatistics() {
+        System.out.println("\n" + "=".repeat(50));
+        System.out.println("           ФИНАЛЬНАЯ СТАТИСТИКА");
+        System.out.println("=".repeat(50));
+        System.out.println("Всего игр сыграно: " + totalGames);
+        System.out.println("Игр выиграно: " + totalWins);
+        
+        if (totalGames > 0) {
+            double winRate = (double) totalWins / totalGames * 100;
+            System.out.println("Процент побед: " + String.format("%.1f", winRate) + "%");
+            
+            if (bestScore != Integer.MAX_VALUE) {
+                System.out.println("Лучший результат: " + bestScore + " попытки");
+            }
+        }
+        
+        System.out.println("\nСпасибо за игру! До свидания! 👋");
+        System.out.println("=".repeat(50));
+    }
+}</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🚀 Расширения</h2>
+            <p>После выполнения основного задания попробуйте добавить:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Сохранение статистики в файл</li>
+                <li>Систему достижений и наград</li>
+                <li>Мультиплеер режим (игра на двоих)</li>
+                <li>Игру с несколькими уровнями</li>
+                <li>Интеграцию с базой данных для рекордов</li>
+            </ul>
+        </div>
+
+        <div class="navigation">
+            <a href="course-java.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(3)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить задание</button>
+            <a href="java-assignment-4.html" class="nav-button">Следующее задание →</a>
+        </div>
+        
+        <script>
+            function toggleSolution() {
+                const solution = document.getElementById('solution');
+                const button = event.target;
+                
+                if (solution.style.display === 'none') {
+                    solution.style.display = 'block';
+                    button.textContent = 'Скрыть решение';
+                } else {
+                    solution.style.display = 'none';
+                    button.textContent = 'Показать решение';
+                }
+            }
+            
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedJavaAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedJavaAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание завершено! Отличная работа! 🎉');
+                } else {
+                    alert('Это задание уже отмечено как завершенное.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

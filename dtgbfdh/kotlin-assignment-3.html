@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 3: Игра угадай число - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .assignment-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .task-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .task-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .solution-box {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .solution-box h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-kotlin.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 3: Игра угадай число</h1>
+            <div class="assignment-meta">
+                <span>🅺 Kotlin</span>
+                <span>⏱️ 60 минут</span>
+                <span>📝 Практическое</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Описание задания</h2>
+            <p>Создайте интерактивную игру "Угадай число" на Kotlin. Игра должна генерировать случайное число, а игрок должен угадать его за определенное количество попыток.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели задания</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Использовать циклы для повторения действий</li>
+                <li>Работать с условными операторами</li>
+                <li>Генерировать случайные числа</li>
+                <li>Обрабатывать пользовательский ввод</li>
+                <li>Создать логику игры с подсказками</li>
+                <li>Добавить систему очков и сложности</li>
+            </ul>
+        </div>
+
+        <div class="task-box">
+            <h4>📝 Задача</h4>
+            <p>Создайте класс <code>NumberGuessingGame</code> и программу, которая реализует игру угадай число с различными уровнями сложности.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>💡 Подсказки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Используйте <code>Random</code> для генерации случайных чисел</li>
+                <li>Добавьте подсказки "больше" или "меньше"</li>
+                <li>Реализуйте разные уровни сложности (диапазон чисел, количество попыток)</li>
+                <li>Ведите счетчик попыток</li>
+                <li>Предложите играть снова после завершения</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Структура решения</h2>
+            
+            <h3>1. Создайте класс NumberGuessingGame</h3>
+            <div class="code-example">
+                <code>class NumberGuessingGame {
+    // Свойства игры
+    val minNumber: Int
+    val maxNumber: Int
+    val maxAttempts: Int
+    
+    // Методы игры
+    fun generateSecretNumber(): Int
+    fun checkGuess(guess: Int, secret: Int): String
+    fun play()
+}</code>
+            </div>
+
+            <h3>2. Добавьте уровни сложности</h3>
+            <div class="code-example">
+                <code>enum class DifficultyLevel(val min: Int, val max: Int, val maxAttempts: Int) {
+    EASY(1, 50, 10),
+    MEDIUM(1, 100, 7),
+    HARD(1, 200, 5)
+}</code>
+            </div>
+
+            <h3>3. Создайте систему очков</h3>
+            <div class="code-example">
+                <code>fun calculateScore(attempts: Int, maxAttempts: Int, difficulty: DifficultyLevel): Int {
+    // Ваша логика подсчета очков
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📊 Пример работы игры</h2>
+            <div class="code-example">
+                <code>=== ИГРА "УГАДАЙ ЧИСЛО" ===
+Выберите уровень сложности:
+1. Легкий (1-50, 10 попыток)
+2. Средний (1-100, 7 попыток)
+3. Сложный (1-200, 5 попыток)
+0. Выход
+
+Ваш выбор: 1
+
+Загадано число от 1 до 50.
+У вас есть 10 попыток.
+Введите ваше предположение: 25
+Больше!
+Попытка 1 из 10
+Введите ваше предположение: 37
+Больше!
+Попытка 2 из 10
+...
+Поздравляем! Вы угадали число 42 за 5 попыток!
+Ваш счет: 750 очков
+Играть снова? (y/n): y</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎮 Дополнительные функции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Подсказки:</strong> Укажите, насколько близко было предположение</li>
+                <li><strong>История попыток:</strong> Покажите все предыдущие попытки</li>
+                <li><strong>Сохранение рекордов:</strong> Лучший результат по очкам</li>
+                <li><strong>Мультиплеер:</strong> Игра для двух игроков</li>
+                <li><strong>Словарь чисел:</strong> Игра с названиями чисел</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Критерии оценки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Основная функциональность (40%):</strong> Корректная работа игры</li>
+                <li><strong>Уровни сложности (25%):</strong> Различные настройки сложности</li>
+                <li><strong>Пользовательский интерфейс (20%):</strong> Понятный и дружелюбный интерфейс</li>
+                <li><strong>Дополнительные функции (15%):</strong> Бонусные возможности игры</li>
+            </ul>
+        </div>
+
+        <div class="solution-box">
+            <h4>💡 Пример решения</h4>
+            <p>Нажмите кнопку ниже, чтобы посмотреть пример решения:</p>
+            <button onclick="toggleSolution()" class="nav-button" style="margin-top: 15px;">
+                Показать решение
+            </button>
+            
+            <div id="solution" style="display: none; margin-top: 20px;">
+                <div class="code-example">
+                    <code>import kotlin.random.Random
+
+enum class DifficultyLevel(val min: Int, val max: Int, val maxAttempts: Int) {
+    EASY(1, 50, 10),
+    MEDIUM(1, 100, 7),
+    HARD(1, 200, 5)
+}
+
+class NumberGuessingGame {
+    private var totalScore = 0
+    private var gamesPlayed = 0
+    
+    fun play() {
+        while (true) {
+            println("\n=== ИГРА 'УГАДАЙ ЧИСЛО' ===")
+            println("Выберите уровень сложности:")
+            println("1. Легкий (1-50, 10 попыток)")
+            println("2. Средний (1-100, 7 попыток)")
+            println("3. Сложный (1-200, 5 попыток)")
+            println("4. Показать статистику")
+            println("0. Выход")
+            
+            print("Ваш выбор: ")
+            val choice = readLine()?.toIntOrNull()
+            
+            when (choice) {
+                0 -> {
+                    println("Спасибо за игру! Ваш общий счет: $totalScore очков")
+                    break
+                }
+                1, 2, 3 -> {
+                    val difficulty = when (choice) {
+                        1 -> DifficultyLevel.EASY
+                        2 -> DifficultyLevel.MEDIUM
+                        3 -> DifficultyLevel.HARD
+                        else -> DifficultyLevel.EASY
+                    }
+                    playRound(difficulty)
+                }
+                4 -> showStatistics()
+                else -> println("Некорректный выбор. Попробуйте снова.")
+            }
+        }
+    }
+    
+    private fun playRound(difficulty: DifficultyLevel) {
+        val secretNumber = Random.nextInt(difficulty.min, difficulty.max + 1)
+        var attempts = 0
+        val previousGuesses = mutableListOf<Int>()
+        
+        println("\nЗагадано число от ${difficulty.min} до ${difficulty.max}.")
+        println("У вас есть ${difficulty.maxAttempts} попыток.")
+        
+        while (attempts < difficulty.maxAttempts) {
+            print("Введите ваше предположение: ")
+            val guess = readLine()?.toIntOrNull()
+            
+            if (guess == null || guess < difficulty.min || guess > difficulty.max) {
+                println("Пожалуйста, введите число от ${difficulty.min} до ${difficulty.max}")
+                continue
+            }
+            
+            attempts++
+            previousGuesses.add(guess)
+            
+            when {
+                guess == secretNumber -> {
+                    val score = calculateScore(attempts, difficulty.maxAttempts, difficulty)
+                    totalScore += score
+                    gamesPlayed++
+                    
+                    println("\n🎉 Поздравляем! Вы угадали число $secretNumber за $attempts попыток!")
+                    println("Ваш счет: $score очков")
+                    break
+                }
+                guess < secretNumber -> {
+                    println("Больше!")
+                }
+                else -> {
+                    println("Меньше!")
+                }
+            }
+            
+            if (attempts == difficulty.maxAttempts) {
+                println("\n😢 Игра окончена! Загаданное число было: $secretNumber")
+            } else {
+                println("Попытка $attempts из ${difficulty.maxAttempts}")
+                println("Предыдущие попытки: ${previousGuesses.joinToString(", ")}")
+            }
+        }
+        
+        print("\nИграть снова? (y/n): ")
+        val playAgain = readLine()?.lowercase()
+        if (playAgain != "y" && playAgain != "yes") {
+            return
+        }
+    }
+    
+    private fun calculateScore(attempts: Int, maxAttempts: Int, difficulty: DifficultyLevel): Int {
+        val baseScore = when (difficulty) {
+            DifficultyLevel.EASY -> 100
+            DifficultyLevel.MEDIUM -> 200
+            DifficultyLevel.HARD -> 300
+        }
+        
+        val attemptsBonus = (maxAttempts - attempts + 1) * 50
+        val difficultyMultiplier = when (difficulty) {
+            DifficultyLevel.EASY -> 1
+            DifficultyLevel.MEDIUM -> 2
+            DifficultyLevel.HARD -> 3
+        }
+        
+        return (baseScore + attemptsBonus) * difficultyMultiplier
+    }
+    
+    private fun showStatistics() {
+        println("\n=== СТАТИСТИКА ===")
+        println("Игр сыграно: $gamesPlayed")
+        println("Общий счет: $totalScore очков")
+        if (gamesPlayed > 0) {
+            println("Средний счет за игру: ${totalScore / gamesPlayed} очков")
+        }
+    }
+}
+
+fun main() {
+    val game = NumberGuessingGame()
+    game.play()
+}</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🚀 Расширения</h2>
+            <p>После выполнения основного задания попробуйте добавить:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Анимированные подсказки (например, "Горячо/Холодно")</li>
+                <li>Временные ограничения на каждую попытку</li>
+                <li>Сохранение рекордов в файл</li>
+                <li>Звуковые эффекты (если возможно)</li>
+                <li>Игру с словами вместо чисел</li>
+            </ul>
+        </div>
+
+        <div class="navigation">
+            <a href="course-kotlin.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(3)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить задание</button>
+            <a href="kotlin-assignment-4.html" class="nav-button">Следующее задание →</a>
+        </div>
+        
+        <script>
+            function toggleSolution() {
+                const solution = document.getElementById('solution');
+                const button = event.target;
+                
+                if (solution.style.display === 'none') {
+                    solution.style.display = 'block';
+                    button.textContent = 'Скрыть решение';
+                } else {
+                    solution.style.display = 'none';
+                    button.textContent = 'Показать решение';
+                }
+            }
+            
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedKotlinAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedKotlinAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание завершено! Отличная работа! 🎮');
+                } else {
+                    alert('Это задание уже отмечено как завершенное.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

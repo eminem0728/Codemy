@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 10: Продвинутые проекты - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+        .project-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .project-title {
+            color: #ffd700;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        .project-description {
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        .project-features {
+            margin-bottom: 15px;
+        }
+        .project-features ul {
+            margin-left: 20px;
+        }
+        .project-features li {
+            margin-bottom: 5px;
+        }
+        .difficulty {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .difficulty.easy { background: rgba(0, 255, 0, 0.3); color: #51cf66; }
+        .difficulty.medium { background: rgba(255, 215, 0, 0.3); color: #ffd700; }
+        .difficulty.hard { background: rgba(255, 0, 0, 0.3); color: #ff6b6b; }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 10: Продвинутые проекты</h1>
+            <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; font-size: 1.1em;">
+                <span>🟨 JavaScript</span>
+                <span>⏱️ 60 минут</span>
+                <span>📝 Продвинутое</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Финальное задание</h2>
+            <p>Поздравляем с завершением курса JavaScript! В этом задании вы создадите одно из предложенных ниже приложений, используя все изученные концепции: от базовых конструкций до современных возможностей ES6+ и асинхронного программирования.</p>
+            
+            <p>Выберите проект, который соответствует вашему уровню и интересам. Каждый проект включает требования к функциональности и используемым технологиям.</p>
+        </div>
+
+        <div class="project-card">
+            <div class="difficulty easy">Легкий уровень</div>
+            <h3 class="project-title">📝 Система управления задачами (To-Do App)</h3>
+            <div class="project-description">
+                Создайте веб-приложение для управления задачами с возможностью добавления, редактирования, удаления и отметки выполненных задач.
+            </div>
+            <div class="project-features">
+                <h4>Требуемые возможности:</h4>
+                <ul>
+                    <li>Добавление новых задач с текстом и приоритетом</li>
+                    <li>Отметка задач как выполненные/невыполненные</li>
+                    <li>Удаление задач</li>
+                    <li>Фильтрация по статусу (все/активные/завершенные)</li>
+                    <li>Сохранение данных в localStorage</li>
+                    <li>Отзывчивый дизайн</li>
+                </ul>
+            </div>
+            <div class="project-features">
+                <h4>Технологии для использования:</h4>
+                <ul>
+                    <li>HTML5, CSS3, JavaScript (ES6+)</li>
+                    <li>DOM манипуляции</li>
+                    <li>localStorage API</li>
+                    <li>События и обработчики</li>
+                    <li>Массивы и объекты</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="difficulty medium">Средний уровень</div>
+            <h3 class="project-title">🌤️ Погодное приложение</h3>
+            <div class="project-description">
+                Создайте приложение для просмотра погоды с использованием внешнего API, отображением текущей погоды и прогноза.
+            </div>
+            <div class="project-features">
+                <h4>Требуемые возможности:</h4>
+                <ul>
+                    <li>Поиск погоды по названию города</li>
+                    <li>Отображение текущей температуры, влажности, скорости ветра</li>
+                    <li>Прогноз погоды на 5 дней</li>
+                    <li>Определение геолокации пользователя</li>
+                    <li>Обработка ошибок (город не найден и т.д.)</li>
+                    <li>Адаптивный интерфейс</li>
+                </ul>
+            </div>
+            <div class="project-features">
+                <h4>Технологии для использования:</h4>
+                <ul>
+                    <li>Fetch API или XMLHttpRequest</li>
+                    <li>Async/await и Promises</li>
+                    <li>Geolocation API</li>
+                    <li>Обработка ошибок</li>
+                    <li>Динамическое создание DOM элементов</li>
+                    <li>CSS Grid/Flexbox для布局</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="difficulty medium">Средний уровень</div>
+            <h3 class="project-title">🎮 Игра "Крестики-нолики" с ИИ</h3>
+            <div class="project-description">
+                Создайте классическую игру крестики-нолики с возможностью игры против компьютера с использованием алгоритма минимакс.
+            </div>
+            <div class="project-features">
+                <h4>Требуемые возможности:</h4>
+                <ul>
+                    <li>Игра против другого игрока</li>
+                    <li>Игра против компьютера с ИИ</li>
+                    <li>Отображение текущего игрока</li>
+                    <li>Определение победителя или ничьей</li>
+                    <li>Возможность начать новую игру</li>
+                    <li>Статистика игр</li>
+                </ul>
+            </div>
+            <div class="project-features">
+                <h4>Технологии для использования:</h4>
+                <ul>
+                    <li>Алгоритмы и логика (минимакс)</li>
+                    <li>Массивы для игрового поля</li>
+                    <li>Функции высшего порядка</li>
+                    <li>DOM события</li>
+                    <li>localStorage для статистики</li>
+                    <li>CSS анимации</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="difficulty hard">Сложный уровень</div>
+            <h3 class="project-title">📊 Дашборд с графиками</h3>
+            <div class="project-description">
+                Создайте интерактивный дашборд для визуализации данных с использованием Canvas API или SVG для создания графиков.
+            </div>
+            <div class="project-features">
+                <h4>Требуемые возможности:</h4>
+                <ul>
+                    <li>Загрузка данных из JSON файла или API</li>
+                    <li>Создание различных типов графиков (линейный, столбчатый, круговой)</li>
+                    <li>Интерактивность (hover эффекты, фильтры)</li>
+                    <li>Анимации переходов</li>
+                    <li>Отзывчивый дизайн</li>
+                    <li>Экспорт графиков в изображение</li>
+                </ul>
+            </div>
+            <div class="project-features">
+                <h4>Технологии для использования:</h4>
+                <ul>
+                    <li>Canvas API или SVG</li>
+                    <li>Fetch API для загрузки данных</li>
+                    <li>Классы и модули</li>
+                    <li>Асинхронное программирование</li>
+                    <li>Математические расчеты</li>
+                    <li>Обработка событий мыши</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="difficulty hard">Сложный уровень</div>
+            <h3 class="project-title">💬 Чат приложение</h3>
+            <div class="project-description">
+                Создайте простое чат-приложение с возможностью отправки сообщений, создания комнат и хранения истории чата.
+            </div>
+            <div class="project-features">
+                <h4>Требуемые возможности:</h4>
+                <ul>
+                    <li>Отправка и получение сообщений в реальном времени</li>
+                    <li>Создание и переключение между комнатами</li>
+                    <li>Отображение списка пользователей онлайн</li>
+                    <li>История сообщений</li>
+                    <li>Эмодзи и форматирование текста</li>
+                    <li>Уведомления о новых сообщениях</li>
+                </ul>
+            </div>
+            <div class="project-features">
+                <h4>Технологии для использования:</h4>
+                <ul>
+                    <li>WebSocket или Server-Sent Events</li>
+                    <li>localStorage/indexedDB для хранения</li>
+                    <li>Регулярные выражения для обработки текста</li>
+                    <li>Асинхронное программирование</li>
+                    <li>Обработка событий клавиатуры</li>
+                    <li>Intersection Observer API</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Критерии оценки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Функциональность (40%):</strong> Все требуемые возможности реализованы</li>
+                <li><strong>Код (30%):</strong> Читаемость, организация, использование лучших практик</li>
+                <li><strong>UI/UX (15%):</strong> Внешний вид, usability, отзывчивость</li>
+                <li><strong>Технологии (15%):</strong> Правильное использование изученных концепций</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🚀 Следующие шаги</h2>
+            <p>После завершения этого проекта вы готовы к изучению более продвинутых технологий:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Frontend фреймворки:</strong> React, Vue.js, Angular</li>
+                <li><strong>Backend разработка:</strong> Node.js, Express, MongoDB</li>
+                <li><strong>Мобильная разработка:</strong> React Native, Ionic</li>
+                <li><strong>Десктоп приложения:</strong> Electron</li>
+                <li><strong>DevOps и развертывание:</strong> Docker, CI/CD</li>
+            </ul>
+            
+            <p style="margin-top: 20px; font-weight: bold;">Поздравляем с успешным завершением курса JavaScript! 🎉</p>
+        </div>
+
+        <div class="navigation">
+            <a href="course-js.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(10)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить курс</button>
+            <span class="nav-button" style="background: rgba(255,255,255,0.2); cursor: default;">🎓 Сертификат</span>
+        </div>
+
+        <script>
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedJSAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedJSAssignments', JSON.stringify(completedAssignments));
+                    alert('Поздравляем! Вы завершили курс JavaScript! 🎉\n\nТеперь вы владеете фундаментальными навыками JavaScript и готовы создавать интерактивные веб-приложения.');
+                } else {
+                    alert('Курс уже завершен!');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

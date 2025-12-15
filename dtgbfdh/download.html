@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Скачать Codemy6</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            background: white;
+            padding: 40px 60px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .download-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .download-btn:active {
+            transform: translateY(0);
+        }
+        
+        .download-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .progress {
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #eee;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        .status {
+            margin-top: 10px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Codemy6</h1>
+        <p>Нажмите кнопку, чтобы скачать проект</p>
+        
+        <button class="download-btn" onclick="downloadProject()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            Скачать
+        </button>
+        
+        <div class="progress" id="progress">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="status" id="status">Подготовка...</div>
+        </div>
+    </div>
+
+    <script>
+        // Список файлов проекта для скачивания
+        const files = [
+            'index.html',
+            'courses.html',
+            'login.html',
+            'register.html',
+            'admin.html',
+            'course-python.html',
+            'course-java.html',
+            'course-js.html',
+            'course-cpp.html',
+            'course-go.html',
+            'course-kotlin.html',
+            'course-rust.html',
+            'README.md',
+            'package.json',
+            'main.js',
+            'preload.js'
+        ];
+
+        // Добавляем лекции и задания для всех языков
+        const languages = ['python', 'java', 'js', 'cpp', 'go', 'kotlin', 'rust'];
+        languages.forEach(lang => {
+            for (let i = 1; i <= 10; i++) {
+                files.push(`${lang}-lecture-${i}.html`);
+                files.push(`${lang}-assignment-${i}.html`);
+            }
+        });
+
+        async function downloadProject() {
+            const progressDiv = document.getElementById('progress');
+            const progressFill = document.getElementById('progressFill');
+            const status = document.getElementById('status');
+            
+            progressDiv.style.display = 'block';
+            status.textContent = 'Создание архива...';
+            
+            const zip = new JSZip();
+            const folder = zip.folder('codemy6');
+            
+            let loaded = 0;
+            const total = files.length;
+            
+            for (const file of files) {
+                try {
+                    const response = await fetch(file);
+                    if (response.ok) {
+                        const content = await response.text();
+                        folder.file(file, content);
+                    }
+                } catch (e) {
+                    console.log(`Не удалось загрузить: ${file}`);
+                }
+                
+                loaded++;
+                const percent = Math.round((loaded / total) * 100);
+                progressFill.style.width = percent + '%';
+                status.textContent = `Добавление файлов: ${loaded}/${total}`;
+            }
+            
+            status.textContent = 'Создание ZIP-архива...';
+            
+            const content = await zip.generateAsync({type: 'blob'}, (metadata) => {
+                progressFill.style.width = metadata.percent.toFixed(0) + '%';
+            });
+            
+            saveAs(content, 'codemy6.zip');
+            
+            status.textContent = '✅ Скачивание началось!';
+            setTimeout(() => {
+                progressDiv.style.display = 'none';
+                progressFill.style.width = '0%';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 6: Массивы и объекты - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 6: Массивы и объекты</h1>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Задача</h2>
+            <p>Создайте программу для управления коллекцией студентов, демонстрирующую работу с массивами и объектами.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Решение</h2>
+
+            <div class="code-example">
+                <code>// script.js
+// Система управления студентами
+
+console.log("=== СИСТЕМА УПРАВЛЕНИЯ СТУДЕНТАМИ ===");
+
+// Создание массива студентов
+let students = [
+    {
+        id: 1,
+        name: "Alice Johnson",
+        age: 20,
+        grades: [85, 92, 78, 96],
+        major: "Computer Science"
+    },
+    {
+        id: 2,
+        name: "Bob Smith",
+        age: 22,
+        grades: [76, 88, 91, 83],
+        major: "Mathematics"
+    },
+    {
+        id: 3,
+        name: "Charlie Brown",
+        age: 19,
+        grades: [90, 87, 94, 89],
+        major: "Physics"
+    }
+];
+
+// Функция для вычисления средней оценки
+function calculateAverage(grades) {
+    const sum = grades.reduce((total, grade) => total + grade, 0);
+    return (sum / grades.length).toFixed(2);
+}
+
+// Функция для получения информации о студенте
+function getStudentInfo(student) {
+    return {
+        id: student.id,
+        name: student.name,
+        age: student.age,
+        averageGrade: calculateAverage(student.grades),
+        major: student.major
+    };
+}
+
+// Вывод информации о всех студентах
+console.log("\n=== ИНФОРМАЦИЯ О СТУДЕНТАХ ===");
+students.forEach(student => {
+    const info = getStudentInfo(student);
+    console.log(`${info.name} (${info.age} лет)`);
+    console.log(`Специальность: ${info.major}`);
+    console.log(`Средний балл: ${info.averageGrade}`);
+    console.log(`Оценки: [${student.grades.join(", ")}]`);
+    console.log("---");
+});
+
+// Поиск студента по ID
+function findStudentById(id) {
+    return students.find(student => student.id === id);
+}
+
+console.log("\n=== ПОИСК СТУДЕНТА ===");
+const student2 = findStudentById(2);
+if (student2) {
+    console.log(`Найден: ${student2.name}`);
+} else {
+    console.log("Студент не найден");
+}
+
+// Фильтрация студентов по среднему баллу
+function getHighPerformers(threshold = 85) {
+    return students.filter(student => {
+        const average = parseFloat(calculateAverage(student.grades));
+        return average >= threshold;
+    });
+}
+
+console.log("\n=== ОТЛИЧНИКИ (средний балл >= 85) ===");
+const highPerformers = getHighPerformers();
+highPerformers.forEach(student => {
+    const info = getStudentInfo(student);
+    console.log(`${info.name}: ${info.averageGrade}`);
+});
+
+// Добавление нового студента
+function addStudent(name, age, major, grades = []) {
+    const newId = Math.max(...students.map(s => s.id)) + 1;
+    const newStudent = {
+        id: newId,
+        name: name,
+        age: age,
+        grades: grades,
+        major: major
+    };
+    students.push(newStudent);
+    return newStudent;
+}
+
+console.log("\n=== ДОБАВЛЕНИЕ НОВОГО СТУДЕНТА ===");
+const newStudent = addStudent("Diana Wilson", 21, "Chemistry", [88, 92, 85, 90]);
+console.log(`Добавлен: ${newStudent.name}`);
+
+// Сортировка студентов по среднему баллу
+function sortStudentsByAverage() {
+    return [...students].sort((a, b) => {
+        const avgA = parseFloat(calculateAverage(a.grades));
+        const avgB = parseFloat(calculateAverage(b.grades));
+        return avgB - avgA; // По убыванию
+    });
+}
+
+console.log("\n=== РЕЙТИНГ СТУДЕНТОВ ===");
+const sortedStudents = sortStudentsByAverage();
+sortedStudents.forEach((student, index) => {
+    const info = getStudentInfo(student);
+    console.log(`${index + 1}. ${info.name}: ${info.averageGrade}`);
+});
+
+// Статистика по специальностям
+function getMajorStats() {
+    const stats = {};
+    students.forEach(student => {
+        const major = student.major;
+        if (!stats[major]) {
+            stats[major] = 0;
+        }
+        stats[major]++;
+    });
+    return stats;
+}
+
+console.log("\n=== СТАТИСТИКА ПО СПЕЦИАЛЬНОСТЯМ ===");
+const majorStats = getMajorStats();
+Object.entries(majorStats).forEach(([major, count]) => {
+    console.log(`${major}: ${count} студент${count > 1 ? 'ов' : ''}`);
+});
+
+console.log(`\nВсего студентов: ${students.length}`);</code>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="course-js.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(6)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить задание</button>
+            <a href="js-assignment-7.html" class="nav-button">Следующее задание →</a>
+        </div>
+
+        <script>
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedJSAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedJSAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание завершено! Отличная работа! 🎉');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

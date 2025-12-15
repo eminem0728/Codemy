@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 2: Основы синтаксиса Java - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .lecture-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .highlight-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .highlight-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .key-points {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .key-points h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-java.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 2: Основы синтаксиса Java</h1>
+            <div class="lecture-meta">
+                <span>☕ Java</span>
+                <span>⏱️ 60 минут</span>
+                <span>🎯 Средний</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели лекции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Изучить примитивные типы данных Java</li>
+                <li>Понять разницу между переменными и константами</li>
+                <li>Освоить арифметические и логические операторы</li>
+                <li>Изучить операторы сравнения и их использование</li>
+                <li>Понять конкатенацию строк и форматирование вывода</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>📝 Переменные и типы данных</h2>
+            
+            <p>Переменные в Java используются для хранения данных. Каждая переменная имеет тип, имя и значение.</p>
+
+            <h3>Примитивные типы данных:</h3>
+            <div class="code-example">
+                <code>// Целочисленные типы
+byte smallNumber = 127;           // 8 бит: от -128 до 127
+short mediumNumber = 32767;       // 16 бит: от -32,768 до 32,767
+int normalNumber = 2147483647;    // 32 бит: от -2³¹ до 2³¹-1
+long bigNumber = 9223372036854775807L; // 64 бит: от -2⁶³ до 2⁶³-1
+
+// Числа с плавающей точкой
+float preciseNumber = 3.14159f;   // 32 бит, точность ~6-7 цифр
+double veryPrecise = 3.141592653589793; // 64 бит, точность ~15-17 цифр
+
+// Символы и логические значения
+char letter = 'A';                // 16 бит: одиночный символ Unicode
+boolean isJavaFun = true;         // true или false
+
+// Строки (ссылочный тип, но часто используется как примитив)
+String greeting = "Hello, World!";</code>
+            </div>
+
+            <h3>Правила именования переменных:</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Начинаются с буквы, $ или _</li>
+                <li>Могут содержать буквы, цифры, $ и _</li>
+                <li>Не могут быть ключевыми словами Java</li>
+                <li>Используйте camelCase (myVariableName)</li>
+            </ul>
+        </div>
+
+        <div class="highlight-box">
+            <h4>💡 Константы</h4>
+            <p>Для объявления констант используйте ключевое слово <code>final</code>:</p>
+            <div class="code-example">
+                <code>final double PI = 3.14159;
+final String APPLICATION_NAME = "MyJavaApp";
+final int MAX_USERS = 100;
+
+// Попытка изменить константу приведет к ошибке компиляции:
+// PI = 3.14; // ОШИБКА!</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔢 Арифметические операторы</h2>
+            
+            <div class="code-example">
+                <code>int a = 10;
+int b = 3;
+
+int sum = a + b;        // 13 - сложение
+int difference = a - b; // 7  - вычитание
+int product = a * b;    // 30 - умножение
+int quotient = a / b;   // 3  - целочисленное деление
+int remainder = a % b;  // 1  - остаток от деления
+
+// Унарные операторы
+int positive = +5;      // унарный плюс
+int negative = -5;      // унарный минус
+int negation = ~5;      // побитовое НЕ (для целых чисел)
+
+// Операторы инкремента и декремента
+int x = 5;
+int preIncrement = ++x; // x сначала увеличивается, потом используется (6)
+int postIncrement = x++; // x сначала используется, потом увеличивается (6, x=7)
+
+int preDecrement = --x; // x сначала уменьшается, потом используется (6)
+int postDecrement = x--; // x сначала используется, потом уменьшается (6, x=5)</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔍 Операторы сравнения</h2>
+            
+            <div class="code-example">
+                <code>int x = 10;
+int y = 20;
+
+boolean equal = (x == y);        // false - равно
+boolean notEqual = (x != y);     // true  - не равно
+boolean greater = (x > y);       // false - больше
+boolean less = (x < y);          // true  - меньше
+boolean greaterOrEqual = (x >= y); // false - больше или равно
+boolean lessOrEqual = (x <= y);    // true  - меньше или равно
+
+// Важно: используйте == для сравнения примитивов, а .equals() для объектов
+String str1 = "hello";
+String str2 = "hello";
+String str3 = new String("hello");
+
+boolean stringEqual = str1.equals(str2); // true - сравнение содержимого
+boolean referenceEqual = (str1 == str2); // true - сравнение ссылок ( interned )
+boolean referenceEqual3 = (str1 == str3); // false - разные объекты</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔗 Логические операторы</h2>
+            
+            <div class="code-example">
+                <code>boolean a = true;
+boolean b = false;
+
+// Логическое И (&&)
+boolean andResult = a && b;      // false - оба должны быть true
+
+// Логическое ИЛИ (||)
+boolean orResult = a || b;       // true  - хотя бы один должен быть true
+
+// Логическое НЕ (!)
+boolean notA = !a;               // false - инвертирует значение
+
+// Побитовые операторы (работают с битами)
+int bitA = 5;  // 101 в двоичной системе
+int bitB = 3;  // 011 в двоичной системе
+
+int bitwiseAnd = bitA & bitB;    // 001 = 1
+int bitwiseOr = bitA | bitB;     // 111 = 7
+int bitwiseXor = bitA ^ bitB;    // 110 = 6
+int bitwiseNot = ~bitA;          // инвертирует все биты
+
+// Пример использования логических операторов
+int age = 25;
+boolean hasLicense = true;
+boolean isSober = false;
+
+boolean canDrive = (age >= 18) && hasLicense && isSober; // false</code>
+            </div>
+        </div>
+
+        <div class="key-points">
+            <h4>🔑 Приоритет операторов (от высшего к низшему):</h4>
+            <ol style="margin-left: 20px; margin-top: 10px;">
+                <li>Постфиксные операторы: <code>expr++</code>, <code>expr--</code></li>
+                <li>Унарные операторы: <code>++expr</code>, <code>--expr</code>, <code>+expr</code>, <code>-expr</code>, <code>!</code></li>
+                <li>Умножение, деление, остаток: <code>*</code>, <code>/</code>, <code>%</code></li>
+                <li>Сложение, вычитание: <code>+</code>, <code>-</code></li>
+                <li>Операторы сравнения: <code><</code>, <code><=</code>, <code>></code>, <code>>=</code></li>
+                <li>Операторы равенства: <code>==</code>, <code>!=</code></li>
+                <li>Побитовое И: <code>&</code></li>
+                <li>Побитовое исключающее ИЛИ: <code>^</code></li>
+                <li>Побитовое ИЛИ: <code>|</code></li>
+                <li>Логическое И: <code>&&</code></li>
+                <li>Логическое ИЛИ: <code>||</code></li>
+                <li>Тернарный оператор: <code>condition ? expr1 : expr2</code></li>
+                <li>Операторы присваивания: <code>=</code>, <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code></li>
+            </ol>
+        </div>
+
+        <div class="content-section">
+            <h2>📝 Конкатенация строк и форматирование</h2>
+            
+            <div class="code-example">
+                <code>String firstName = "Иван";
+String lastName = "Петров";
+int age = 30;
+
+// Конкатенация строк
+String fullName = firstName + " " + lastName;
+String greeting = "Привет, " + fullName + "! Тебе " + age + " лет.";
+
+// Использование String.format()
+String formattedMessage = String.format("Привет, %s %s! Тебе %d лет.", 
+                                        firstName, lastName, age);
+
+// Использование System.out.printf()
+System.out.printf("Имя: %s, Возраст: %d%n", fullName, age);
+
+// Пример с разными типами данных
+double price = 19.99;
+boolean inStock = true;
+
+String productInfo = String.format("Товар: %s, Цена: $%.2f, В наличии: %b", 
+                                   "Книга", price, inStock);
+System.out.println(productInfo);</code>
+            </div>
+
+            <h3>Спецификаторы формата:</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><code>%s</code> - строка</li>
+                <li><code>%d</code> - целое число</li>
+                <li><code>%f</code> - число с плавающей точкой</li>
+                <li><code>%b</code> - логическое значение</li>
+                <li><code>%c</code> - символ</li>
+                <li><code>%n</code> - перевод строки (кроссплатформенный)</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>💭 Пример программы</h2>
+            
+            <div class="code-example">
+                <code>public class DataTypesDemo {
+    public static void main(String[] args) {
+        // Демонстрация различных типов данных
+        System.out.println("=== ДЕМОНСТРАЦИЯ ТИПОВ ДАННЫХ ===");
+        
+        // Целочисленные типы
+        byte small = 100;
+        short medium = 1000;
+        int normal = 100000;
+        long big = 1000000000L;
+        
+        System.out.println("byte: " + small);
+        System.out.println("short: " + medium);
+        System.out.println("int: " + normal);
+        System.out.println("long: " + big);
+        
+        // Типы с плавающей точкой
+        float precise = 3.14159f;
+        double veryPrecise = 2.718281828459045;
+        
+        System.out.println("float: " + precise);
+        System.out.println("double: " + veryPrecise);
+        
+        // Символы и логические значения
+        char letter = 'A';
+        boolean isJavaFun = true;
+        
+        System.out.println("char: " + letter);
+        System.out.println("boolean: " + isJavaFun);
+        
+        // Арифметические операции
+        int a = 15;
+        int b = 4;
+        System.out.println("\n=== АРИФМЕТИЧЕСКИЕ ОПЕРАЦИИ ===");
+        System.out.println("a = " + a + ", b = " + b);
+        System.out.println("a + b = " + (a + b));
+        System.out.println("a - b = " + (a - b));
+        System.out.println("a * b = " + (a * b));
+        System.out.println("a / b = " + (a / b) + " (целочисленное деление)");
+        System.out.println("a % b = " + (a % b) + " (остаток)");
+        
+        // Операторы сравнения
+        System.out.println("\n=== ОПЕРАТОРЫ СРАВНЕНИЯ ===");
+        System.out.println("a > b: " + (a > b));
+        System.out.println("a == b: " + (a == b));
+        System.out.println("a != b: " + (a != b));
+        
+        // Логические операции
+        boolean x = true;
+        boolean y = false;
+        System.out.println("\n=== ЛОГИЧЕСКИЕ ОПЕРАЦИИ ===");
+        System.out.println("x = " + x + ", y = " + y);
+        System.out.println("x && y: " + (x && y));
+        System.out.println("x || y: " + (x || y));
+        System.out.println("!x: " + (!x));
+    }
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Заключение</h2>
+            <p>В этой лекции мы изучили основы синтаксиса Java:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Примитивные типы данных и их характеристики</li>
+                <li>Правила объявления переменных и констант</li>
+                <li>Арифметические, сравнительные и логические операторы</li>
+                <li>Приоритет операторов и порядок вычисления</li>
+                <li>Конкатенацию строк и форматирование вывода</li>
+            </ul>
+            
+            <p style="margin-top: 20px; font-weight: bold;">В следующей лекции мы изучим управляющие конструкции и условные операторы!</p>
+        </div>
+
+        <div class="navigation">
+            <a href="course-java.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(2)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить лекцию</button>
+            <a href="java-lecture-3.html" class="nav-button">Следующая лекция →</a>
+        </div>
+        
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedJavaLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedJavaLectures', JSON.stringify(completedLectures));
+                    alert('Лекция завершена! Отличная работа! 🎉');
+                } else {
+                    alert('Эта лекция уже отмечена как завершенная.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

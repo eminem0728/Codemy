@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 4: Управление потоком - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 4: Управление потоком</h1>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Задача</h2>
+            <p>Создайте программу, демонстрирующую различные конструкции управления потоком выполнения.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Решение</h2>
+
+            <div class="code-example">
+                <code>// script.js
+// Демонстрация управления потоком
+
+console.log("=== УСЛОВНЫЕ КОНСТРУКЦИИ ===");
+
+// if-else
+let age = 20;
+if (age >= 18) {
+    console.log("Вы совершеннолетний");
+} else {
+    console.log("Вы несовершеннолетний");
+}
+
+// if-else if-else
+let score = 85;
+if (score >= 90) {
+    console.log("Отлично");
+} else if (score >= 70) {
+    console.log("Хорошо");
+} else if (score >= 50) {
+    console.log("Удовлетворительно");
+} else {
+    console.log("Неудовлетворительно");
+}
+
+// switch-case
+let day = 3;
+let dayName;
+switch (day) {
+    case 1:
+        dayName = "Понедельник";
+        break;
+    case 2:
+        dayName = "Вторник";
+        break;
+    case 3:
+        dayName = "Среда";
+        break;
+    case 4:
+        dayName = "Четверг";
+        break;
+    case 5:
+        dayName = "Пятница";
+        break;
+    default:
+        dayName = "Выходной";
+}
+console.log(`День ${day}: ${dayName}`);
+
+console.log("\n=== ЦИКЛЫ ===");
+
+// for цикл
+console.log("Цикл for:");
+for (let i = 1; i <= 5; i++) {
+    console.log(`Итерация ${i}`);
+}
+
+// while цикл
+console.log("\nЦикл while:");
+let counter = 1;
+while (counter <= 3) {
+    console.log(`Шаг ${counter}`);
+    counter++;
+}
+
+// do-while цикл
+console.log("\nЦикл do-while:");
+let num = 1;
+do {
+    console.log(`Число ${num}`);
+    num++;
+} while (num <= 3);
+
+// for-of для массивов
+console.log("\nЦикл for-of:");
+let fruits = ["яблоко", "банан", "апельсин"];
+for (let fruit of fruits) {
+    console.log(fruit);
+}
+
+// break и continue
+console.log("\nbreak и continue:");
+for (let i = 1; i <= 10; i++) {
+    if (i === 4) continue;  // пропустить 4
+    if (i === 8) break;     // остановить цикл
+    console.log(i);
+}
+
+console.log("\n=== ВЛОЖЕННЫЕ КОНСТРУКЦИИ ===");
+
+// Вложенные циклы
+for (let i = 1; i <= 3; i++) {
+    console.log(`Таблица умножения на ${i}:`);
+    for (let j = 1; j <= 3; j++) {
+        console.log(`${i} × ${j} = ${i * j}`);
+    }
+    console.log(""); // пустая строка
+}
+
+// Вложенные условия
+let temperature = 25;
+let weather = "солнечно";
+
+if (temperature > 20) {
+    if (weather === "солнечно") {
+        console.log("Идеальная погода для прогулки!");
+    } else {
+        console.log("Тепло, но погода не очень");
+    }
+} else {
+    console.log("Прохладно");
+}</code>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="course-js.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(4)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить задание</button>
+            <a href="js-assignment-5.html" class="nav-button">Следующее задание →</a>
+        </div>
+
+        <script>
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedJSAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedJSAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание завершено! Отличная работа! 🎉');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

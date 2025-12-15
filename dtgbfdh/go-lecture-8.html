@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 8: Каналы (Channels) - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 8: Каналы (Channels)</h1>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели лекции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Изучить каналы для коммуникации между goroutines</li>
+                <li>Освоить отправку и получение данных</li>
+                <li>Понять буферизованные каналы</li>
+                <li>Научиться select для множественных каналов</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>📚 Каналы в Go</h2>
+
+            <div class="code-example">
+                <code>// Создание канала
+ch := make(chan int)
+
+// Отправка данных
+go func() {
+    ch <- 42  // отправка
+}()
+
+// Получение данных
+value := <-ch
+fmt.Println(value) // 42
+
+// Закрытие канала
+close(ch)
+
+// Проверка закрытия канала
+value, ok := <-ch
+if !ok {
+    fmt.Println("Канал закрыт")
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔄 Буферизованные каналы</h2>
+
+            <div class="code-example">
+                <code>// Буферизованный канал
+ch := make(chan int, 2)
+
+ch <- 1  // не блокируется
+ch <- 2  // не блокируется
+// ch <- 3  // заблокируется, буфер полон
+
+fmt.Println(<-ch) // 1
+fmt.Println(<-ch) // 2</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Select для каналов</h2>
+
+            <div class="code-example">
+                <code>ch1 := make(chan string)
+ch2 := make(chan string)
+
+go func() {
+    time.Sleep(1 * time.Second)
+    ch1 <- "one"
+}()
+
+go func() {
+    time.Sleep(2 * time.Second)
+    ch2 <- "two"
+}()
+
+for i := 0; i < 2; i++ {
+    select {
+    case msg1 := <-ch1:
+        fmt.Println("Received", msg1)
+    case msg2 := <-ch2:
+        fmt.Println("Received", msg2)
+    }
+}</code>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="course-go.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(8)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить лекцию</button>
+            <a href="go-lecture-9.html" class="nav-button">Следующая лекция →</a>
+        </div>
+
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedGoLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedGoLectures', JSON.stringify(completedLectures));
+                    alert('Лекция завершена! Отличная работа! 🎉');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

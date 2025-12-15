@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 10: Работа с файлами и сетью - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 10: Работа с файлами и сетью</h1>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели лекции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Изучить работу с файлами в Go</li>
+                <li>Освоить чтение и запись файлов</li>
+                <li>Понять работу с HTTP</li>
+                <li>Научиться JSON обработке</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>📁 Работа с файлами</h2>
+
+            <div class="code-example">
+                <code>// Чтение файла
+data, err := os.ReadFile("file.txt")
+if err != nil {
+    log.Fatal(err)
+}
+fmt.Println(string(data))
+
+// Запись в файл
+err = os.WriteFile("output.txt", []byte("Hello, World!"), 0644)
+if err != nil {
+    log.Fatal(err)
+}
+
+// Более эффективное чтение больших файлов
+file, err := os.Open("large.txt")
+if err != nil {
+    log.Fatal(err)
+}
+defer file.Close()
+
+scanner := bufio.NewScanner(file)
+for scanner.Scan() {
+    fmt.Println(scanner.Text())
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🌐 Работа с HTTP</h2>
+
+            <div class="code-example">
+                <code>// HTTP GET запрос
+resp, err := http.Get("https://api.example.com/data")
+if err != nil {
+    log.Fatal(err)
+}
+defer resp.Body.Close()
+
+body, err := io.ReadAll(resp.Body)
+if err != nil {
+    log.Fatal(err)
+}
+fmt.Println(string(body))
+
+// HTTP сервер
+http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Hello, World!")
+})
+
+log.Fatal(http.ListenAndServe(":8080", nil))</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 JSON обработка</h2>
+
+            <div class="code-example">
+                <code>type Person struct {
+    Name string `json:"name"`
+    Age  int    `json:"age"`
+}
+
+// Кодирование в JSON
+person := Person{Name: "Alice", Age: 25}
+jsonData, err := json.Marshal(person)
+if err != nil {
+    log.Fatal(err)
+}
+fmt.Println(string(jsonData))
+
+// Декодирование из JSON
+jsonStr := `{"name":"Bob","age":30}`
+var p Person
+err = json.Unmarshal([]byte(jsonStr), &p)
+if err != nil {
+    log.Fatal(err)
+}
+fmt.Printf("%+v\n", p)</code>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="course-go.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(10)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить лекцию</button>
+            <a href="go-assignment-7.html" class="nav-button">К заданиям →</a>
+        </div>
+
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedGoLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedGoLectures', JSON.stringify(completedLectures));
+                    alert('Лекция завершена! Отличная работа! 🎉');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 1: Введение в Java - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .lecture-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .highlight-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .highlight-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .key-points {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .key-points h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-java.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 1: Введение в Java</h1>
+            <div class="lecture-meta">
+                <span>☕ Java</span>
+                <span>⏱️ 50 минут</span>
+                <span>🎯 Средний</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели лекции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Понять историю и назначение языка Java</li>
+                <li>Изучить основные особенности Java</li>
+                <li>Установить JDK и настроить среду разработки</li>
+                <li>Создать и запустить первую Java программу</li>
+                <li>Изучить структуру Java программы</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>📚 История Java</h2>
+            <p>Java был создан компанией Sun Microsystems в 1995 году Джеймсом Гослингом. Язык был разработан с целью создания простой, объектно-ориентированной и независимой от платформы среды программирования.</p>
+            
+            <h3>Ключевые вехи:</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>1991:</strong> Начало разработки проекта "Green"</li>
+                <li><strong>1995:</strong> Официальный выпуск Java 1.0</li>
+                <li><strong>2009:</strong> Oracle приобретает Sun Microsystems</li>
+                <li><strong>2014:</strong> Выпуск Java 8 с лямбда-выражениями</li>
+                <li><strong>2023:</strong> Современная Java с новыми возможностями</li>
+            </ul>
+        </div>
+
+        <div class="highlight-box">
+            <h4>💡 Почему Java так популярен?</h4>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Write Once, Run Anywhere (WORA)</strong> - написанный код работает на любой платформе</li>
+                <li><strong>Объектно-ориентированность</strong> - поддержка всех принципов ООП</li>
+                <li><strong>Автоматическое управление памятью</strong> - сборка мусора</li>
+                <li><strong>Безопасность</strong> - встроенные механизмы безопасности</li>
+                <li><strong>Многопоточность</strong> - поддержка параллельного выполнения</li>
+                <li><strong>Большая экосистема</strong> - множество библиотек и фреймворков</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>⚙️ Установка Java Development Kit (JDK)</h2>
+            
+            <h3>Скачивание и установка:</h3>
+            <ol style="margin-left: 20px; margin-top: 10px;">
+                <li>Перейдите на сайт <strong>Oracle.com</strong> или <strong>OpenJDK</strong></li>
+                <li>Скачайте последнюю версию JDK (рекомендуется Java 17 или новее)</li>
+                <li>Установите JDK, следуя инструкциям установщика</li>
+                <li>Настройте переменную окружения <code>JAVA_HOME</code></li>
+                <li>Добавьте <code>%JAVA_HOME%\bin</code> в переменную <code>PATH</code></li>
+            </ol>
+
+            <h3>Проверка установки:</h3>
+            <div class="code-example">
+                <code>// Откройте командную строку и выполните:
+java -version
+javac -version
+
+// Ожидаемый результат:
+java version "17.0.2" 2022-01-18 LTS
+Java(TM) SE Runtime Environment (build 17.0.2+8-LTS-123)
+Java HotSpot(TM) 64-Bit Server VM (build 17.0.2+8-LTS-123, mixed mode, sharing)</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Первая Java программа</h2>
+            
+            <p>Давайте создадим классическую программу "Hello World":</p>
+
+            <h3>Создание файла:</h3>
+            <div class="code-example">
+                <code>// Создайте файл HelloWorld.java
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}</code>
+            </div>
+
+            <h3>Компиляция и запуск:</h3>
+            <div class="code-example">
+                <code>// Компиляция (создаст HelloWorld.class)
+javac HelloWorld.java
+
+// Запуск программы
+java HelloWorld
+
+// Вывод:
+Hello, World!</code>
+            </div>
+        </div>
+
+        <div class="key-points">
+            <h4>🔑 Ключевые понятия:</h4>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Класс:</strong> Основная единица программирования в Java</li>
+                <li><strong>Метод main:</strong> Точка входа в программу</li>
+                <li><strong>Компиляция:</strong> Преобразование .java в .class файл</li>
+                <li><strong>JVM:</strong> Java Virtual Machine - виртуальная машина Java</li>
+                <li><strong>Байт-код:</strong> Промежуточный код, выполняемый JVM</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🔍 Структура Java программы</h2>
+            
+            <div class="code-example">
+                <code>// Объявление пакета (опционально)
+package com.example.myapp;
+
+// Импорт классов
+import java.util.Scanner;
+import java.util.ArrayList;
+
+// Объявление класса
+public class MyFirstProgram {
+    // Поля класса
+    private String name;
+    
+    // Конструктор
+    public MyFirstProgram(String name) {
+        this.name = name;
+    }
+    
+    // Методы класса
+    public void greet() {
+        System.out.println("Привет, " + name + "!");
+    }
+    
+    // Главный метод программы
+    public static void main(String[] args) {
+        // Создание объекта
+        MyFirstProgram program = new MyFirstProgram("Java");
+        program.greet();
+    }
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🛠️ Интегрированные среды разработки (IDE)</h2>
+            
+            <h3>Популярные IDE для Java:</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Eclipse:</strong> Бесплатная, мощная IDE</li>
+                <li><strong>IntelliJ IDEA:</strong> Современная IDE от JetBrains (Community Edition бесплатна)</li>
+                <li><strong>NetBeans:</strong> Бесплатная IDE от Oracle</li>
+                <li><strong>Visual Studio Code:</strong> Легкий редактор с поддержкой Java</li>
+            </ul>
+
+            <h3>Преимущества использования IDE:</h3>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Автодополнение кода</li>
+                <li>Отладка программ</li>
+                <li>Управление проектами</li>
+                <li>Встроенные инструменты сборки</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>📊 Жизненный цикл Java программы</h2>
+            
+            <div class="code-example">
+                <code>1. Написание исходного кода (.java файл)
+   ↓
+2. Компиляция (javac)
+   ↓
+3. Создание байт-кода (.class файл)
+   ↓
+4. Загрузка классов (ClassLoader)
+   ↓
+5. Проверка байт-кода (Bytecode Verifier)
+   ↓
+6. Интерпретация или JIT компиляция
+   ↓
+7. Выполнение на JVM
+   ↓
+8. Сборка мусора (Garbage Collection)</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Заключение</h2>
+            <p>В этой лекции мы изучили основы Java:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Познакомились с историей и особенностями Java</li>
+                <li>Установили JDK и настроили среду разработки</li>
+                <li>Создали и запустили первую программу</li>
+                <li>Изучили структуру Java приложения</li>
+                <li>Поняли жизненный цикл программы</li>
+            </ul>
+            
+            <p style="margin-top: 20px; font-weight: bold;">В следующей лекции мы изучим основы синтаксиса Java, переменные и типы данных!</p>
+        </div>
+
+        <div class="navigation">
+            <a href="course-java.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(1)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить лекцию</button>
+            <a href="java-lecture-2.html" class="nav-button">Следующая лекция →</a>
+        </div>
+        
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedJavaLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedJavaLectures', JSON.stringify(completedLectures));
+                    alert('Лекция завершена! Отличная работа! 🎉');
+                } else {
+                    alert('Эта лекция уже отмечена как завершенная.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

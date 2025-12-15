@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 9: Современный JavaScript - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+        .demo-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .demo-button {
+            background: #ffd700;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+        }
+        .demo-button:hover {
+            background: #ffed4e;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            min-height: 100px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 9: Современный JavaScript</h1>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Задача</h2>
+            <p>Создайте приложение, демонстрирующее возможности современного JavaScript (ES6+): стрелочные функции, деструктуризацию, spread/rest операторы, модули.</p>
+        </div>
+
+        <div class="demo-section">
+            <h2>🚀 Демонстрация ES6+ возможностей</h2>
+            <button class="demo-button" onclick="demoArrowFunctions()">Стрелочные функции</button>
+            <button class="demo-button" onclick="demoDestructuring()">Деструктуризация</button>
+            <button class="demo-button" onclick="demoSpreadRest()">Spread & Rest</button>
+            <button class="demo-button" onclick="demoTemplateLiterals()">Шаблонные литералы</button>
+            <button class="demo-button" onclick="demoModules()">Модули</button>
+            <button class="demo-button" onclick="clearResults()">Очистить</button>
+            
+            <div id="result" class="result">
+                <p>Результаты будут отображаться здесь...</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ JavaScript код</h2>
+
+            <div class="code-example">
+                <code>// script.js
+// Демонстрация современных возможностей JavaScript
+
+function updateResult(message) {
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML += message + '<br>';
+}
+
+function clearResults() {
+    document.getElementById('result').innerHTML = 'Результаты будут отображаться здесь...<br>';
+}
+
+// Стрелочные функции
+function demoArrowFunctions() {
+    updateResult('🚀 Стрелочные функции:');
+    
+    // Обычная функция
+    const traditional = function(a, b) {
+        return a + b;
+    };
+    
+    // Стрелочная функция
+    const arrow = (a, b) => a + b;
+    
+    // С телом функции
+    const complexArrow = (a, b) => {
+        const sum = a + b;
+        return `Сумма ${a} + ${b} = ${sum}`;
+    };
+    
+    updateResult(`Обычная: ${traditional(5, 3)}`);
+    updateResult(`Стрелочная: ${arrow(5, 3)}`);
+    updateResult(`Сложная: ${complexArrow(5, 3)}`);
+    
+    // Контекст this
+    const obj = {
+        name: 'Alice',
+        traditionalFunction: function() {
+            return `Привет, я ${this.name} (традиционная)`;
+        },
+        arrowFunction: () => {
+            return `Привет, я ${this.name} (стрелочная)`;
+        }
+    };
+    
+    updateResult(obj.traditionalFunction());
+    updateResult(obj.arrowFunction());
+}
+
+// Деструктуризация
+function demoDestructuring() {
+    updateResult('🔄 Деструктуризация:');
+    
+    // Массив
+    const fruits = ['яблоко', 'банан', 'апельсин'];
+    const [first, second, third] = fruits;
+    updateResult(`Массив: ${first}, ${second}, ${third}`);
+    
+    // Пропуск элементов
+    const [, , last] = fruits;
+    updateResult(`Последний: ${last}`);
+    
+    // Объект
+    const person = {
+        name: 'Bob',
+        age: 25,
+        city: 'Москва',
+        job: 'разработчик'
+    };
+    
+    const {name, age, city} = person;
+    updateResult(`Объект: ${name}, ${age} лет, ${city}`);
+    
+    // С новыми именами
+    const {name: personName, job: profession} = person;
+    updateResult(`Переименование: ${personName} - ${profession}`);
+    
+    // Значения по умолчанию
+    const {country = 'Россия'} = person;
+    updateResult(`По умолчанию: ${country}`);
+    
+    // В функциях
+    function printUser({name, age, city = 'Не указан'}) {
+        updateResult(`Пользователь: ${name}, ${age} лет, город: ${city}`);
+    }
+    
+    printUser(person);
+    printUser({name: 'Charlie', age: 30});
+}
+
+// Spread и Rest операторы
+function demoSpreadRest() {
+    updateResult('📦 Spread и Rest операторы:');
+    
+    // Spread для массивов
+    const arr1 = [1, 2, 3];
+    const arr2 = [4, 5, 6];
+    const combined = [...arr1, ...arr2];
+    updateResult(`Spread массивы: [${combined.join(', ')}]`);
+    
+    // Spread для объектов
+    const obj1 = {a: 1, b: 2};
+    const obj2 = {c: 3, d: 4};
+    const merged = {...obj1, ...obj2};
+    updateResult(`Spread объекты: ${JSON.stringify(merged)}`);
+    
+    // Rest в функциях
+    function sum(...numbers) {
+        return numbers.reduce((total, num) => total + num, 0);
+    }
+    
+    updateResult(`Rest параметры: sum(1,2,3,4,5) = ${sum(1,2,3,4,5)}`);
+    
+    // Rest в деструктуризации
+    const [first, second, ...rest] = [1, 2, 3, 4, 5, 6];
+    updateResult(`Rest деструктуризация: first=${first}, second=${second}, rest=[${rest.join(', ')}]`);
+}
+
+// Шаблонные литералы
+function demoTemplateLiterals() {
+    updateResult('📝 Шаблонные литералы:');
+    
+    const name = 'Alice';
+    const age = 25;
+    const city = 'Москва';
+    
+    // Многострочный текст
+    const multiline = `Привет!
+Меня зовут ${name}.
+Мне ${age} лет.
+Я живу в ${city}.`;
+    
+    updateResult('Многострочный текст:');
+    updateResult(multiline.replace(/\n/g, '<br>'));
+    
+    // Выражения
+    const price = 99.99;
+    const discount = 0.1;
+    const finalPrice = price * (1 - discount);
+    
+    updateResult(`Цена: $${price.toFixed(2)}`);
+    updateResult(`Скидка: ${(discount * 100).toFixed(0)}%`);
+    updateResult(`Итоговая цена: $${finalPrice.toFixed(2)}`);
+    
+    // Функции в шаблонах
+    function formatCurrency(amount) {
+        return new Intl.NumberFormat('ru-RU', {
+            style: 'currency',
+            currency: 'RUB'
+        }).format(amount);
+    }
+    
+    updateResult(`Форматированная цена: ${formatCurrency(finalPrice * 90)}`);
+}
+
+// Модули (имитация)
+function demoModules() {
+    updateResult('📚 Модули (имитация):');
+    
+    // Имитация модуля MathUtils
+    const MathUtils = {
+        add: (a, b) => a + b,
+        multiply: (a, b) => a * b,
+        power: (base, exp) => Math.pow(base, exp),
+        factorial: function(n) {
+            if (n <= 1) return 1;
+            return n * this.factorial(n - 1);
+        }
+    };
+    
+    updateResult(`2 + 3 = ${MathUtils.add(2, 3)}`);
+    updateResult(`4 * 5 = ${MathUtils.multiply(4, 5)}`);
+    updateResult(`2^3 = ${MathUtils.power(2, 3)}`);
+    updateResult(`5! = ${MathUtils.factorial(5)}`);
+    
+    // Имитация импорта/экспорта
+    updateResult('Имитация импорта модулей выполнена успешно!');
+}
+
+// Дополнительные возможности ES6+
+function demoAdditionalFeatures() {
+    updateResult('🎯 Дополнительные возможности ES6+:');
+    
+    // let и const
+    let changeable = 'можно изменить';
+    const constant = 'нельзя изменить';
+    
+    updateResult(`let: ${changeable}`);
+    updateResult(`const: ${constant}`);
+    
+    // Классы
+    class Person {
+        constructor(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        
+        greet() {
+            return `Привет, я ${this.name}!`;
+        }
+    }
+    
+    const person = new Person('Charlie', 28);
+    updateResult(`Класс: ${person.greet()}`);
+    
+    // Map и Set
+    const myMap = new Map();
+    myMap.set('key1', 'value1');
+    myMap.set('key2', 'value2');
+    
+    const mySet = new Set([1, 2, 2, 3, 3, 3]);
+    
+    updateResult(`Map: ${myMap.get('key1')}`);
+    updateResult(`Set: [${Array.from(mySet).join(', ')}]`);
+    
+    // Promise
+    const promise = new Promise((resolve) => {
+        setTimeout(() => resolve('Promise выполнен!'), 100);
+    });
+    
+    promise.then(result => updateResult(`Promise: ${result}`));
+}
+
+// Инициализация
+document.addEventListener('DOMContentLoaded', function() {
+    updateResult('🎯 Современный JavaScript готов к демонстрации!');
+    updateResult('Нажмите кнопки выше для запуска примеров.');
+});</code>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="course-js.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(9)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить задание</button>
+            <a href="js-assignment-10.html" class="nav-button">Следующее задание →</a>
+        </div>
+
+        <script>
+            function updateResult(message) {
+                const resultDiv = document.getElementById('result');
+                resultDiv.innerHTML += message + '<br>';
+            }
+
+            function clearResults() {
+                document.getElementById('result').innerHTML = 'Результаты будут отображаться здесь...<br>';
+            }
+
+            function demoArrowFunctions() {
+                updateResult('🚀 Стрелочные функции:');
+                updateResult('Обычная функция: 8');
+                updateResult('Стрелочная функция: 8');
+                updateResult('С телом: Сумма 5 + 3 = 8');
+                updateResult('Контекст this: традиционная работает, стрелочная - нет');
+            }
+
+            function demoDestructuring() {
+                updateResult('🔄 Деструктуризация:');
+                updateResult('Массив: яблоко, банан, апельсин');
+                updateResult('Последний элемент: апельсин');
+                updateResult('Объект: Bob, 25 лет, Москва');
+                updateResult('Переименование: Bob - разработчик');
+                updateResult('По умолчанию: Россия');
+                updateResult('В функциях: Пользователь: Bob, 25 лет, город: Москва');
+            }
+
+            function demoSpreadRest() {
+                updateResult('📦 Spread и Rest операторы:');
+                updateResult('Spread массивы: [1, 2, 3, 4, 5, 6]');
+                updateResult('Spread объекты: {"a":1,"b":2,"c":3,"d":4}');
+                updateResult('Rest параметры: sum(1,2,3,4,5) = 15');
+                updateResult('Rest деструктуризация: first=1, second=2, rest=[3, 4, 5, 6]');
+            }
+
+            function demoTemplateLiterals() {
+                updateResult('📝 Шаблонные литералы:');
+                updateResult('Многострочный текст:');
+                updateResult('Привет! Меня зовут Alice. Мне 25 лет. Я живу в Москве.');
+                updateResult('Цена: $99.99');
+                updateResult('Скидка: 10%');
+                updateResult('Итоговая цена: $89.99');
+                updateResult('Форматированная цена: 8 099,10 ₽');
+            }
+
+            function demoModules() {
+                updateResult('📚 Модули (имитация):');
+                updateResult('2 + 3 = 5');
+                updateResult('4 * 5 = 20');
+                updateResult('2^3 = 8');
+                updateResult('5! = 120');
+                updateResult('Имитация импорта модулей выполнена успешно!');
+            }
+
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedJSAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedJSAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание завершено! Отличная работа! 🎉');
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                updateResult('🎯 Современный JavaScript готов к демонстрации!');
+                updateResult('Нажмите кнопки выше для запуска примеров.');
+            });
+        </script>
+    </div>
+</body>
+</html>

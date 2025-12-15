@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 6: Структуры и классы - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .lecture-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .highlight-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .highlight-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .key-points {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .key-points h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-cpp.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 6: Структуры и классы</h1>
+            <div class="lecture-meta">
+                <span>⚡ C++</span>
+                <span>⏱️ 65 минут</span>
+                <span>🎯 Средний</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели лекции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Изучить структуры (struct)</li>
+                <li>Освоить основы классов (class)</li>
+                <li>Понять инкапсуляцию и модификаторы доступа</li>
+                <li>Изучить конструкторы и деструкторы</li>
+                <li>Освоить методы классов</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Структуры (struct)</h2>
+
+            <h3>Объявление и использование структур</h3>
+            <div class="code-example">
+                <code>#include <iostream>
+#include <string>
+
+// Объявление структуры
+struct Person {
+    std::string name;
+    int age;
+    double height;
+};
+
+int main() {
+    // Создание экземпляра структуры
+    Person person1;
+    person1.name = "Алексей";
+    person1.age = 25;
+    person1.height = 175.5;
+
+    // Инициализация при создании
+    Person person2 = {"Мария", 30, 168.0};
+
+    // Вывод данных
+    std::cout << "Имя: " << person1.name << std::endl;
+    std::cout << "Возраст: " << person1.age << std::endl;
+    std::cout << "Рост: " << person1.height << " см" << std::endl;
+
+    return 0;
+}</code>
+            </div>
+
+            <h3>Массивы структур</h3>
+            <div class="code-example">
+                <code>struct Point {
+    int x;
+    int y;
+};
+
+int main() {
+    // Массив структур
+    Point points[3] = {
+        {1, 2},
+        {3, 4},
+        {5, 6}
+    };
+
+    // Вывод всех точек
+    for (int i = 0; i < 3; i++) {
+        std::cout << "Точка " << i + 1 << ": ("
+                  << points[i].x << ", "
+                  << points[i].y << ")" << std::endl;
+    }
+
+    return 0;
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🏛️ Классы (class)</h2>
+
+            <h3>Основы классов</h3>
+            <div class="code-example">
+                <code>class Rectangle {
+public:
+    // Поля (данные)
+    double width;
+    double height;
+
+    // Метод
+    double getArea() {
+        return width * height;
+    }
+
+    double getPerimeter() {
+        return 2 * (width + height);
+    }
+};
+
+int main() {
+    Rectangle rect;
+    rect.width = 5.0;
+    rect.height = 3.0;
+
+    std::cout << "Площадь: " << rect.getArea() << std::endl;
+    std::cout << "Периметр: " << rect.getPerimeter() << std::endl;
+
+    return 0;
+}</code>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h4>💡 Модификаторы доступа</h4>
+            <div class="code-example">
+                <code>class BankAccount {
+private:
+    // Приватные поля - доступ только внутри класса
+    std::string accountNumber;
+    double balance;
+
+public:
+    // Публичные методы - доступ из любой точки программы
+    BankAccount(std::string accNum, double initialBalance) {
+        accountNumber = accNum;
+        balance = initialBalance;
+    }
+
+    void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+        }
+    }
+
+    bool withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            return true;
+        }
+        return false;
+    }
+
+    double getBalance() {
+        return balance;
+    }
+
+    std::string getAccountNumber() {
+        return accountNumber;
+    }
+};
+
+int main() {
+    BankAccount account("123456789", 1000.0);
+
+    account.deposit(500.0);
+    account.withdraw(200.0);
+
+    std::cout << "Баланс: $" << account.getBalance() << std::endl;
+
+    // account.balance = 1000000; // Ошибка! balance - private
+
+    return 0;
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Конструкторы</h2>
+
+            <h3>Конструктор по умолчанию</h3>
+            <div class="code-example">
+                <code>class Car {
+private:
+    std::string model;
+    int year;
+    double price;
+
+public:
+    // Конструктор по умолчанию
+    Car() {
+        model = "Неизвестно";
+        year = 2023;
+        price = 0.0;
+    }
+
+    // Параметризованный конструктор
+    Car(std::string m, int y, double p) {
+        model = m;
+        year = y;
+        price = p;
+    }
+
+    void displayInfo() {
+        std::cout << model << " (" << year << ") - $" << price << std::endl;
+    }
+};
+
+int main() {
+    Car car1;  // Вызов конструктора по умолчанию
+    Car car2("Toyota Camry", 2022, 25000.0);  // Параметризованный конструктор
+
+    car1.displayInfo();
+    car2.displayInfo();
+
+    return 0;
+}</code>
+            </div>
+
+            <h3>Список инициализации</h3>
+            <div class="code-example">
+                <code>class Student {
+private:
+    std::string name;
+    int age;
+    double gpa;
+
+public:
+    // Конструктор со списком инициализации
+    Student(std::string n, int a, double g)
+        : name(n), age(a), gpa(g) {
+        // Тело конструктора может быть пустым
+    }
+
+    void displayInfo() {
+        std::cout << "Студент: " << name << std::endl;
+        std::cout << "Возраст: " << age << std::endl;
+        std::cout << "Средний балл: " << gpa << std::endl;
+    }
+};
+
+int main() {
+    Student student("Алексей", 20, 4.5);
+    student.displayInfo();
+
+    return 0;
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🗑️ Деструкторы</h2>
+
+            <div class="code-example">
+                <code>class FileHandler {
+private:
+    std::string filename;
+    bool isOpen;
+
+public:
+    FileHandler(std::string fname) : filename(fname), isOpen(false) {
+        std::cout << "Создан обработчик файла: " << filename << std::endl;
+    }
+
+    void openFile() {
+        isOpen = true;
+        std::cout << "Файл " << filename << " открыт" << std::endl;
+    }
+
+    // Деструктор
+    ~FileHandler() {
+        if (isOpen) {
+            std::cout << "Файл " << filename << " автоматически закрыт" << std::endl;
+        }
+        std::cout << "Обработчик файла " << filename << " уничтожен" << std::endl;
+    }
+};
+
+int main() {
+    std::cout << "Начало программы" << std::endl;
+
+    {
+        FileHandler handler("data.txt");
+        handler.openFile();
+        std::cout << "Работа с файлом..." << std::endl;
+    }  // Здесь вызывается деструктор
+
+    std::cout << "Конец программы" << std::endl;
+
+    return 0;
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📝 Методы классов</h2>
+
+            <div class="code-example">
+                <code>class Calculator {
+private:
+    double memory;
+
+public:
+    Calculator() : memory(0.0) {}
+
+    // Геттеры и сеттеры
+    double getMemory() { return memory; }
+    void setMemory(double value) { memory = value; }
+
+    // Арифметические операции
+    double add(double a, double b) { return a + b; }
+    double subtract(double a, double b) { return a - b; }
+    double multiply(double a, double b) { return a * b; }
+    double divide(double a, double b) {
+        if (b != 0) return a / b;
+        std::cout << "Ошибка: деление на ноль!" << std::endl;
+        return 0.0;
+    }
+
+    // Работа с памятью
+    void addToMemory(double value) { memory += value; }
+    void subtractFromMemory(double value) { memory -= value; }
+    void clearMemory() { memory = 0.0; }
+};
+
+int main() {
+    Calculator calc;
+
+    std::cout << "2 + 3 = " << calc.add(2, 3) << std::endl;
+    std::cout << "10 - 4 = " << calc.subtract(10, 4) << std::endl;
+
+    calc.addToMemory(42.5);
+    std::cout << "В памяти: " << calc.getMemory() << std::endl;
+
+    return 0;
+}</code>
+            </div>
+        </div>
+
+        <div class="key-points">
+            <h4>🔑 Ключевые понятия</h4>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Структура (struct):</strong> Пользовательский тип данных с публичными полями</li>
+                <li><strong>Класс (class):</strong> Пользовательский тип с методами и инкапсуляцией</li>
+                <li><strong>Инкапсуляция:</strong> Сокрытие данных с помощью модификаторов доступа</li>
+                <li><strong>Конструктор:</strong> Специальный метод для инициализации объектов</li>
+                <li><strong>Деструктор:</strong> Метод, вызываемый при уничтожении объекта</li>
+                <li><strong>Методы:</strong> Функции, принадлежащие классу</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Заключение</h2>
+            <p>В этой лекции мы изучили:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Объявление и использование структур</li>
+                <li>Основы создания классов</li>
+                <li>Модификаторы доступа (public, private)</li>
+                <li>Конструкторы и деструкторы</li>
+                <li>Методы классов и инкапсуляцию</li>
+                <li>Принципы объектно-ориентированного программирования</li>
+            </ul>
+
+            <p style="margin-top: 20px; font-weight: bold;">В следующей лекции мы изучим наследование и полиморфизм!</p>
+        </div>
+
+        <div class="navigation">
+            <a href="course-cpp.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(6)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить лекцию</button>
+            <a href="cpp-lecture-7.html" class="nav-button">Следующая лекция →</a>
+        </div>
+
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedCPPLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedCPPLectures', JSON.stringify(completedLectures));
+                    alert('Лекция завершена! Отличная работа! 🎉');
+                } else {
+                    alert('Эта лекция уже отмечена как завершенная.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

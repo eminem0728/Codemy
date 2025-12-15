@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 10: Продвинутые концепции - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 10: Продвинутые концепции</h1>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели лекции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Изучить замыкания</li>
+                <li>Освоить прототипы</li>
+                <li>Понять классы</li>
+                <li>Научиться работе с this</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🔒 Замыкания</h2>
+
+            <div class="code-example">
+                <code>// Замыкание - функция, которая запоминает свое лексическое окружение
+function createCounter() {
+    let count = 0; // Приватная переменная
+    
+    return {
+        increment: function() {
+            count++;
+            return count;
+        },
+        decrement: function() {
+            count--;
+            return count;
+        },
+        getCount: function() {
+            return count;
+        }
+    };
+}
+
+const counter = createCounter();
+console.log(counter.increment()); // 1
+console.log(counter.increment()); // 2
+console.log(counter.getCount());  // 2
+
+// Функция-фабрика
+function createMultiplier(factor) {
+    return function(number) {
+        return number * factor;
+    };
+}
+
+const double = createMultiplier(2);
+const triple = createMultiplier(3);
+console.log(double(5)); // 10
+console.log(triple(5)); // 15</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Прототипы</h2>
+
+            <div class="code-example">
+                <code>// Конструктор функции
+function Person(name, age) {
+    this.name = name;
+    this.age = age;
+}
+
+// Добавление методов в прототип
+Person.prototype.greet = function() {
+    return `Привет, я ${this.name}!`;
+};
+
+Person.prototype.getAge = function() {
+    return this.age;
+};
+
+const alice = new Person('Alice', 25);
+console.log(alice.greet()); // Привет, я Alice!
+console.log(alice.getAge()); // 25
+
+// Проверка прототипа
+console.log(alice instanceof Person); // true
+console.log(alice.__proto__ === Person.prototype); // true
+
+// Наследование через прототипы
+function Student(name, age, grade) {
+    Person.call(this, name, age); // Вызов конструктора родителя
+    this.grade = grade;
+}
+
+Student.prototype = Object.create(Person.prototype);
+Student.prototype.constructor = Student;
+
+Student.prototype.study = function() {
+    return `${this.name} учится в ${this.grade} классе`;
+};
+
+const student = new Student('Bob', 16, 10);
+console.log(student.greet()); // Привет, я Bob!
+console.log(student.study()); // Bob учится в 10 классе</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🏛️ Классы</h2>
+
+            <div class="code-example">
+                <code>// Определение класса
+class Person {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    
+    // Метод экземпляра
+    greet() {
+        return `Привет, я ${this.name}!`;
+    }
+    
+    // Геттер
+    get fullInfo() {
+        return `${this.name}, ${this.age} лет`;
+    }
+    
+    // Сеттер
+    set fullInfo(info) {
+        const [name, ageStr] = info.split(', ');
+        this.name = name;
+        this.age = parseInt(ageStr);
+    }
+    
+    // Статический метод
+    static createAnonymous() {
+        return new Person('Anonymous', 0);
+    }
+}
+
+// Наследование
+class Student extends Person {
+    constructor(name, age, grade) {
+        super(name, age); // Вызов конструктора родителя
+        this.grade = grade;
+    }
+    
+    // Переопределение метода
+    greet() {
+        return `Привет, я ${this.name}, ученик ${this.grade} класса!`;
+    }
+    
+    // Новый метод
+    study() {
+        return `${this.name} занимается`;
+    }
+}
+
+const person = new Person('Alice', 25);
+console.log(person.greet()); // Привет, я Alice!
+
+const student = new Student('Bob', 16, 10);
+console.log(student.greet()); // Привет, я Bob, ученик 10 класса!
+console.log(student.study()); // Bob занимается
+
+// Использование геттера и сеттера
+console.log(person.fullInfo); // Alice, 25 лет
+person.fullInfo = 'Charlie, 30';
+console.log(person.name, person.age); // Charlie 30</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎭 Контекст this</h2>
+
+            <div class="code-example">
+                <code>// В глобальном контексте
+console.log(this); // window (в браузере)
+
+// В функции
+function showThis() {
+    console.log(this);
+}
+showThis(); // window (в нестрогом режиме)
+
+// В методе объекта
+const obj = {
+    name: 'Alice',
+    greet: function() {
+        console.log(this.name);
+    }
+};
+obj.greet(); // Alice
+
+// В конструкторе
+function Person(name) {
+    this.name = name;
+    this.greet = function() {
+        console.log(`Привет, я ${this.name}!`);
+    };
+}
+const person = new Person('Bob');
+person.greet(); // Привет, я Bob!
+
+// Стрелочные функции не имеют своего this
+const obj2 = {
+    name: 'Charlie',
+    greet: () => {
+        console.log(this.name); // undefined (this из внешнего контекста)
+    },
+    greet2: function() {
+        const arrow = () => {
+            console.log(this.name); // Charlie (this из greet2)
+        };
+        arrow();
+    }
+};
+
+obj2.greet();  // undefined
+obj2.greet2(); // Charlie</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔧 Продвинутые паттерны</h2>
+
+            <div class="code-example">
+                <code>// Модуль (IIFE)
+const Calculator = (function() {
+    let result = 0;
+    
+    function add(num) {
+        result += num;
+        return this;
+    }
+    
+    function subtract(num) {
+        result -= num;
+        return this;
+    }
+    
+    function getResult() {
+        return result;
+    }
+    
+    function reset() {
+        result = 0;
+        return this;
+    }
+    
+    return {
+        add,
+        subtract,
+        getResult,
+        reset
+    };
+})();
+
+Calculator.add(5).subtract(2).add(10);
+console.log(Calculator.getResult()); // 13
+
+// Фабричная функция
+function createCar(make, model, year) {
+    return {
+        make,
+        model,
+        year,
+        getInfo() {
+            return `${this.make} ${this.model} (${this.year})`;
+        },
+        drive() {
+            console.log(`${this.getInfo()} едет`);
+        }
+    };
+}
+
+const car = createCar('Toyota', 'Camry', 2020);
+car.drive(); // Toyota Camry (2020) едет</code>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="course-js.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(10)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить лекцию</button>
+            <a href="js-assignment-7.html" class="nav-button">К заданиям →</a>
+        </div>
+
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedJSLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedJSLectures', JSON.stringify(completedLectures));
+                    alert('Лекция завершена! Поздравляем с завершением курса JavaScript! 🎉');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

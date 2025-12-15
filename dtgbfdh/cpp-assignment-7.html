@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 7: Наследование - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .assignment-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .task-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .task-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .solution-box {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .solution-box h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-cpp.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 7: Наследование</h1>
+            <div class="assignment-meta">
+                <span>⚡ C++</span>
+                <span>⏱️ 60 минут</span>
+                <span>📝 Продвинутый</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Описание задания</h2>
+            <p>Создайте иерархию классов с использованием наследования, демонстрирующую полиморфизм и виртуальные функции в C++.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели задания</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Освоить наследование классов</li>
+                <li>Применить виртуальные функции</li>
+                <li>Реализовать полиморфизм</li>
+                <li>Создать абстрактные классы</li>
+                <li>Демонстрировать множественное наследование</li>
+            </ul>
+        </div>
+
+        <div class="task-box">
+            <h4>📝 Задача</h4>
+            <p>Создайте программу InheritanceDemo, которая:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Реализует иерархию геометрических фигур</li>
+                <li>Демонстрирует виртуальные функции</li>
+                <li>Включает абстрактный базовый класс</li>
+                <li>Показывает полиморфизм в действии</li>
+                <li>Использует множественное наследование</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Критерии оценки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Наследование (25%):</strong> Корректная иерархия классов</li>
+                <li><strong>Виртуальные функции (25%):</strong> Правильное использование virtual</li>
+                <li><strong>Полиморфизм (20%):</strong> Работа через указатели на базовый класс</li>
+                <li><strong>Абстрактные классы (15%):</strong> Чисто виртуальные функции</li>
+                <li><strong>Множественное наследование (15%):</strong> Наследование от нескольких классов</li>
+            </ul>
+        </div>
+
+        <div class="solution-box">
+            <h4>💡 Пример решения</h4>
+            <p>Нажмите кнопку ниже, чтобы посмотреть пример решения:</p>
+            <button onclick="toggleSolution()" class="nav-button" style="margin-top: 15px;">
+                Показать решение
+            </button>
+
+            <div id="solution" style="display: none; margin-top: 20px;">
+                <div class="code-example">
+                    <code>/**
+ * Демонстрация наследования в C++
+ * Автор: Студент CodeLearn
+ * Дата: 08.12.2024
+ */
+
+#include <iostream>
+#include <vector>
+#include <memory>
+
+// Интерфейс для сериализации
+class Serializable {
+public:
+    virtual void serialize(std::ostream& os) const = 0;
+    virtual ~Serializable() {}
+};
+
+// Интерфейс для отрисовки
+class Drawable {
+public:
+    virtual void draw() const = 0;
+    virtual ~Drawable() {}
+};
+
+// Абстрактный базовый класс фигуры
+class Shape : public Serializable, public Drawable {
+protected:
+    std::string name;
+    std::string color;
+
+public:
+    Shape(const std::string& n, const std::string& c = "Black")
+        : name(n), color(c) {}
+
+    virtual ~Shape() {}
+
+    // Чисто виртуальные функции
+    virtual double getArea() const = 0;
+    virtual double getPerimeter() const = 0;
+
+    // Обычные виртуальные функции
+    virtual void display() const {
+        std::cout << name << " (" << color << ")";
+    }
+
+    // Реализация интерфейсов
+    void serialize(std::ostream& os) const override {
+        os << "Shape:" << name << ":" << color;
+    }
+
+    void draw() const override {
+        std::cout << "Рисуем " << color << " " << name << std::endl;
+    }
+
+    const std::string& getName() const { return name; }
+    const std::string& getColor() const { return color; }
+    void setColor(const std::string& c) { color = c; }
+};
+
+// Производный класс - круг
+class Circle : public Shape {
+private:
+    double radius;
+
+public:
+    Circle(double r, const std::string& c = "Red")
+        : Shape("Круг", c), radius(r) {}
+
+    double getArea() const override {
+        return 3.14159 * radius * radius;
+    }
+
+    double getPerimeter() const override {
+        return 2 * 3.14159 * radius;
+    }
+
+    void display() const override {
+        Shape::display();
+        std::cout << " радиусом " << radius << std::endl;
+        std::cout << "Площадь: " << getArea() << std::endl;
+        std::cout << "Периметр: " << getPerimeter() << std::endl;
+    }
+
+    void draw() const override {
+        std::cout << "  ***  " << std::endl;
+        std::cout << " *   * " << std::endl;
+        std::cout << "*  " << color << "  *" << std::endl;
+        std::cout << " *   * " << std::endl;
+        std::cout << "  ***  " << std::endl;
+    }
+
+    double getRadius() const { return radius; }
+};
+
+// Производный класс - прямоугольник
+class Rectangle : public Shape {
+private:
+    double width, height;
+
+public:
+    Rectangle(double w, double h, const std::string& c = "Blue")
+        : Shape("Прямоугольник", c), width(w), height(h) {}
+
+    double getArea() const override {
+        return width * height;
+    }
+
+    double getPerimeter() const override {
+        return 2 * (width + height);
+    }
+
+    void display() const override {
+        Shape::display();
+        std::cout << " " << width << "x" << height << std::endl;
+        std::cout << "Площадь: " << getArea() << std::endl;
+        std::cout << "Периметр: " << getPerimeter() << std::endl;
+    }
+
+    void draw() const override {
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if (i == 0 || i == height - 1 || j == 0 || j == width - 1) {
+                    std::cout << "*";
+                } else {
+                    std::cout << " ";
+                }
+            }
+            std::cout << std::endl;
+        }
+    }
+
+    double getWidth() const { return width; }
+    double getHeight() const { return height; }
+};
+
+// Производный класс - треугольник
+class Triangle : public Shape {
+private:
+    double base, height;
+
+public:
+    Triangle(double b, double h, const std::string& c = "Green")
+        : Shape("Треугольник", c), base(b), height(h) {}
+
+    double getArea() const override {
+        return 0.5 * base * height;
+    }
+
+    double getPerimeter() const override {
+        // Упрощенный расчет (равносторонний треугольник)
+        return 3 * base;
+    }
+
+    void display() const override {
+        Shape::display();
+        std::cout << " основанием " << base << " и высотой " << height << std::endl;
+        std::cout << "Площадь: " << getArea() << std::endl;
+        std::cout << "Периметр: " << getPerimeter() << std::endl;
+    }
+
+    void draw() const override {
+        int h = static_cast<int>(height);
+        for (int i = 0; i < h; i++) {
+            for (int j = 0; j <= i; j++) {
+                if (j == 0 || j == i || i == h - 1) {
+                    std::cout << "*";
+                } else {
+                    std::cout << " ";
+                }
+            }
+            std::cout << std::endl;
+        }
+    }
+};
+
+// Класс для управления коллекцией фигур
+class ShapeManager {
+private:
+    std::vector<std::unique_ptr<Shape>> shapes;
+
+public:
+    void addShape(std::unique_ptr<Shape> shape) {
+        shapes.push_back(std::move(shape));
+    }
+
+    void displayAllShapes() const {
+        std::cout << "\n=== ВСЕ ФИГУРЫ ===" << std::endl;
+        for (const auto& shape : shapes) {
+            shape->display();
+            std::cout << std::endl;
+        }
+    }
+
+    void drawAllShapes() const {
+        std::cout << "\n=== ОТРИСОВКА ФИГУР ===" << std::endl;
+        for (const auto& shape : shapes) {
+            shape->draw();
+            std::cout << std::endl;
+        }
+    }
+
+    double getTotalArea() const {
+        double total = 0.0;
+        for (const auto& shape : shapes) {
+            total += shape->getArea();
+        }
+        return total;
+    }
+
+    void serializeAll(std::ostream& os) const {
+        for (const auto& shape : shapes) {
+            shape->serialize(os);
+            os << std::endl;
+        }
+    }
+
+    size_t getShapeCount() const {
+        return shapes.size();
+    }
+};
+
+int main() {
+    std::cout << "=== ДЕМОНСТРАЦИЯ НАСЛЕДОВАНИЯ ===\n\n";
+
+    // Создание менеджера фигур
+    ShapeManager manager;
+
+    // Создание различных фигур
+    manager.addShape(std::make_unique<Circle>(5.0, "Red"));
+    manager.addShape(std::make_unique<Rectangle>(4.0, 6.0, "Blue"));
+    manager.addShape(std::make_unique<Triangle>(6.0, 4.0, "Green"));
+
+    // Демонстрация полиморфизма
+    manager.displayAllShapes();
+
+    // Отрисовка фигур
+    manager.drawAllShapes();
+
+    // Статистика
+    std::cout << "\n=== СТАТИСТИКА ===" << std::endl;
+    std::cout << "Количество фигур: " << manager.getShapeCount() << std::endl;
+    std::cout << "Общая площадь: " << manager.getTotalArea() << std::endl;
+
+    // Сериализация
+    std::cout << "\n=== СЕРИАЛИЗАЦИЯ ===" << std::endl;
+    manager.serializeAll(std::cout);
+
+    // Демонстрация множественного наследования
+    std::cout << "\n=== МНОЖЕСТВЕННОЕ НАСЛЕДОВАНИЕ ===" << std::endl;
+    Circle circle(3.0);
+    std::cout << "Круг реализует Serializable: ";
+    circle.serialize(std::cout);
+    std::cout << std::endl;
+
+    std::cout << "Круг реализует Drawable:\n";
+    circle.draw();
+
+    std::cout << "\n=== ПРОГРАММА ЗАВЕРШЕНА ===" << std::endl;
+
+    return 0;
+}</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="course-cpp.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(7)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить задание</button>
+            <a href="cpp-assignment-8.html" class="nav-button">Следующее задание →</a>
+        </div>
+
+        <script>
+            function toggleSolution() {
+                const solution = document.getElementById('solution');
+                const button = event.target;
+
+                if (solution.style.display === 'none') {
+                    solution.style.display = 'block';
+                    button.textContent = 'Скрыть решение';
+                } else {
+                    solution.style.display = 'none';
+                    button.textContent = 'Показать решение';
+                }
+            }
+
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedCPPAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedCPPAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание завершено! Отличная работа! 🎉');
+                } else {
+                    alert('Это задание уже отмечено как завершенное.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

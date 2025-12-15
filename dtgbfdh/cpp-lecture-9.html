@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лекция 9: Шаблоны (Templates) - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .lecture-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .lecture-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .lecture-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .highlight-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .highlight-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .key-points {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .key-points h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-cpp.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="lecture-header">
+            <h1 class="lecture-title">Лекция 9: Шаблоны (Templates)</h1>
+            <div class="lecture-meta">
+                <span>⚡ C++</span>
+                <span>⏱️ 70 минут</span>
+                <span>🎯 Продвинутый</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели лекции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Изучить шаблоны функций</li>
+                <li>Освоить шаблоны классов</li>
+                <li>Понять специализацию шаблонов</li>
+                <li>Изучить шаблоны с несколькими параметрами</li>
+                <li>Освоить стандартную библиотеку шаблонов (STL)</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🔧 Шаблоны функций</h2>
+
+            <h3>Базовый синтаксис</h3>
+            <div class="code-example">
+                <code>#include <iostream>
+
+// Шаблон функции для поиска максимума
+template <typename T>
+T maximum(T a, T b) {
+    return (a > b) ? a : b;
+}
+
+// Шаблон функции для вывода массива
+template <typename T>
+void printArray(T arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+}
+
+int main() {
+    // Использование с разными типами
+    std::cout << "Max int: " << maximum(5, 8) << std::endl;
+    std::cout << "Max double: " << maximum(3.14, 2.71) << std::endl;
+    std::cout << "Max char: " << maximum('a', 'z') << std::endl;
+
+    int intArray[] = {1, 2, 3, 4, 5};
+    double doubleArray[] = {1.1, 2.2, 3.3};
+
+    std::cout << "Int array: ";
+    printArray(intArray, 5);
+
+    std::cout << "Double array: ";
+    printArray(doubleArray, 3);
+
+    return 0;
+}</code>
+            </div>
+
+            <h3>Шаблоны с несколькими параметрами</h3>
+            <div class="code-example">
+                <code>// Шаблон с двумя типами параметров
+template <typename T, typename U>
+void printPair(T first, U second) {
+    std::cout << "Пара: " << first << " и " << second << std::endl;
+}
+
+// Шаблон для создания пары
+template <typename T, typename U>
+struct Pair {
+    T first;
+    U second;
+
+    Pair(T f, U s) : first(f), second(s) {}
+};
+
+int main() {
+    printPair(42, "hello");
+    printPair(3.14, 'x');
+
+    Pair<int, std::string> p1(1, "one");
+    Pair<double, char> p2(2.5, 'A');
+
+    std::cout << "Pair 1: " << p1.first << ", " << p1.second << std::endl;
+    std::cout << "Pair 2: " << p2.first << ", " << p2.second << std::endl;
+
+    return 0;
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🏛️ Шаблоны классов</h2>
+
+            <h3>Простой шаблон класса</h3>
+            <div class="code-example">
+                <code>template <typename T>
+class Stack {
+private:
+    T* data;
+    int capacity;
+    int top;
+
+public:
+    Stack(int cap = 10) : capacity(cap), top(-1) {
+        data = new T[capacity];
+    }
+
+    ~Stack() {
+        delete[] data;
+    }
+
+    void push(T value) {
+        if (top >= capacity - 1) {
+            std::cout << "Стек переполнен!" << std::endl;
+            return;
+        }
+        data[++top] = value;
+    }
+
+    T pop() {
+        if (top < 0) {
+            std::cout << "Стек пуст!" << std::endl;
+            return T(); // Возвращаем значение по умолчанию
+        }
+        return data[top--];
+    }
+
+    bool isEmpty() const {
+        return top == -1;
+    }
+
+    T peek() const {
+        if (top >= 0) {
+            return data[top];
+        }
+        return T();
+    }
+};
+
+int main() {
+    Stack<int> intStack;
+    Stack<std::string> stringStack;
+
+    // Работа с int стеком
+    intStack.push(10);
+    intStack.push(20);
+    intStack.push(30);
+
+    std::cout << "Верхний элемент: " << intStack.peek() << std::endl;
+    std::cout << "Извлечено: " << intStack.pop() << std::endl;
+    std::cout << "Извлечено: " << intStack.pop() << std::endl;
+
+    // Работа со строковым стеком
+    stringStack.push("Hello");
+    stringStack.push("World");
+
+    std::cout << "Извлечено: " << stringStack.pop() << std::endl;
+
+    return 0;
+}</code>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h4>💡 Специализация шаблонов</h4>
+            <div class="code-example">
+                <code>// Общий шаблон
+template <typename T>
+class Printer {
+public:
+    void print(T value) {
+        std::cout << "Общий шаблон: " << value << std::endl;
+    }
+};
+
+// Специализация для типа bool
+template <>
+class Printer<bool> {
+public:
+    void print(bool value) {
+        std::cout << "Булево значение: " << (value ? "true" : "false") << std::endl;
+    }
+};
+
+// Специализация для типа const char*
+template <>
+class Printer<const char*> {
+public:
+    void print(const char* value) {
+        std::cout << "Строка C-style: \"" << value << "\"" << std::endl;
+    }
+};
+
+int main() {
+    Printer<int> intPrinter;
+    Printer<bool> boolPrinter;
+    Printer<const char*> stringPrinter;
+    Printer<double> doublePrinter;
+
+    intPrinter.print(42);
+    boolPrinter.print(true);
+    stringPrinter.print("Hello");
+    doublePrinter.print(3.14);
+
+    return 0;
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📚 Стандартная библиотека шаблонов (STL)</h2>
+
+            <h3>Контейнеры STL</h3>
+            <div class="code-example">
+                <code>#include <iostream>
+#include <vector>
+#include <list>
+#include <map>
+#include <set>
+#include <algorithm>
+
+int main() {
+    // Vector - динамический массив
+    std::vector<int> vec = {1, 2, 3, 4, 5};
+    vec.push_back(6);
+    std::cout << "Vector: ";
+    for (int x : vec) std::cout << x << " ";
+
+    // List - двусвязный список
+    std::list<std::string> lst = {"apple", "banana", "cherry"};
+    lst.push_front("orange");
+    std::cout << "\nList: ";
+    for (auto& s : lst) std::cout << s << " ";
+
+    // Map - ассоциативный массив
+    std::map<std::string, int> ages;
+    ages["Alice"] = 25;
+    ages["Bob"] = 30;
+    std::cout << "\nAges: ";
+    for (auto& pair : ages) {
+        std::cout << pair.first << "=" << pair.second << " ";
+    }
+
+    // Set - множество уникальных элементов
+    std::set<int> numbers = {3, 1, 4, 1, 5, 9};
+    std::cout << "\nSet: ";
+    for (int n : numbers) std::cout << n << " ";
+
+    // Алгоритмы STL
+    std::sort(vec.begin(), vec.end());
+    std::cout << "\nSorted vector: ";
+    for (int x : vec) std::cout << x << " ";
+
+    return 0;
+}</code>
+            </div>
+
+            <h3>Итераторы</h3>
+            <div class="code-example">
+                <code>#include <iostream>
+#include <vector>
+#include <algorithm>
+
+int main() {
+    std::vector<int> numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+    // Использование итераторов
+    std::cout << "Все элементы: ";
+    for (auto it = numbers.begin(); it != numbers.end(); ++it) {
+        std::cout << *it << " ";
+    }
+
+    // Поиск элемента
+    auto found = std::find(numbers.begin(), numbers.end(), 7);
+    if (found != numbers.end()) {
+        std::cout << "\nНайден элемент: " << *found;
+        std::cout << " на позиции: " << (found - numbers.begin());
+    }
+
+    // Обратные итераторы
+    std::cout << "\nВ обратном порядке: ";
+    for (auto it = numbers.rbegin(); it != numbers.rend(); ++it) {
+        std::cout << *it << " ";
+    }
+
+    return 0;
+}</code>
+            </div>
+        </div>
+
+        <div class="key-points">
+            <h4>🔑 Ключевые понятия</h4>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Шаблоны функций:</strong> Параметризованные функции для разных типов</li>
+                <li><strong>Шаблоны классов:</strong> Параметризованные классы</li>
+                <li><strong>Специализация:</strong> Специальные реализации для конкретных типов</li>
+                <li><strong>STL:</strong> Стандартная библиотека шаблонов</li>
+                <li><strong>Контейнеры:</strong> vector, list, map, set</li>
+                <li><strong>Алгоритмы:</strong> sort, find, transform</li>
+                <li><strong>Итераторы:</strong> Указатели на элементы контейнеров</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Заключение</h2>
+            <p>В этой лекции мы изучили:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Шаблоны функций с одним и несколькими параметрами</li>
+                <li>Шаблоны классов и их использование</li>
+                <li>Специализацию шаблонов для конкретных типов</li>
+                <li>Основные контейнеры STL (vector, list, map, set)</li>
+                <li>Алгоритмы и итераторы STL</li>
+                <li>Преимущества обобщенного программирования</li>
+            </ul>
+
+            <p style="margin-top: 20px; font-weight: bold;">В следующей лекции мы изучим обработку исключений!</p>
+        </div>
+
+        <div class="navigation">
+            <a href="course-cpp.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markLectureCompleted(9)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить лекцию</button>
+            <a href="cpp-lecture-10.html" class="nav-button">Следующая лекция →</a>
+        </div>
+
+        <script>
+            function markLectureCompleted(lectureNum) {
+                const completedLectures = JSON.parse(localStorage.getItem('completedCPPLectures') || '[]');
+                if (!completedLectures.includes(lectureNum)) {
+                    completedLectures.push(lectureNum);
+                    localStorage.setItem('completedCPPLectures', JSON.stringify(completedLectures));
+                    alert('Лекция завершена! Отличная работа! 🎉');
+                } else {
+                    alert('Эта лекция уже отмечена как завершенная.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

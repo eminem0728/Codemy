@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 6: Структуры и классы - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .assignment-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .task-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .task-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .solution-box {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .solution-box h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-cpp.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 6: Структуры и классы</h1>
+            <div class="assignment-meta">
+                <span>⚡ C++</span>
+                <span>⏱️ 55 минут</span>
+                <span>📝 Средний</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Описание задания</h2>
+            <p>Создайте программу, которая демонстрирует работу со структурами и классами в C++, включая инкапсуляцию, конструкторы и методы.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели задания</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Освоить создание и использование структур</li>
+                <li>Изучить основы классов и инкапсуляции</li>
+                <li>Применить конструкторы и деструкторы</li>
+                <li>Реализовать методы классов</li>
+                <li>Создать иерархию связанных классов</li>
+            </ul>
+        </div>
+
+        <div class="task-box">
+            <h4>📝 Задача</h4>
+            <p>Создайте программу StructClassDemo, которая:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Реализует структуру для хранения данных о студенте</li>
+                <li>Создает класс для управления группой студентов</li>
+                <li>Демонстрирует инкапсуляцию и методы доступа</li>
+                <li>Включает конструкторы и деструкторы</li>
+                <li>Показывает работу с массивами объектов</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Критерии оценки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Структура (20%):</strong> Корректное определение и использование структуры</li>
+                <li><strong>Класс (25%):</strong> Правильная реализация класса с инкапсуляцией</li>
+                <li><strong>Конструкторы/Деструкторы (20%):</strong> Корректная инициализация и очистка</li>
+                <li><strong>Методы (20%):</strong> Функциональные методы класса</li>
+                <li><strong>Организация (15%):</strong> Читаемый и структурированный код</li>
+            </ul>
+        </div>
+
+        <div class="solution-box">
+            <h4>💡 Пример решения</h4>
+            <p>Нажмите кнопку ниже, чтобы посмотреть пример решения:</p>
+            <button onclick="toggleSolution()" class="nav-button" style="margin-top: 15px;">
+                Показать решение
+            </button>
+
+            <div id="solution" style="display: none; margin-top: 20px;">
+                <div class="code-example">
+                    <code>/**
+ * Демонстрация структур и классов в C++
+ * Автор: Студент CodeLearn
+ * Дата: 08.12.2024
+ */
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+// Структура для хранения даты
+struct Date {
+    int day;
+    int month;
+    int year;
+
+    Date(int d = 1, int m = 1, int y = 2000) : day(d), month(m), year(y) {}
+
+    void display() const {
+        std::cout << day << "." << month << "." << year;
+    }
+
+    int getAge() const {
+        // Упрощенный расчет возраста
+        return 2024 - year;
+    }
+};
+
+// Структура для хранения информации о студенте
+struct Student {
+    std::string name;
+    std::string studentId;
+    Date birthDate;
+    double gpa;
+
+    Student(std::string n = "", std::string id = "", Date bd = Date(), double g = 0.0)
+        : name(n), studentId(id), birthDate(bd), gpa(g) {}
+
+    void display() const {
+        std::cout << "Студент: " << name << std::endl;
+        std::cout << "ID: " << studentId << std::endl;
+        std::cout << "Дата рождения: ";
+        birthDate.display();
+        std::cout << std::endl;
+        std::cout << "Средний балл: " << gpa << std::endl;
+        std::cout << "Возраст: " << birthDate.getAge() << " лет" << std::endl;
+    }
+
+    bool isExcellent() const {
+        return gpa >= 4.5;
+    }
+};
+
+// Класс для управления группой студентов
+class StudentGroup {
+private:
+    std::string groupName;
+    std::vector<Student> students;
+    int maxStudents;
+
+public:
+    // Конструктор
+    StudentGroup(std::string name, int max = 30)
+        : groupName(name), maxStudents(max) {
+        std::cout << "Создана группа: " << groupName << std::endl;
+    }
+
+    // Деструктор
+    ~StudentGroup() {
+        std::cout << "Группа " << groupName << " уничтожена" << std::endl;
+    }
+
+    // Метод для добавления студента
+    bool addStudent(const Student& student) {
+        if (students.size() >= maxStudents) {
+            std::cout << "Группа переполнена!" << std::endl;
+            return false;
+        }
+
+        students.push_back(student);
+        std::cout << "Студент " << student.name << " добавлен в группу" << std::endl;
+        return true;
+    }
+
+    // Метод для удаления студента по ID
+    bool removeStudent(const std::string& studentId) {
+        for (auto it = students.begin(); it != students.end(); ++it) {
+            if (it->studentId == studentId) {
+                std::cout << "Студент " << it->name << " удален из группы" << std::endl;
+                students.erase(it);
+                return true;
+            }
+        }
+        std::cout << "Студент с ID " << studentId << " не найден" << std::endl;
+        return false;
+    }
+
+    // Метод для поиска студента
+    const Student* findStudent(const std::string& studentId) const {
+        for (const auto& student : students) {
+            if (student.studentId == studentId) {
+                return &student;
+            }
+        }
+        return nullptr;
+    }
+
+    // Метод для вывода всех студентов
+    void displayAllStudents() const {
+        std::cout << "\n=== СПИСОК СТУДЕНТОВ ГРУППЫ " << groupName << " ===" << std::endl;
+        if (students.empty()) {
+            std::cout << "Группа пуста" << std::endl;
+            return;
+        }
+
+        for (size_t i = 0; i < students.size(); ++i) {
+            std::cout << "\nСтудент #" << (i + 1) << ":" << std::endl;
+            students[i].display();
+        }
+    }
+
+    // Метод для вычисления средней успеваемости
+    double getAverageGPA() const {
+        if (students.empty()) return 0.0;
+
+        double sum = 0.0;
+        for (const auto& student : students) {
+            sum += student.gpa;
+        }
+        return sum / students.size();
+    }
+
+    // Метод для подсчета отличников
+    int countExcellentStudents() const {
+        int count = 0;
+        for (const auto& student : students) {
+            if (student.isExcellent()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    // Геттеры
+    std::string getGroupName() const { return groupName; }
+    int getStudentCount() const { return students.size(); }
+    int getMaxStudents() const { return maxStudents; }
+};
+
+int main() {
+    std::cout << "=== ДЕМОНСТРАЦИЯ СТРУКТУР И КЛАССОВ ===\n\n";
+
+    // Создание группы
+    StudentGroup group("CS-101", 5);
+
+    // Создание студентов
+    Student s1("Иван Иванов", "S001", Date(15, 5, 2002), 4.8);
+    Student s2("Мария Петрова", "S002", Date(22, 3, 2001), 4.2);
+    Student s3("Алексей Сидоров", "S003", Date(10, 11, 2003), 3.9);
+
+    // Добавление студентов в группу
+    group.addStudent(s1);
+    group.addStudent(s2);
+    group.addStudent(s3);
+
+    // Вывод информации о группе
+    std::cout << "\nИнформация о группе:" << std::endl;
+    std::cout << "Название: " << group.getGroupName() << std::endl;
+    std::cout << "Количество студентов: " << group.getStudentCount() << std::endl;
+    std::cout << "Максимум: " << group.getMaxStudents() << std::endl;
+    std::cout << "Средний балл: " << group.getAverageGPA() << std::endl;
+    std::cout << "Отличников: " << group.countExcellentStudents() << std::endl;
+
+    // Поиск студента
+    const Student* found = group.findStudent("S002");
+    if (found) {
+        std::cout << "\nНайден студент:" << std::endl;
+        found->display();
+    }
+
+    // Вывод всех студентов
+    group.displayAllStudents();
+
+    // Удаление студента
+    group.removeStudent("S003");
+
+    std::cout << "\nПосле удаления:" << std::endl;
+    std::cout << "Количество студентов: " << group.getStudentCount() << std::endl;
+
+    // Попытка добавить слишком много студентов
+    Student s4("Ольга Смирнова", "S004", Date(5, 7, 2002), 4.6);
+    Student s5("Дмитрий Кузнецов", "S005", Date(18, 9, 2001), 4.1);
+    Student s6("Елена Волкова", "S006", Date(30, 12, 2003), 4.3);
+
+    group.addStudent(s4);
+    group.addStudent(s5);
+    group.addStudent(s6);  // Должна быть ошибка
+
+    std::cout << "\n=== ПРОГРАММА ЗАВЕРШЕНА ===" << std::endl;
+
+    return 0;
+}</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="course-cpp.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(6)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить задание</button>
+            <a href="cpp-assignment-7.html" class="nav-button">Следующее задание →</a>
+        </div>
+
+        <script>
+            function toggleSolution() {
+                const solution = document.getElementById('solution');
+                const button = event.target;
+
+                if (solution.style.display === 'none') {
+                    solution.style.display = 'block';
+                    button.textContent = 'Скрыть решение';
+                } else {
+                    solution.style.display = 'none';
+                    button.textContent = 'Показать решение';
+                }
+            }
+
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedCPPAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedCPPAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание завершено! Отличная работа! 🎉');
+                } else {
+                    alert('Это задание уже отмечено как завершенное.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

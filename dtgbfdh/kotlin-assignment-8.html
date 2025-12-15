@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 8: HTTP клиент - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .assignment-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .task-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .task-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .solution-box {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .solution-box h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-kotlin.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 8: HTTP клиент</h1>
+            <div class="assignment-meta">
+                <span>🅺 Kotlin</span>
+                <span>⏱️ 135 минут</span>
+                <span>📝 Продвинутое</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Описание задания</h2>
+            <p>Создайте полнофункциональный HTTP клиент на Kotlin с поддержкой различных методов запросов, обработкой заголовков, аутентификацией и обработкой ошибок.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели задания</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Работать с HTTP протоколом</li>
+                <li>Создавать и отправлять HTTP запросы</li>
+                <li>Обрабатывать ответы сервера</li>
+                <li>Работать с JSON данными</li>
+                <li>Реализовать аутентификацию</li>
+                <li>Использовать корутины для асинхронных операций</li>
+            </ul>
+        </div>
+
+        <div class="task-box">
+            <h4>📝 Задача</h4>
+            <p>Создайте HTTP клиент с поддержкой GET, POST, PUT, DELETE запросов, обработкой заголовков, cookies, аутентификации и работы с JSON.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>💡 Подсказки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Используйте HttpURLConnection для базового HTTP клиента</li>
+                <li>Создайте классы для HTTP методов и заголовков</li>
+                <li>Реализуйте парсинг JSON ответов</li>
+                <li>Добавьте обработку различных типов контента</li>
+                <li>Используйте корутины для асинхронных запросов</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Структура решения</h2>
+            
+            <h3>1. Создайте класс HttpClient</h3>
+            <div class="code-example">
+                <code>class HttpClient {
+    private val baseUrl: String
+    private val defaultHeaders: MutableMap<String, String>
+    
+    suspend fun get(url: String): HttpResponse
+    suspend fun post(url: String, body: String): HttpResponse
+    suspend fun put(url: String, body: String): HttpResponse
+    suspend fun delete(url: String): HttpResponse
+}</code>
+            </div>
+
+            <h3>2. Создайте классы для HTTP данных</h3>
+            <div class="code-example">
+                <code>data class HttpResponse(
+    val statusCode: Int,
+    val headers: Map<String, String>,
+    val body: String,
+    val cookies: Map<String, String>
+)
+
+data class RequestOptions(
+    val headers: Map<String, String> = emptyMap(),
+    val timeout: Int = 10000,
+    val followRedirects: Boolean = true
+)</code>
+            </div>
+
+            <h3>3. Создайте фабрику HTTP клиентов</h3>
+            <div class="code-example">
+                <code>object HttpClientFactory {
+    fun createClient(baseUrl: String): HttpClient
+    fun createAuthenticatedClient(baseUrl: String, token: String): HttpClient
+}</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📊 Пример работы клиента</h2>
+            <div class="code-example">
+                <code>=== HTTP КЛИЕНТ ===
+Выберите операцию:
+1. GET запрос
+2. POST запрос
+3. PUT запрос
+4. DELETE запрос
+5. Проверить API
+0. Выход
+
+Ваш выбор: 1
+Введите URL: https://jsonplaceholder.typicode.com/posts/1
+
+=== ОТВЕТ ===
+Статус: 200 OK
+Заголовки: {Content-Type=application/json, ...}
+Тело ответа:
+{
+  "userId": 1,
+  "id": 1,
+  "title": "sunt aut...",
+  "body": "quia et..."
+}
+
+Время ответа: 245мс
+Размер ответа: 156 байт</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔧 Поддерживаемые функции</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Методы:</strong> GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS</li>
+                <li><strong>Заголовки:</strong> Content-Type, Authorization, User-Agent, Custom</li>
+                <li><strong>Аутентификация:</strong> Basic Auth, Bearer Token, API Key</li>
+                <li><strong>Контент:</strong> JSON, Form Data, Plain Text, XML</li>
+                <li><strong>Обработка:</strong> Cookies, Redirects, Timeouts</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🌐 Примеры API для тестирования</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>JSONPlaceholder:</strong> https://jsonplaceholder.typicode.com/</li>
+                <li><strong>RestCountries:</strong> https://restcountries.com/v3.1/</li>
+                <li><strong>Dog API:</strong> https://dog.ceo/api/breeds/list/all</li>
+                <li><strong>HTTPBin:</strong> https://httpbin.org/</li>
+                <li><strong>JSON Server:</strong> https://json-server.herokuapp.com/</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Критерии оценки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Основная функциональность (40%):</strong> Все HTTP методы работают</li>
+                <li><strong>Обработка данных (25%):</strong> Работа с JSON и другими форматами</li>
+                <li><strong>Обработка ошибок (20%):</strong> Корректная обработка сетевых ошибок</li>
+                <li><strong>Пользовательский интерфейс (15%):</strong> Удобство использования</li>
+            </ul>
+        </div>
+
+        <div class="solution-box">
+            <h4>💡 Пример решения</h4>
+            <p>Нажмите кнопку ниже, чтобы посмотреть пример решения:</p>
+            <button onclick="toggleSolution()" class="nav-button" style="margin-top: 15px;">
+                Показать решение
+            </button>
+            
+            <div id="solution" style="display: none; margin-top: 20px;">
+                <div class="code-example">
+                    <code>import kotlinx.coroutines.*
+import java.net.*
+import java.io.*
+import java.util.concurrent.TimeUnit
+import java.util.Base64
+
+data class HttpResponse(
+    val statusCode: Int,
+    val headers: Map<String, String>,
+    val body: String,
+    val cookies: Map<String, String>,
+    val responseTime: Long
+)
+
+data class RequestOptions(
+    val headers: Map<String, String> = emptyMap(),
+    val timeout: Int = 30000,
+    val followRedirects: Boolean = true,
+    val userAgent: String = "Kotlin HttpClient/1.0"
+)
+
+data class HttpRequest(
+    val method: String,
+    val url: String,
+    val headers: Map<String, String> = emptyMap(),
+    val body: String = ""
+)
+
+sealed class HttpException(message: String) : Exception(message) {
+    class NetworkException(message: String) : HttpException("Сетевая ошибка: $message")
+    class TimeoutException : HttpException("Превышено время ожидания")
+    class ServerException(statusCode: Int, message: String) : HttpException("Ошибка сервера $statusCode: $message")
+    class AuthenticationException : HttpException("Ошибка аутентификации")
+}
+
+class HttpClient(
+    private val baseUrl: String = "",
+    private val defaultOptions: RequestOptions = RequestOptions()
+) {
+    private val defaultHeaders = mutableMapOf<String, String>()
+    
+    init {
+        defaultHeaders["User-Agent"] = defaultOptions.userAgent
+        defaultHeaders["Accept"] = "application/json, */*"
+    }
+    
+    suspend fun get(url: String, options: RequestOptions = defaultOptions): HttpResponse {
+        return request(HttpRequest("GET", buildUrl(url), options.headers))
+    }
+    
+    suspend fun post(url: String, body: String = "", options: RequestOptions = defaultOptions): HttpResponse {
+        val headers = options.headers.toMutableMap()
+        if (!headers.containsKey("Content-Type")) {
+            headers["Content-Type"] = "application/json"
+        }
+        return request(HttpRequest("POST", buildUrl(url), headers, body))
+    }
+    
+    suspend fun put(url: String, body: String = "", options: RequestOptions = defaultOptions): HttpResponse {
+        val headers = options.headers.toMutableMap()
+        if (!headers.containsKey("Content-Type")) {
+            headers["Content-Type"] = "application/json"
+        }
+        return request(HttpRequest("PUT", buildUrl(url), headers, body))
+    }
+    
+    suspend fun patch(url: String, body: String = "", options: RequestOptions = defaultOptions): HttpResponse {
+        val headers = options.headers.toMutableMap()
+        if (!headers.containsKey("Content-Type")) {
+            headers["Content-Type"] = "application/json"
+        }
+        return request(HttpRequest("PATCH", buildUrl(url), headers, body))
+    }
+    
+    suspend fun delete(url: String, options: RequestOptions = defaultOptions): HttpResponse {
+        return request(HttpRequest("DELETE", buildUrl(url), options.headers))
+    }
+    
+    suspend fun head(url: String, options: RequestOptions = defaultOptions): HttpResponse {
+        return request(HttpRequest("HEAD", buildUrl(url), options.headers))
+    }
+    
+    suspend fun options(url: String, options: RequestOptions = defaultOptions): HttpResponse {
+        return request(HttpRequest("OPTIONS", buildUrl(url), options.headers))
+    }
+    
+    private fun buildUrl(url: String): String {
+        return if (baseUrl.isNotEmpty() && !url.startsWith("http")) {
+            "$baseUrl/$url"
+        } else {
+            url
+        }
+    }
+    
+    private suspend fun request(request: HttpRequest): HttpResponse = withContext(Dispatchers.IO) {
+        val startTime = System.currentTimeMillis()
+        
+        try {
+            val url = URL(request.url)
+            val connection = url.openConnection() as HttpURLConnection
+            
+            // Настройка соединения
+            connection.requestMethod = request.method
+            connection.connectTimeout = defaultOptions.timeout
+            connection.readTimeout = defaultOptions.timeout
+            connection.instanceFollowRedirects = defaultOptions.followRedirects
+            
+            // Установка заголовков
+            request.headers.forEach { (key, value) ->
+                connection.setRequestProperty(key, value)
+            }
+            
+            // Добавление тела запроса для методов, которые его поддерживают
+            if (request.body.isNotEmpty() && request.method in listOf("POST", "PUT", "PATCH")) {
+                connection.doOutput = true
+                connection.outputStream.use { outputStream ->
+                    outputStream.write(request.body.toByteArray())
+                }
+            }
+            
+            // Выполнение запроса
+            val responseCode = connection.responseCode
+            val responseHeaders = connection.headerFields
+            val responseBody = if (responseCode < 400) {
+                connection.inputStream.bufferedReader().use { it.readText() }
+            } else {
+                connection.errorStream?.bufferedReader()?.use { it.readText() } ?: ""
+            }
+            
+            // Извлечение cookies
+            val cookies = extractCookies(connection)
+            
+            val responseTime = System.currentTimeMillis() - startTime
+            
+            connection.disconnect()
+            
+            HttpResponse(
+                statusCode = responseCode,
+                headers = responseHeaders.mapValues { it.value.joinToString(", ") },
+                body = responseBody,
+                cookies = cookies,
+                responseTime = responseTime
+            )
+            
+        } catch (e: SocketTimeoutException) {
+            throw HttpException.TimeoutException()
+        } catch (e: IOException) {
+            throw HttpException.NetworkException(e.message ?: "Неизвестная сетевая ошибка")
+        }
+    }
+    
+    private fun extractCookies(connection: HttpURLConnection): Map<String, String> {
+        val cookies = mutableMapOf<String, String>()
+        
+        connection.headerFields["Set-Cookie"]?.forEach { cookie ->
+            val parts = cookie.split(";")[0].split("=", limit = 2)
+            if (parts.size == 2) {
+                cookies[parts[0]] = parts[1]
+            }
+        }
+        
+        return cookies
+    }
+}
+
+object HttpClientFactory {
+    fun createClient(baseUrl: String = ""): HttpClient {
+        return HttpClient(baseUrl)
+    }
+    
+    fun createAuthenticatedClient(baseUrl: String, token: String): HttpClient {
+        val client = HttpClient(baseUrl)
+        val authHeader = "Bearer $token"
+        client.setDefaultHeader("Authorization", authHeader)
+        return client
+    }
+    
+    fun createBasicAuthClient(baseUrl: String, username: String, password: String): HttpClient {
+        val client = HttpClient(baseUrl)
+        val credentials = Base64.getEncoder().encodeToString("$username:$password".toByteArray())
+        client.setDefaultHeader("Authorization", "Basic $credentials")
+        return client
+    }
+    
+    fun createApiKeyClient(baseUrl: String, apiKey: String, headerName: String = "X-API-Key"): HttpClient {
+        val client = HttpClient(baseUrl)
+        client.setDefaultHeader(headerName, apiKey)
+        return client
+    }
+}
+
+// Расширения для удобства
+fun HttpClient.setDefaultHeader(key: String, value: String) {
+    // В реальной реализации здесь был бы механизм установки заголовков по умолчанию
+}
+
+// JSON утилиты
+object JsonUtils {
+    fun formatJson(json: String): String {
+        return try {
+            val parser = org.json.JSONObject(json)
+            parser.toString(4)
+        } catch (e: Exception) {
+            json
+        }
+    }
+    
+    fun prettyPrintJson(json: String): String {
+        return try {
+            val parser = org.json.JSONObject(json)
+            parser.toString(2)
+        } catch (e: Exception) {
+            try {
+                val parser = org.json.JSONArray(json)
+                parser.toString(2)
+            } catch (e2: Exception) {
+                json
+            }
+        }
+    }
+}
+
+// HTTP утилиты
+object HttpUtils {
+    fun isSuccess(statusCode: Int): Boolean = statusCode in 200..299
+    fun isRedirect(statusCode: Int): Boolean = statusCode in 300..399
+    fun isClientError(statusCode: Int): Boolean = statusCode in 400..499
+    fun isServerError(statusCode: Int): Boolean = statusCode in 500..599
+    
+    fun getStatusText(statusCode: Int): String {
+        return when (statusCode) {
+            200 -> "OK"
+            201 -> "Created"
+            400 -> "Bad Request"
+            401 -> "Unauthorized"
+            403 -> "Forbidden"
+            404 -> "Not Found"
+            500 -> "Internal Server Error"
+            502 -> "Bad Gateway"
+            503 -> "Service Unavailable"
+            else -> "Unknown"
+        }
+    }
+}
+
+class ApiTester {
+    private val client = HttpClientFactory.createClient()
+    
+    suspend fun testPublicApi() {
+        println("\\n=== ТЕСТИРОВАНИЕ PUBLIC API ===")
+        
+        try {
+            println("\\n1. Тест JSONPlaceholder API:")
+            val postsResponse = client.get("https://jsonplaceholder.typicode.com/posts")
+            println("Статус: ${postsResponse.statusCode}")
+            println("Время ответа: ${postsResponse.responseTime}мс")
+            
+            if (postsResponse.body.isNotEmpty()) {
+                println("Первые 200 символов ответа:")
+                println(postsResponse.body.take(200) + "...")
+            }
+            
+            println("\\n2. Тест Dog API:")
+            val dogResponse = client.get("https://dog.ceo/api/breeds/list/all")
+            println("Статус: ${dogResponse.statusCode}")
+            println("Ответ: ${JsonUtils.formatJson(dogResponse.body)}")
+            
+            println("\\n3. Тест HTTPBin (POST):")
+            val postResponse = client.post("https://httpbin.org/post", 
+                """{"message": "Hello from Kotlin!", "timestamp": ${System.currentTimeMillis()}}""")
+            println("Статус: ${postResponse.statusCode}")
+            println("Время ответа: ${postResponse.responseTime}мс")
+            
+        } catch (e: HttpException) {
+            println("Ошибка API тестирования: ${e.message}")
+        } catch (e: Exception) {
+            println("Неожиданная ошибка: ${e.message}")
+        }
+    }
+    
+    suspend fun interactiveTest() {
+        println("\\n=== ИНТЕРАКТИВНОЕ ТЕСТИРОВАНИЕ ===")
+        
+        while (true) {
+            println("\\nВыберите действие:")
+            println("1. GET запрос")
+            println("2. POST запрос")
+            println("3. PUT запрос")
+            println("4. DELETE запрос")
+            println("5. Тестировать готовые API")
+            println("0. Назад")
+            
+            print("Ваш выбор: ")
+            val choice = readLine()?.toIntOrNull()
+            
+            when (choice) {
+                0 -> break
+                1 -> performGet()
+                2 -> performPost()
+                3 -> performPut()
+                4 -> performDelete()
+                5 -> testPublicApi()
+                else -> println("Некорректный выбор")
+            }
+        }
+    }
+    
+    private suspend fun performGet() {
+        print("Введите URL: ")
+        val url = readLine()?.trim() ?: return
+        
+        try {
+            val response = client.get(url)
+            printResponse(response)
+        } catch (e: HttpException) {
+            println("Ошибка запроса: ${e.message}")
+        }
+    }
+    
+    private suspend fun performPost() {
+        print("Введите URL: ")
+        val url = readLine()?.trim() ?: return
+        
+        print("Введите JSON данные: ")
+        val body = readLine()?.trim() ?: "{}"
+        
+        try {
+            val response = client.post(url, body)
+            printResponse(response)
+        } catch (e: HttpException) {
+            println("Ошибка запроса: ${e.message}")
+        }
+    }
+    
+    private suspend fun performPut() {
+        print("Введите URL: ")
+        val url = readLine()?.trim() ?: return
+        
+        print("Введите JSON данные: ")
+        val body = readLine()?.trim() ?: "{}"
+        
+        try {
+            val response = client.put(url, body)
+            printResponse(response)
+        } catch (e: HttpException) {
+            println("Ошибка запроса: ${e.message}")
+        }
+    }
+    
+    private suspend fun performDelete() {
+        print("Введите URL: ")
+        val url = readLine()?.trim() ?: return
+        
+        try {
+            val response = client.delete(url)
+            printResponse(response)
+        } catch (e: HttpException) {
+            println("Ошибка запроса: ${e.message}")
+        }
+    }
+    
+    private fun printResponse(response: HttpResponse) {
+        println("\\n=== ОТВЕТ ===")
+        println("Статус: ${response.statusCode} ${HttpUtils.getStatusText(response.statusCode)}")
+        println("Время ответа: ${response.responseTime}мс")
+        println("Размер ответа: ${response.body.length} байт")
+        
+        if (response.headers.isNotEmpty()) {
+            println("\\nЗаголовки:")
+            response.headers.forEach { (key, value) ->
+                println("  $key: $value")
+            }
+        }
+        
+        if (response.body.isNotEmpty()) {
+            println("\\nТело ответа:")
+            val formattedBody = if (response.body.trim().startsWith("{") || response.body.trim().startsWith("[")) {
+                JsonUtils.prettyPrintJson(response.body)
+            } else {
+                response.body
+            }
+            println(formattedBody)
+        }
+        
+        if (response.cookies.isNotEmpty()) {
+            println("\\nCookies:")
+            response.cookies.forEach { (key, value) ->
+                println("  $key: $value")
+            }
+        }
+    }
+}
+
+fun main() = runBlocking {
+    val tester = ApiTester()
+    
+    while (true) {
+        println("\\n=== HTTP КЛИЕНТ ===")
+        println("1. Интерактивное тестирование")
+        println("2. Быстрое тестирование API")
+        println("3. Создать аутентифицированный клиент")
+        println("0. Выход")
+        
+        print("Ваш выбор: ")
+        val choice = readLine()?.toIntOrNull()
+        
+        when (choice) {
+            0 -> {
+                println("До свидания!")
+                break
+            }
+            1 -> tester.interactiveTest()
+            2 -> tester.testPublicApi()
+            3 -> createAuthenticatedClient()
+            else -> println("Некорректный выбор. Попробуйте снова.")
+        }
+    }
+}
+
+fun createAuthenticatedClient() = runBlocking {
+    println("\\n=== СОЗДАНИЕ АУТЕНТИФИЦИРОВАННОГО КЛИЕНТА ===")
+    println("Тип аутентификации:")
+    println("1. Bearer Token")
+    println("2. Basic Auth")
+    println("3. API Key")
+    println("0. Назад")
+    
+    print("Ваш выбор: ")
+    val authChoice = readLine()?.toIntOrNull()
+    
+    when (authChoice) {
+        0 -> return@runBlocking
+        1 -> {
+            print("Введите base URL: ")
+            val baseUrl = readLine()?.trim() ?: ""
+            print("Введите Bearer token: ")
+            val token = readLine()?.trim() ?: ""
+            
+            val client = HttpClientFactory.createAuthenticatedClient(baseUrl, token)
+            println("Клиент с Bearer аутентификацией создан!")
+        }
+        2 -> {
+            print("Введите base URL: ")
+            val baseUrl = readLine()?.trim() ?: ""
+            print("Введите username: ")
+            val username = readLine()?.trim() ?: ""
+            print("Введите password: ")
+            val password = readLine()?.trim() ?: ""
+            
+            val client = HttpClientFactory.createBasicAuthClient(baseUrl, username, password)
+            println("Клиент с Basic Auth создан!")
+        }
+        3 -> {
+            print("Введите base URL: ")
+            val baseUrl = readLine()?.trim() ?: ""
+            print("Введите API Key: ")
+            val apiKey = readLine()?.trim() ?: ""
+            
+            val client = HttpClientFactory.createApiKeyClient(baseUrl, apiKey)
+            println("Клиент с API Key аутентификацией создан!")
+        }
+        else -> println("Некорректный выбор")
+    }
+}</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🚀 Расширения</h2>
+            <p>После выполнения основного задания попробуйте добавить:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Поддержку загрузки и скачивания файлов</li>
+                <li>Реализацию retry механизма</li>
+                <li>Кэширование ответов</li>
+                <li>Логирование запросов и ответов</li>
+                <li>Поддержку WebSocket соединений</li>
+            </ul>
+        </div>
+
+        <div class="navigation">
+            <a href="course-kotlin.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(8)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить задание</button>
+            <a href="kotlin-assignment-9.html" class="nav-button">Следующее задание →</a>
+        </div>
+        
+        <script>
+            function toggleSolution() {
+                const solution = document.getElementById('solution');
+                const button = event.target;
+                
+                if (solution.style.display === 'none') {
+                    solution.style.display = 'block';
+                    button.textContent = 'Скрыть решение';
+                } else {
+                    solution.style.display = 'none';
+                    button.textContent = 'Показать решение';
+                }
+            }
+            
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedKotlinAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedKotlinAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание завершено! Отличная работа! 🌐');
+                } else {
+                    alert('Это задание уже отмечено как завершенное.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>
