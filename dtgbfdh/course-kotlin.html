@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Курс Kotlin - CodeLearn</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .user-menu span {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .course-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .course-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+        .course-title {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .course-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .progress-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.2);
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .progress-fill {
+            background: #ffd700;
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        .tab {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .tab.active {
+            background: #ffd700;
+            color: #333;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .lesson-item, .assignment-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .lesson-item:hover, .assignment-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(31, 38, 135, 0.3);
+        }
+        .item-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .item-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #ffd700;
+        }
+        .item-number {
+            background: rgba(255, 215, 0, 0.3);
+            color: #ffd700;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        .item-description {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+        .item-duration {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        .status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .status.locked {
+            background: rgba(255, 0, 0, 0.3);
+            color: #ff6b6b;
+        }
+        .status.available {
+            background: rgba(0, 255, 0, 0.3);
+            color: #51cf66;
+        }
+        .status.completed {
+            background: rgba(255, 215, 0, 0.3);
+            color: #ffd700;
+        }
+        .course-stats {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ffd700;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <div class="user-menu">
+                <span>Пользователь</span>
+                <a href="courses.html" class="back-btn">← Назад к курсам</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="course-header">
+            <div class="course-icon">🅺</div>
+            <h1 class="course-title">Курс Kotlin</h1>
+            <div class="course-meta">
+                <span>🎯 Средний</span>
+                <span>⏱️ 45 часов</span>
+                <span>📚 32 урока</span>
+                <span>✅ Сертификат</span>
+            </div>
+        </div>
+
+        <div class="progress-section">
+            <h3 style="margin-bottom: 15px; color: #ffd700;">Ваш прогресс</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+            </div>
+            <p id="progressText">0 из 20 элементов завершено (0%)</p>
+            <p style="font-size: 0.9em; opacity: 0.8; margin-top: 10px;">Прогресс обновляется автоматически по мере изучения материала</p>
+        </div>
+
+        <div class="course-stats">
+            <div class="stat">
+                <div class="stat-number">10</div>
+                <div class="stat-label">Лекций</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">10</div>
+                <div class="stat-label">Заданий</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">45ч</div>
+                <div class="stat-label">Общее время</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">⭐</div>
+                <div class="stat-label">Рейтинг</div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('lectures')">📚 Лекции</button>
+            <button class="tab" onclick="showTab('assignments')">💻 Задания</button>
+        </div>
+
+        <div id="lectures" class="content-section active">
+            <h2 style="text-align: center; margin-bottom: 30px; color: #ffd700;">Программа лекций</h2>
+            
+            <div class="lesson-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="kotlin-lecture-1.html" style="color: #ffd700; text-decoration: none;">1. Введение в Kotlin</a></div>
+                    <div class="item-number">Лекция 1</div>
+                </div>
+                <div class="item-description">
+                    История языка Kotlin, особенности, установка IntelliJ IDEA, создание первого проекта
+                </div>
+                <div class="item-duration">⏱️ Продолжительность: 50 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="lesson-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="kotlin-lecture-2.html" style="color: #ffd700; text-decoration: none;">2. Основы синтаксиса Kotlin</a></div>
+                    <div class="item-number">Лекция 2</div>
+                </div>
+                <div class="item-description">
+                    Переменные, типы данных, функции, основные операторы, null safety
+                </div>
+                <div class="item-duration">⏱️ Продолжительность: 60 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="lesson-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="kotlin-lecture-3.html" style="color: #ffd700; text-decoration: none;">3. Типы данных Kotlin</a></div>
+                    <div class="item-number">Лекция 3</div>
+                </div>
+                <div class="item-description">
+                    Подробное изучение типов данных, массивы, диапазоны, конвертация типов
+                </div>
+                <div class="item-duration">⏱️ Продолжительность: 55 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="lesson-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="kotlin-lecture-4.html" style="color: #ffd700; text-decoration: none;">4. Функции и лямбда-выражения</a></div>
+                    <div class="item-number">Лекция 4</div>
+                </div>
+                <div class="item-description">
+                    Функции высшего порядка, лямбда-выражения, области видимости функций
+                </div>
+                <div class="item-duration">⏱️ Продолжительность: 65 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="lesson-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="kotlin-lecture-5.html" style="color: #ffd700; text-decoration: none;">5. Классы и объекты</a></div>
+                    <div class="item-number">Лекция 5</div>
+                </div>
+                <div class="item-description">
+                    Объектно-ориентированное программирование, наследование, интерфейсы
+                </div>
+                <div class="item-duration">⏱️ Продолжительность: 70 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="lesson-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="kotlin-lecture-6.html" style="color: #ffd700; text-decoration: none;">6. Наследование и полиморфизм</a></div>
+                    <div class="item-number">Лекция 6</div>
+                </div>
+                <div class="item-description">
+                    Наследование, интерфейсы, абстрактные классы, полиморфизм, переопределение методов
+                </div>
+                <div class="item-duration">⏱️ Продолжительность: 60 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="lesson-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="kotlin-lecture-7.html" style="color: #ffd700; text-decoration: none;">7. Коллекции в Kotlin</a></div>
+                    <div class="item-number">Лекция 7</div>
+                </div>
+                <div class="item-description">
+                    List, Set, Map, операции с коллекциями, функции высшего порядка
+                </div>
+                <div class="item-duration">⏱️ Продолжительность: 55 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="lesson-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="kotlin-lecture-8.html" style="color: #ffd700; text-decoration: none;">8. Null safety</a></div>
+                    <div class="item-number">Лекция 8</div>
+                </div>
+                <div class="item-description">
+                    Null safety, nullable типы, операторы безопасного доступа, оператор Элвиса
+                </div>
+                <div class="item-duration">⏱️ Продолжительность: 75 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="lesson-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="kotlin-lecture-9.html" style="color: #ffd700; text-decoration: none;">9. Лямбда-выражения</a></div>
+                    <div class="item-number">Лекция 9</div>
+                </div>
+                <div class="item-description">
+                    Лямбда-выражения, замыкания, функции высшего порядка
+                </div>
+                <div class="item-duration">⏱️ Продолжительность: 80 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="lesson-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="kotlin-lecture-10.html" style="color: #ffd700; text-decoration: none;">10. Корутины</a></div>
+                    <div class="item-number">Лекция 10</div>
+                </div>
+                <div class="item-description">
+                    Корутины, асинхронное программирование, каналы, диспетчеры
+                </div>
+                <div class="item-duration">⏱️ Продолжительность: 70 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+        </div>
+
+        <div id="assignments" class="content-section">
+            <h2 style="text-align: center; margin-bottom: 30px; color: #ffd700;">Практические задания</h2>
+            
+            <div class="assignment-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="kotlin-assignment-1.html" style="color: #ffd700; text-decoration: none;">1. Калькулятор</a></div>
+                    <div class="item-number">Задание 1</div>
+                </div>
+                <div class="item-description">
+                    Создайте консольный калькулятор с использованием функций и when выражения
+                </div>
+                <div class="item-duration">⏱️ Время на выполнение: 40 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="assignment-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="kotlin-assignment-2.html" style="color: #ffd700; text-decoration: none;">2. Калькулятор</a></div>
+                    <div class="item-number">Задание 2</div>
+                </div>
+                <div class="item-description">
+                    Создайте консольный калькулятор с базовыми арифметическими операциями
+                </div>
+                <div class="item-duration">⏱️ Время на выполнение: 60 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="assignment-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="kotlin-assignment-3.html" style="color: #ffd700; text-decoration: none;">3. Игра угадай число</a></div>
+                    <div class="item-number">Задание 3</div>
+                </div>
+                <div class="item-description">
+                    Создайте интерактивную игру угадай число с разными уровнями сложности
+                </div>
+                <div class="item-duration">⏱️ Время на выполнение: 90 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="assignment-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="kotlin-assignment-4.html" style="color: #ffd700; text-decoration: none;">4. Система управления студентами</a></div>
+                    <div class="item-number">Задание 4</div>
+                </div>
+                <div class="item-description">
+                    Реализуйте систему управления списком студентов с использованием коллекций
+                </div>
+                <div class="item-duration">⏱️ Время на выполнение: 75 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="assignment-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="kotlin-assignment-5.html" style="color: #ffd700; text-decoration: none;">5. Банковская система</a></div>
+                    <div class="item-number">Задание 5</div>
+                </div>
+                <div class="item-description">
+                    Создайте объектно-ориентированную модель банковской системы с разными типами счетов
+                </div>
+                <div class="item-duration">⏱️ Время на выполнение: 80 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="assignment-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="kotlin-assignment-6.html" style="color: #ffd700; text-decoration: none;">6. Парсер JSON</a></div>
+                    <div class="item-number">Задание 6</div>
+                </div>
+                <div class="item-description">
+                    Реализуйте собственный парсер JSON данных с использованием data классов
+                </div>
+                <div class="item-duration">⏱️ Время на выполнение: 70 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="assignment-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="kotlin-assignment-7.html" style="color: #ffd700; text-decoration: none;">7. Игра крестики-нолики</a></div>
+                    <div class="item-number">Задание 7</div>
+                </div>
+                <div class="item-description">
+                    Создайте полнофункциональную игру крестики-нолики для двух игроков
+                </div>
+                <div class="item-duration">⏱️ Время на выполнение: 120 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="assignment-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="kotlin-assignment-8.html" style="color: #ffd700; text-decoration: none;">8. HTTP клиент</a></div>
+                    <div class="item-number">Задание 8</div>
+                </div>
+                <div class="item-description">
+                    Реализуйте HTTP клиент для работы с REST API с поддержкой аутентификации
+                </div>
+                <div class="item-duration">⏱️ Время на выполнение: 135 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="assignment-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="kotlin-assignment-9.html" style="color: #ffd700; text-decoration: none;">9. Android приложение</a></div>
+                    <div class="item-number">Задание 9</div>
+                </div>
+                <div class="item-description">
+                    Создайте полнофункциональное Android приложение "Task Manager" с Material Design
+                </div>
+                <div class="item-duration">⏱️ Время на выполнение: 180 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="assignment-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="kotlin-assignment-10.html" style="color: #ffd700; text-decoration: none;">10. REST API сервер</a></div>
+                    <div class="item-number">Задание 10</div>
+                </div>
+                <div class="item-description">
+                    Создайте полнофункциональный REST API сервер для системы управления библиотекой
+                </div>
+                <div class="item-duration">⏱️ Время на выполнение: 200 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all content sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+        
+        // Progress tracking system
+        function updateProgress() {
+            // Check localStorage for completed items
+            const completedLectures = JSON.parse(localStorage.getItem('completedKotlinLectures') || '[]');
+            const completedAssignments = JSON.parse(localStorage.getItem('completedKotlinAssignments') || '[]');
+            
+            const totalLectures = 10;
+            const totalAssignments = 10;
+            const totalItems = totalLectures + totalAssignments;
+            
+            const completedItems = completedLectures.length + completedAssignments.length;
+            const percentage = (completedItems / totalItems) * 100;
+            
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = 
+                `${completedItems} из ${totalItems} элементов завершено (${Math.round(percentage)}%)`;
+        }
+        
+        // Track when user visits pages
+        function markAsCompleted(type, number) {
+            const storageKey = type === 'lecture' ? 'completedKotlinLectures' : 'completedKotlinAssignments';
+            const completed = JSON.parse(localStorage.getItem(storageKey) || '[]');
+            
+            if (!completed.includes(number)) {
+                completed.push(number);
+                localStorage.setItem(storageKey, JSON.stringify(completed));
+                updateProgress();
+            }
+        }
+        
+        // Add click tracking to all links
+        document.addEventListener('DOMContentLoaded', function() {
+            // Track lecture visits
+            document.querySelectorAll('a[href^="lecture-"]').forEach(link => {
+                link.addEventListener('click', function() {
+                    const lectureNum = this.href.match(/lecture-(\d+)/);
+                    if (lectureNum) {
+                        markAsCompleted('lecture', parseInt(lectureNum[1]));
+                    }
+                });
+            });
+            
+            // Track assignment visits
+            document.querySelectorAll('a[href^="assignment-"]').forEach(link => {
+                link.addEventListener('click', function() {
+                    const assignmentNum = this.href.match(/assignment-(\d+)/);
+                    if (assignmentNum) {
+                        markAsCompleted('assignment', parseInt(assignmentNum[1]));
+                    }
+                });
+            });
+            
+            updateProgress();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1879 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeLearn - Изучение языков программирования</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            color: white;
+        }
+
+        /* Main Container */
+        .main-container {
+            min-height: 100vh;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* Home Page Styles */
+        .home-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .home-container h1 {
+            color: #fff;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #ffd700;
+        }
+
+        .feature h3 {
+            margin-top: 0;
+            color: #ffd700;
+        }
+
+        .cta-button {
+            display: block;
+            background: #ffd700;
+            color: #333;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            text-align: center;
+            font-weight: bold;
+            margin: 30px auto;
+            max-width: 200px;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .languages {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .language {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        /* Auth Forms Styles */
+        .auth-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            width: 100%;
+            max-width: 450px;
+            margin: 50px auto;
+        }
+
+        .auth-logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .auth-logo h1 {
+            color: #fff;
+            font-size: 2em;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: #fff;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        input[type="email"],
+        input[type="password"],
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #ffd700;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .auth-btn {
+            width: 100%;
+            background: #ffd700;
+            color: #333;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            margin: 15px 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .auth-link {
+            text-align: center;
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .auth-link a {
+            color: #ffd700;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .auth-link a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .back-link a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link a:hover {
+            color: #ffd700;
+        }
+
+        select option {
+            color: #000;
+        }
+
+        /* Courses Page Styles */
+        .courses-container {
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-menu span {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .courses-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .welcome-section h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .welcome-section p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .course-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+        }
+
+        .course-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .course-icon {
+            font-size: 3em;
+            margin-right: 15px;
+        }
+
+        .course-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .course-level {
+            background: rgba(255, 215, 0, 0.3);
+            color: #ffd700;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .course-description {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .course-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .course-button {
+            width: 100%;
+            background: #ffd700;
+            color: #333;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .course-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .search-section {
+            margin-bottom: 40px;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #ffd700;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2em;
+            display: none;
+        }
+
+        /* Python Course Page Styles */
+        .python-course-container {
+            min-height: 100vh;
+        }
+
+        .python-course-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .course-overview {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .course-overview h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .course-overview p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .course-modules {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .module-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+        }
+
+        .module-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .module-icon {
+            font-size: 2.5em;
+            margin-right: 15px;
+        }
+
+        .module-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .module-count {
+            background: rgba(255, 215, 0, 0.3);
+            color: #ffd700;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .module-description {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .module-button {
+            width: 100%;
+            background: #ffd700;
+            color: #333;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .module-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Lecture and Assignment Styles */
+        .lesson-container {
+            min-height: 100vh;
+        }
+
+        .lesson-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .lesson-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .lesson-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .lesson-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+
+        .content-section p {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .highlight {
+            background: rgba(255, 215, 0, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #ffd700;
+        }
+
+        .tip-box {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .tip-box h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+
+        .warning-box {
+            background: rgba(255, 165, 0, 0.1);
+            border: 1px solid rgba(255, 165, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .warning-box h4 {
+            color: #ffa726;
+            margin-bottom: 10px;
+        }
+
+        .task-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .task-box h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav-button.disabled {
+            background: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.5);
+            cursor: not-allowed;
+        }
+
+        .steps {
+            counter-reset: step-counter;
+            list-style: none;
+            padding: 0;
+        }
+
+        .steps li {
+            counter-increment: step-counter;
+            margin-bottom: 15px;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #ffd700;
+            color: #333;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        /* Messages */
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .error-message {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid #ff4444;
+            color: #ffcccc;
+        }
+
+        .success-message {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #4CAF50;
+            color: #ccffcc;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .home-container {
+                margin: 20px;
+                padding: 20px;
+            }
+            
+            .auth-container {
+                margin: 20px;
+                padding: 30px 20px;
+            }
+            
+            .courses-content, .python-course-content, .lesson-content {
+                padding: 20px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .home-container h1 {
+                font-size: 2em;
+            }
+            
+            .welcome-section h1 {
+                font-size: 2.5em;
+            }
+            
+            .courses-grid, .course-modules {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .lesson-title {
+                font-size: 2em;
+            }
+
+            .navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Home Section -->
+        <div id="home" class="content-section active">
+            <div class="home-container">
+                <h1>🚀 CodeLearn</h1>
+                <p class="subtitle">Ваша платформа для изучения языков программирования</p>
+                
+                <div class="feature">
+                    <h3>📚 Интерактивное обучение</h3>
+                    <p>Изучайте языки программирования через практические задания и проекты в реальном времени.</p>
+                </div>
+                
+                <div class="feature">
+                    <h3>🎯 Персонализированный подход</h3>
+                    <p>Программа обучения адаптируется под ваш уровень и цели, от новичка до профессионала.</p>
+                </div>
+                
+                <div class="feature">
+                    <h3>💡 Экспертная поддержка</h3>
+                    <p>Получайте помощь от опытных разработчиков и участвуйте в сообществе единомышленников.</p>
+                </div>
+                
+                <div class="feature">
+                    <h3>🏆 Сертификация</h3>
+                    <p>Получите официальные сертификаты по завершении курсов и подтвердите свои навыки.</p>
+                </div>
+                
+                <h3 style="text-align: center; margin-top: 40px;">Доступные языки программирования:</h3>
+                <div class="languages">
+                    <span class="language">Python</span>
+                    <span class="language">JavaScript</span>
+                    <span class="language">Java</span>
+                    <span class="language">C++</span>
+                    <span class="language">C#</span>
+                    <span class="language">Go</span>
+                    <span class="language">Rust</span>
+                    <span class="language">TypeScript</span>
+                </div>
+                
+                <a href="#" class="cta-button" onclick="showSection('login')">Начать обучение</a>
+            </div>
+        </div>
+
+        <!-- Login Section -->
+        <div id="login" class="content-section">
+            <div class="auth-container">
+                <div class="auth-logo">
+                    <h1>🚀 CodeLearn</h1>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin: 10px 0 0 0;">Вход в систему</p>
+                </div>
+                
+                <div id="loginError" class="message error-message">
+                    <strong>❌ Ошибка входа:</strong> <span id="loginErrorText"></span>
+                </div>
+
+                <div id="loginSuccess" class="message success-message">
+                    <strong>✅ Вход выполнен:</strong> <span id="loginSuccessText"></span>
+                </div>
+
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email адрес</label>
+                        <input type="email" id="loginEmail" name="email" placeholder="Введите ваш email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword">Пароль</label>
+                        <input type="password" id="loginPassword" name="password" placeholder="Введите пароль" required>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember">Запомнить меня</label>
+                    </div>
+
+                    <button type="submit" class="auth-btn">Войти</button>
+                </form>
+                
+                <div class="auth-link">
+                    Нет аккаунта? <a href="#" onclick="showSection('register')">Зарегистрироваться</a>
+                </div>
+                
+                <div class="back-link">
+                    <a href="#" onclick="showSection('home')">← Вернуться на главную</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register Section -->
+        <div id="register" class="content-section">
+            <div class="auth-container">
+                <div class="auth-logo">
+                    <h1>🚀 CodeLearn</h1>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin: 10px 0 0 0;">Создание аккаунта</p>
+                </div>
+                
+                <div id="registerError" class="message error-message">
+                    <strong>❌ Ошибка:</strong> <span id="registerErrorText"></span>
+                </div>
+
+                <div id="registerSuccess" class="message success-message">
+                    <strong>✅ Успешно:</strong> <span id="registerSuccessText"></span>
+                </div>
+
+                <form id="registerForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">Имя</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Фамилия</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Ваша фамилия" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email адрес</label>
+                        <input type="email" id="email" name="email" placeholder="Введите ваш email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="experience">Уровень опыта в программировании</label>
+                        <select id="experience" name="experience" required>
+                            <option value="">Выберите ваш уровень</option>
+                            <option value="beginner">Начинающий</option>
+                            <option value="intermediate">Средний</option>
+                            <option value="advanced">Продвинутый</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Пароль</label>
+                        <input type="password" id="password" name="password" placeholder="Создайте пароль" required minlength="6">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Подтвердите пароль</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Повторите пароль" required>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms">Я согласен с <a href="#" style="color: #ffd700;">условиями использования</a> и <a href="#" style="color: #ffd700;">политикой конфиденциальности</a></label>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="newsletter" name="newsletter">
+                        <label for="newsletter">Подписаться на новости и полезные материалы</label>
+                    </div>
+
+                    <button type="submit" class="auth-btn">Создать аккаунт</button>
+                </form>
+                
+                <div class="auth-link">
+                    Уже есть аккаунт? <a href="#" onclick="showSection('login')">Войти</a>
+                </div>
+                
+                <div class="back-link">
+                    <a href="#" onclick="showSection('home')">← Вернуться на главную</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Courses Section -->
+        <div id="courses" class="content-section">
+            <div class="courses-container">
+                <header class="header">
+                    <div class="nav-container">
+                        <a href="#" class="logo">🚀 CodeLearn</a>
+                        <div class="user-menu">
+                            <span id="userWelcome">Загрузка...</span>
+                            <button id="logoutBtn" class="logout-btn">Выйти</button>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="courses-content">
+                    <div class="welcome-section">
+                        <h1>Выберите курс для изучения</h1>
+                        <p>Откройте для себя мир программирования с нашими экспертными курсами</p>
+                    </div>
+
+                    <div class="search-section">
+                        <div class="search-container">
+                            <input type="text" id="courseSearch" class="search-input" placeholder="🔍 Поиск курсов по языку программирования...">
+                        </div>
+                    </div>
+
+                    <div class="courses-grid">
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">🐍</div>
+                                <div>
+                                    <div class="course-title">Python</div>
+                                    <div class="course-level">Начинающий</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Изучите один из самых популярных языков программирования. Python идеально подходит для начинающих и широко используется в веб-разработке, анализе данных и машинном обучении.
+                            </div>
+                            <div class="course-stats">
+                                <span>⏱️ 40 часов</span>
+                                <span>📚 10 лекций</span>
+                                <span>💻 10 заданий</span>
+                                <span>✅ Сертификат</span>
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('python-course')">Начать курс</a>
+                        </div>
+
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">🌐</div>
+                                <div>
+                                    <div class="course-title">JavaScript</div>
+                                    <div class="course-level">Начинающий</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Создавайте интерактивные веб-сайты и приложения. JavaScript - основа современной веб-разработки, позволяющая создавать динамические пользовательские интерфейсы.
+                            </div>
+                            <div class="course-stats">
+                                <span>⏱️ 35 часов</span>
+                                <span>📚 10 лекций</span>
+                                <span>💻 10 заданий</span>
+                                <span>✅ Сертификат</span>
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('javascript-course')">Начать курс</a>
+                        </div>
+
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">☕</div>
+                                <div>
+                                    <div class="course-title">Java</div>
+                                    <div class="course-level">Средний</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Освойте объектно-ориентированное программирование с Java. Идеально подходит для создания корпоративных приложений, Android-приложений и веб-сервисов.
+                            </div>
+                            <div class="course-stats">
+                                <span>⏱️ 50 часов</span>
+                                <span>📚 10 лекций</span>
+                                <span>💻 10 заданий</span>
+                                <span>✅ Сертификат</span>
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('java-course')">Начать курс</a>
+                        </div>
+
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">⚡</div>
+                                <div>
+                                    <div class="course-title">C++</div>
+                                    <div class="course-level">Продвинутый</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Изучите мощный язык системного программирования. C++ используется для создания игр, операционных систем, встраиваемых систем и высокопроизводительных приложений.
+                            </div>
+                            <div class="course-stats">
+                                <span>⏱️ 60 часов</span>
+                                <span>📚 10 лекций</span>
+                                <span>💻 10 заданий</span>
+                                <span>✅ Сертификат</span>
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('cpp-course')">Начать курс</a>
+                        </div>
+
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">🚀</div>
+                                <div>
+                                    <div class="course-title">Go</div>
+                                    <div class="course-level">Средний</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Современный язык программирования от Google. Go идеально подходит для создания высокопроизводительных веб-сервисов, микросервисов и облачных приложений.
+                            </div>
+                            <div class="course-stats">
+                                <span>⏱️ 45 часов</span>
+                                <span>📚 10 лекций</span>
+                                <span>💻 10 заданий</span>
+                                <span>✅ Сертификат</span>
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('go-course')">Начать курс</a>
+                        </div>
+
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">🦀</div>
+                                <div>
+                                    <div class="course-title">Rust</div>
+                                    <div class="course-level">Продвинутый</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Безопасный и быстрый язык системного программирования. Rust предотвращает многие типы ошибок и идеально подходит для создания производительных и надежных систем.
+                            </div>
+                            <div class="course-stats">
+                                <span>⏱️ 55 часов</span>
+                                <span>📚 10 лекций</span>
+                                <span>💻 10 заданий</span>
+                                <span>✅ Сертификат</span>
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('rust-course')">Начать курс</a>
+                        </div>
+
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">🅺</div>
+                                <div>
+                                    <div class="course-title">Kotlin</div>
+                                    <div class="course-level">Средний</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Современный язык программирования от JetBrains, официально поддерживаемый Google для Android-разработки. Kotlin сочетает объектно-ориентированное и функциональное программирование.
+                            </div>
+                            <div class="course-stats">
+                                <span>⏱️ 45 часов</span>
+                                <span>📚 10 лекций</span>
+                                <span>💻 10 заданий</span>
+                                <span>✅ Сертификат</span>
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('kotlin-course')">Начать курс</a>
+                        </div>
+                    </div>
+                    
+                    <div class="no-results" id="noResults">
+                        <h3>🔍 Курсы не найдены</h3>
+                        <p>Попробуйте изменить поисковый запрос или выберите другой язык программирования.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Python Course Section -->
+        <div id="python-course" class="content-section">
+            <div class="python-course-container">
+                <header class="header">
+                    <div class="nav-container">
+                        <a href="#" class="logo">🚀 CodeLearn</a>
+                        <div class="user-menu">
+                            <span id="pythonUserWelcome">Загрузка...</span>
+                            <button id="pythonLogoutBtn" class="logout-btn">Выйти</button>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="python-course-content">
+                    <div class="course-overview">
+                        <h1>🐍 Курс Python</h1>
+                        <p><strong>Уровень:</strong> Начинающий</p>
+                        <p><strong>Продолжительность:</strong> 40 часов</p>
+                        <p><strong>Описание:</strong> Изучите один из самых популярных языков программирования. Python идеально подходит для начинающих и широко используется в веб-разработке, анализе данных и машинном обучении.</p>
+                        
+                        <div style="margin-top: 30px;">
+                            <h3 style="color: #ffd700; margin-bottom: 15px;">📋 Чему вы научитесь:</h3>
+                            <ul style="margin-left: 20px; line-height: 1.8;">
+                                <li>Основам программирования на Python</li>
+                                <li>Работе с переменными, типами данных и операторами</li>
+                                <li>Использованию условных конструкций и циклов</li>
+                                <li>Работе со списками, словарями и множествами</li>
+                                <li>Созданию функций и работе с модулями</li>
+                                <li>Обработке ошибок и отладке кода</li>
+                                <li>Практическим навыкам через задания</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h2 style="text-align: center; margin-bottom: 30px; color: #ffd700; font-size: 2em;">📚 Модули курса</h2>
+
+                    <div class="course-modules">
+                        <div class="module-card">
+                            <div class="module-header">
+                                <div class="module-icon">📖</div>
+                                <div>
+                                    <div class="module-title">Лекции</div>
+                                    <div class="module-count">10 лекций</div>
+                                </div>
+                            </div>
+                            <div class="module-description">
+                                Изучите теоретические основы Python с практическими примерами и объяснениями.
+                            </div>
+                            <a href="#" class="module-button" onclick="showSection('python-lectures')">Начать лекции</a>
+                        </div>
+
+                        <div class="module-card">
+                            <div class="module-header">
+                                <div class="module-icon">💻</div>
+                                <div>
+                                    <div class="module-title">Задания</div>
+                                    <div class="module-count">10 заданий</div>
+                                </div>
+                            </div>
+                            <div class="module-description">
+                                Примените полученные знания на практике, решая реальные задачи программирования.
+                            </div>
+                            <a href="#" class="module-button" onclick="showSection('python-assignments')">Начать задания</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Python Lectures Section -->
+        <div id="python-lectures" class="content-section">
+            <div class="lesson-container">
+                <header class="header">
+                    <div class="nav-container">
+                        <a href="#" class="logo">🚀 CodeLearn</a>
+                        <div class="user-menu">
+                            <span id="lecturesUserWelcome">Загрузка...</span>
+                            <button id="lecturesLogoutBtn" class="logout-btn">Выйти</button>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="lesson-content">
+                    <div class="lesson-header">
+                        <h1 class="lesson-title">📚 Лекции по Python</h1>
+                        <div class="lesson-meta">
+                            <span>🐍 Python</span>
+                            <span>⏱️ 10 лекций</span>
+                            <span>📖 Теория</span>
+                        </div>
+                    </div>
+
+                    <div class="courses-grid">
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">1️⃣</div>
+                                <div>
+                                    <div class="course-title">Лекция 1: Введение в Python</div>
+                                    <div class="course-level">45 минут</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Основы Python, установка, первая программа, переменные и типы данных.
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('python-lecture-1')">Начать лекцию</a>
+                        </div>
+
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">2️⃣</div>
+                                <div>
+                                    <div class="course-title">Лекция 2: Списки в Python</div>
+                                    <div class="course-level">50 минут</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Создание списков, индексация, срезы, методы списков и работа с элементами.
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('python-lecture-2')">Начать лекцию</a>
+                        </div>
+
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">3️⃣</div>
+                                <div>
+                                    <div class="course-title">Лекция 3: Строки и кортежи</div>
+                                    <div class="course-level">45 минут</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Работа со строками, форматирование, создание кортежей и их особенности.
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('python-lecture-3')">Начать лекцию</a>
+                        </div>
+
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">4️⃣</div>
+                                <div>
+                                    <div class="course-title">Лекция 4: Обработка ошибок</div>
+                                    <div class="course-level">55 минут</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Try/except блоки, типы исключений, создание собственных ошибок.
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('python-lecture-4')">Начать лекцию</a>
+                        </div>
+
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">5️⃣</div>
+                                <div>
+                                    <div class="course-title">Лекция 5: Словари и множества</div>
+                                    <div class="course-level">50 минут</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Создание словарей, работа с ключами и значениями, множества и их операции.
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('python-lecture-5')">Начать лекцию</a>
+                        </div>
+
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">6️⃣</div>
+                                <div>
+                                    <div class="course-title">Лекция 6: Условные конструкции</div>
+                                    <div class="course-level">45 минут</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Операторы if, elif, else, логические операторы и тернарный оператор.
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('python-lecture-6')">Начать лекцию</a>
+                        </div>
+
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">7️⃣</div>
+                                <div>
+                                    <div class="course-title">Лекция 7: Циклы в Python</div>
+                                    <div class="course-level">50 минут</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Циклы for и while, break, continue, enumerate и zip функции.
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('python-lecture-7')">Начать лекцию</a>
+                        </div>
+
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">8️⃣</div>
+                                <div>
+                                    <div class="course-title">Лекция 8: Функции</div>
+                                    <div class="course-level">55 минут</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Создание функций, параметры, возвращаемые значения, области видимости.
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('python-lecture-8')">Начать лекцию</a>
+                        </div>
+
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">9️⃣</div>
+                                <div>
+                                    <div class="course-title">Лекция 9: Работа с файлами</div>
+                                    <div class="course-level">40 минут</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Открытие файлов, чтение и запись, работа с CSV и JSON.
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('python-lecture-9')">Начать лекцию</a>
+                        </div>
+
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">🔟</div>
+                                <div>
+                                    <div class="course-title">Лекция 10: Модули и пакеты</div>
+                                    <div class="course-level">45 минут</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Импорт модулей, создание собственных модулей, работа с пакетным менеджером pip.
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('python-lecture-10')">Начать лекцию</a>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 40px; text-align: center;">
+                        <button onclick="showSection('python-course')" class="nav-button">← Назад к курсу</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Python Assignments Section -->
+        <div id="python-assignments" class="content-section">
+            <div class="lesson-container">
+                <header class="header">
+                    <div class="nav-container">
+                        <a href="#" class="logo">🚀 CodeLearn</a>
+                        <div class="user-menu">
+                            <span id="assignmentsUserWelcome">Загрузка...</span>
+                            <button id="assignmentsLogoutBtn" class="logout-btn">Выйти</button>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="lesson-content">
+                    <div class="lesson-header">
+                        <h1 class="lesson-title">💻 Задания по Python</h1>
+                        <div class="lesson-meta">
+                            <span>🐍 Python</span>
+                            <span>⏱️ 10 заданий</span>
+                            <span>💻 Практика</span>
+                        </div>
+                    </div>
+
+                    <div class="courses-grid">
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">1️⃣</div>
+                                <div>
+                                    <div class="course-title">Задание 1: Калькулятор</div>
+                                    <div class="course-level">30 минут</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Создайте простой калькулятор для выполнения основных арифметических операций.
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('python-assignment-1')">Начать задание</a>
+                        </div>
+
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">2️⃣</div>
+                                <div>
+                                    <div class="course-title">Задание 2: Угадай число</div>
+                                    <div class="course-level">35 минут</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Создайте игру, где компьютер загадывает число, а игрок его угадывает.
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('python-assignment-2')">Начать задание</a>
+                        </div>
+
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">3️⃣</div>
+                                <div>
+                                    <div class="course-title">Задание 3: Анализатор текста</div>
+                                    <div class="course-level">40 минут</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Программа для анализа текста: подсчет символов, слов, предложений.
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('python-assignment-3')">Начать задание</a>
+                        </div>
+
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">4️⃣</div>
+                                <div>
+                                    <div class="course-title">Задание 4: Список дел</div>
+                                    <div class="course-level">50 минут</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Создайте программу для управления списком задач с сохранением в файл.
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('python-assignment-4')">Начать задание</a>
+                        </div>
+
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">5️⃣</div>
+                                <div>
+                                    <div class="course-title">Задание 5: Генератор паролей</div>
+                                    <div class="course-level">30 минут</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Программа для создания безопасных паролей с настраиваемыми параметрами.
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('python-assignment-5')">Начать задание</a>
+                        </div>
+
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">6️⃣</div>
+                                <div>
+                                    <div class="course-title">Задание 6: Банкомат</div>
+                                    <div class="course-level">45 минут</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Симулятор банкомата с проверкой баланса, снятием и пополнением денег.
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('python-assignment-6')">Начать задание</a>
+                        </div>
+
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">7️⃣</div>
+                                <div>
+                                    <div class="course-title">Задание 7: Конвертер валют</div>
+                                    <div class="course-level">40 минут</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Программа для конвертации между различными валютами с обновляемыми курсами.
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('python-assignment-7')">Начать задание</a>
+                        </div>
+
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">8️⃣</div>
+                                <div>
+                                    <div class="course-title">Задание 8: Система оценок</div>
+                                    <div class="course-level">35 минут</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Программа для выставления оценок студентам с подсчетом статистики.
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('python-assignment-8')">Начать задание</a>
+                        </div>
+
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">9️⃣</div>
+                                <div>
+                                    <div class="course-title">Задание 9: Игра в виселицу</div>
+                                    <div class="course-level">50 минут</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Классическая игра "Виселица" с использованием списков и словарей.
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('python-assignment-9')">Начать задание</a>
+                        </div>
+
+                        <div class="course-card">
+                            <div class="course-header">
+                                <div class="course-icon">🔟</div>
+                                <div>
+                                    <div class="course-title">Задание 10: Финальный проект</div>
+                                    <div class="course-level">90 минут</div>
+                                </div>
+                            </div>
+                            <div class="course-description">
+                                Комплексный проект, объединяющий все изученные концепции Python.
+                            </div>
+                            <a href="#" class="course-button" onclick="showSection('python-assignment-10')">Начать задание</a>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 40px; text-align: center;">
+                        <button onclick="showSection('python-course')" class="nav-button">← Назад к курсу</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation Functions
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Hide messages when switching sections
+            hideAllMessages();
+            
+            // Initialize sections if needed
+            if (sectionId === 'courses') {
+                initCourses();
+            } else if (sectionId.startsWith('python-')) {
+                initPythonSection(sectionId);
+            }
+        }
+
+        function hideAllMessages() {
+            const errorMessages = document.querySelectorAll('.message.error-message');
+            const successMessages = document.querySelectorAll('.message.success-message');
+            
+            errorMessages.forEach(msg => msg.style.display = 'none');
+            successMessages.forEach(msg => msg.style.display = 'none');
+        }
+
+        // Message Functions
+        function showLoginError(message) {
+            const errorDiv = document.getElementById('loginError');
+            const successDiv = document.getElementById('loginSuccess');
+            if (errorDiv && successDiv) {
+                errorDiv.style.display = 'block';
+                successDiv.style.display = 'none';
+                document.getElementById('loginErrorText').textContent = message;
+            }
+        }
+
+        function showLoginSuccess(message) {
+            const errorDiv = document.getElementById('loginError');
+            const successDiv = document.getElementById('loginSuccess');
+            if (errorDiv && successDiv) {
+                errorDiv.style.display = 'none';
+                successDiv.style.display = 'block';
+                document.getElementById('loginSuccessText').textContent = message;
+            }
+        }
+
+        function showRegisterError(message) {
+            const errorDiv = document.getElementById('registerError');
+            const successDiv = document.getElementById('registerSuccess');
+            if (errorDiv && successDiv) {
+                errorDiv.style.display = 'block';
+                successDiv.style.display = 'none';
+                document.getElementById('registerErrorText').textContent = message;
+            }
+        }
+
+        function showRegisterSuccess(message) {
+            const errorDiv = document.getElementById('registerError');
+            const successDiv = document.getElementById('registerSuccess');
+            if (errorDiv && successDiv) {
+                errorDiv.style.display = 'none';
+                successDiv.style.display = 'block';
+                document.getElementById('registerSuccessText').textContent = message;
+            }
+        }
+
+        // Courses Functions
+        function initCourses() {
+            const searchInput = document.getElementById('courseSearch');
+            const courseCards = document.querySelectorAll('.course-card');
+            const noResults = document.getElementById('noResults');
+            
+            if (!searchInput || !noResults) return;
+            
+            // Add data attributes for search
+            courseCards.forEach(card => {
+                const title = card.querySelector('.course-title').textContent.toLowerCase();
+                const description = card.querySelector('.course-description').textContent.toLowerCase();
+                card.setAttribute('data-search', title + ' ' + description);
+            });
+            
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                let visibleCount = 0;
+                
+                courseCards.forEach(card => {
+                    const searchData = card.getAttribute('data-search');
+                    
+                    if (searchTerm === '' || searchData.includes(searchTerm)) {
+                        card.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // Show/hide no results message
+                if (visibleCount === 0 && searchTerm !== '') {
+                    noResults.style.display = 'block';
+                } else {
+                    noResults.style.display = 'none';
+                }
+            });
+            
+            // Clear search on escape key
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    this.value = '';
+                    this.dispatchEvent(new Event('input'));
+                }
+            });
+        }
+
+        // Python Section Functions
+        function initPythonSection(sectionId) {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+            if (!currentUser) {
+                showSection('login');
+                return;
+            }
+
+            const userWelcomeElements = [
+                'userWelcome',
+                'pythonUserWelcome', 
+                'lecturesUserWelcome',
+                'assignmentsUserWelcome'
+            ];
+
+            userWelcomeElements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = `Добро пожаловать, ${currentUser.firstName} ${currentUser.lastName}!`;
+                }
+            });
+
+            // Setup logout buttons
+            const logoutButtons = ['logoutBtn', 'pythonLogoutBtn', 'lecturesLogoutBtn', 'assignmentsLogoutBtn'];
+            logoutButtons.forEach(id => {
+                const button = document.getElementById(id);
+                if (button) {
+                    button.onclick = function() {
+                        localStorage.removeItem('currentUser');
+                        showSection('home');
+                    };
+                }
+            });
+        }
+
+        // User authentication and logout
+        function initUserMenu() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+            const userWelcome = document.getElementById('userWelcome');
+            const logoutBtn = document.getElementById('logoutBtn');
+
+            if (currentUser && userWelcome) {
+                userWelcome.textContent = `Добро пожаловать, ${currentUser.firstName} ${currentUser.lastName}!`;
+
+                if (logoutBtn) {
+                    logoutBtn.onclick = function() {
+                        localStorage.removeItem('currentUser');
+                        showSection('home');
+                    };
+                }
+            }
+        }
+
+        // Login Handler
+        document.getElementById('loginForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            hideAllMessages();
+
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const remember = document.getElementById('remember').checked;
+            const timestamp = new Date().toISOString();
+
+            // Validation
+            if (!email) {
+                showLoginError('Пожалуйста, введите email адрес');
+                return;
+            }
+
+            if (!password) {
+                showLoginError('Пожалуйста, введите пароль');
+                return;
+            }
+
+            // Get users from localStorage
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.email === email);
+
+            if (!user) {
+                showLoginError('Пользователь с таким email не найден. Пожалуйста, зарегистрируйтесь.');
+                return;
+            }
+
+            if (user.password !== password) {
+                showLoginError('Неверный пароль. Попробуйте еще раз.');
+                return;
+            }
+
+            // Successful login
+            const session = {
+                userId: user.id,
+                email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                experience: user.experience,
+                loginTime: timestamp,
+                remember: remember
+            };
+            localStorage.setItem('currentUser', JSON.stringify(session));
+
+            showLoginSuccess(`Добро пожаловать, ${user.firstName}! Перенаправление...`);
+
+            // Redirect to courses section after 2 seconds
+            setTimeout(() => {
+                showSection('courses');
+                initUserMenu();
+                // Clear form
+                document.getElementById('loginForm').reset();
+            }, 2000);
+        });
+
+        // Register Handler
+        document.getElementById('registerForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            hideAllMessages();
+
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const experience = document.getElementById('experience').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const newsletter = document.getElementById('newsletter').checked;
+            const timestamp = new Date().toISOString();
+
+            // Validation
+            if (!firstName || !lastName) {
+                showRegisterError('Пожалуйста, введите имя и фамилию');
+                return;
+            }
+
+            if (!email) {
+                showRegisterError('Пожалуйста, введите email адрес');
+                return;
+            }
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showRegisterError('Пожалуйста, введите корректный email адрес');
+                return;
+            }
+
+            if (!experience) {
+                showRegisterError('Пожалуйста, выберите уровень опыта');
+                return;
+            }
+
+            if (password.length < 6) {
+                showRegisterError('Пароль должен содержать минимум 6 символов');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showRegisterError('Пароли не совпадают');
+                return;
+            }
+
+            // Check if user already exists
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const existingUser = users.find(user => user.email === email);
+
+            if (existingUser) {
+                showRegisterError('Пользователь с таким email уже зарегистрирован');
+                return;
+            }
+
+            // Create new user
+            const newUser = {
+                id: Date.now(),
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                password: password,
+                experience: experience,
+                newsletter: newsletter,
+                registeredAt: timestamp
+            };
+
+            // Save user
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+
+            showRegisterSuccess('Регистрация прошла успешно! Перенаправление...');
+
+            // Redirect after 2 seconds
+            setTimeout(() => {
+                showSection('login');
+                // Clear form
+                document.getElementById('registerForm').reset();
+            }, 2000);
+        });
+
+        // Check if user is already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+            
+            if (currentUser && document.getElementById('login').classList.contains('active')) {
+                // User is already logged in
+                showLoginSuccess(`Вы уже вошли как ${currentUser.firstName}! Перенаправление...`);
+                setTimeout(() => {
+                    showSection('courses');
+                    initUserMenu();
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>

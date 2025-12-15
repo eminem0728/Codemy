@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 4: Функции - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .assignment-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .task-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .task-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .solution-box {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .solution-box h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-cpp.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 4: Функции</h1>
+            <div class="assignment-meta">
+                <span>⚡ C++</span>
+                <span>⏱️ 45 минут</span>
+                <span>📝 Средний</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Описание задания</h2>
+            <p>Создайте программу, которая демонстрирует различные аспекты работы с функциями в C++: передачу параметров, возвращаемые значения, рекурсию.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели задания</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Освоить объявление и определение функций</li>
+                <li>Изучить передачу параметров по значению и по ссылке</li>
+                <li>Применить рекурсивные функции</li>
+                <li>Создать функции с параметрами по умолчанию</li>
+                <li>Реализовать перегрузку функций</li>
+            </ul>
+        </div>
+
+        <div class="task-box">
+            <h4>📝 Задача</h4>
+            <p>Создайте программу FunctionsDemo, которая:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Реализует математические функции (факториал, степень)</li>
+                <li>Создает функции для работы со строками</li>
+                <li>Демонстрирует передачу параметров по ссылке</li>
+                <li>Включает рекурсивные алгоритмы</li>
+                <li>Показывает перегрузку функций</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Критерии оценки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Математические функции (25%):</strong> Корректная реализация факториала и степени</li>
+                <li><strong>Рекурсия (20%):</strong> Правильные рекурсивные функции</li>
+                <li><strong>Передача параметров (20%):</strong> Использование ссылок</li>
+                <li><strong>Перегрузка (15%):</strong> Функции с одинаковыми именами</li>
+                <li><strong>Организация кода (20%):</strong> Читаемые и документированные функции</li>
+            </ul>
+        </div>
+
+        <div class="solution-box">
+            <h4>💡 Пример решения</h4>
+            <p>Нажмите кнопку ниже, чтобы посмотреть пример решения:</p>
+            <button onclick="toggleSolution()" class="nav-button" style="margin-top: 15px;">
+                Показать решение
+            </button>
+
+            <div id="solution" style="display: none; margin-top: 20px;">
+                <div class="code-example">
+                    <code>/**
+ * Демонстрация работы с функциями в C++
+ * Автор: Студент CodeLearn
+ * Дата: 08.12.2024
+ */
+
+#include <iostream>
+#include <string>
+#include <cmath>
+
+// Перегрузка функций power
+int power(int base, int exponent) {
+    int result = 1;
+    for (int i = 0; i < exponent; i++) {
+        result *= base;
+    }
+    return result;
+}
+
+double power(double base, int exponent) {
+    double result = 1.0;
+    for (int i = 0; i < std::abs(exponent); i++) {
+        result *= base;
+    }
+    return exponent >= 0 ? result : 1.0 / result;
+}
+
+// Рекурсивный факториал
+unsigned long long factorial(int n) {
+    if (n <= 1) return 1;
+    return n * factorial(n - 1);
+}
+
+// Итеративный факториал
+unsigned long long factorial_iterative(int n) {
+    unsigned long long result = 1;
+    for (int i = 2; i <= n; i++) {
+        result *= i;
+    }
+    return result;
+}
+
+// Рекурсивное возведение в степень
+double power_recursive(double base, int exponent) {
+    if (exponent == 0) return 1.0;
+    if (exponent == 1) return base;
+    if (exponent == -1) return 1.0 / base;
+
+    double half = power_recursive(base, exponent / 2);
+    double result = half * half;
+
+    if (exponent % 2 != 0) {
+        result *= (exponent > 0) ? base : (1.0 / base);
+    }
+
+    return result;
+}
+
+// Функция для работы со строками (передача по ссылке)
+void processString(std::string& text, bool toUpper = false) {
+    if (toUpper) {
+        for (char& c : text) {
+            c = std::toupper(c);
+        }
+    } else {
+        for (char& c : text) {
+            c = std::tolower(c);
+        }
+    }
+}
+
+// Функция подсчета слов в строке
+int countWords(const std::string& text) {
+    int count = 0;
+    bool inWord = false;
+
+    for (char c : text) {
+        if (std::isspace(c)) {
+            inWord = false;
+        } else if (!inWord) {
+            inWord = true;
+            count++;
+        }
+    }
+
+    return count;
+}
+
+// Функция для обмена значениями (передача по ссылке)
+void swap(int& a, int& b) {
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+// Рекурсивная функция для вычисления числа Фибоначчи
+unsigned long long fibonacci(int n) {
+    if (n <= 1) return n;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+// Функция с параметрами по умолчанию
+void printArray(int arr[], int size, char separator = ' ') {
+    for (int i = 0; i < size; i++) {
+        std::cout << arr[i];
+        if (i < size - 1) std::cout << separator;
+    }
+    std::cout << std::endl;
+}
+
+int main() {
+    std::cout << "=== ДЕМОНСТРАЦИЯ ФУНКЦИЙ ===\n\n";
+
+    // Тестирование перегрузки функций power
+    std::cout << "Перегрузка функций power:\n";
+    std::cout << "power(2, 3) = " << power(2, 3) << std::endl;
+    std::cout << "power(2.0, -2) = " << power(2.0, -2) << std::endl;
+    std::cout << std::endl;
+
+    // Сравнение рекурсивного и итеративного факториала
+    std::cout << "Факториал:\n";
+    for (int i = 0; i <= 10; i++) {
+        std::cout << i << "! = " << factorial(i) << " (рекурсивно) / "
+                  << factorial_iterative(i) << " (итеративно)" << std::endl;
+    }
+    std::cout << std::endl;
+
+    // Тестирование рекурсивного возведения в степень
+    std::cout << "Рекурсивное возведение в степень:\n";
+    std::cout << "power_recursive(2, 10) = " << power_recursive(2, 10) << std::endl;
+    std::cout << "power_recursive(2, -3) = " << power_recursive(2, -3) << std::endl;
+    std::cout << std::endl;
+
+    // Работа со строками
+    std::string text = "Hello, World!";
+    std::cout << "Оригинальная строка: " << text << std::endl;
+
+    processString(text, true);
+    std::cout << "В верхнем регистре: " << text << std::endl;
+
+    processString(text);  // по умолчанию toUpper = false
+    std::cout << "В нижнем регистре: " << text << std::endl;
+
+    std::cout << "Количество слов: " << countWords(text) << std::endl;
+    std::cout << std::endl;
+
+    // Обмен значениями
+    int x = 10, y = 20;
+    std::cout << "До обмена: x = " << x << ", y = " << y << std::endl;
+    swap(x, y);
+    std::cout << "После обмена: x = " << x << ", y = " << y << std::endl;
+    std::cout << std::endl;
+
+    // Числа Фибоначчи
+    std::cout << "Первые 15 чисел Фибоначчи:\n";
+    for (int i = 0; i < 15; i++) {
+        std::cout << "F(" << i << ") = " << fibonacci(i) << std::endl;
+    }
+    std::cout << std::endl;
+
+    // Функция с параметрами по умолчанию
+    int numbers[] = {1, 2, 3, 4, 5};
+    std::cout << "Массив с пробелами: ";
+    printArray(numbers, 5);
+
+    std::cout << "Массив с запятыми: ";
+    printArray(numbers, 5, ',');
+
+    std::cout << "\n=== ПРОГРАММА ЗАВЕРШЕНА ===" << std::endl;
+
+    return 0;
+}</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="course-cpp.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(4)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить задание</button>
+            <a href="cpp-assignment-5.html" class="nav-button">Следующее задание →</a>
+        </div>
+
+        <script>
+            function toggleSolution() {
+                const solution = document.getElementById('solution');
+                const button = event.target;
+
+                if (solution.style.display === 'none') {
+                    solution.style.display = 'block';
+                    button.textContent = 'Скрыть решение';
+                } else {
+                    solution.style.display = 'none';
+                    button.textContent = 'Показать решение';
+                }
+            }
+
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedCPPAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedCPPAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание завершено! Отличная работа! 🎉');
+                } else {
+                    alert('Это задание уже отмечено как завершенное.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

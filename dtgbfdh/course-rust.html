@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rust - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        .course-header {
+            text-align: center;
+            margin-bottom: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+        }
+        .course-title {
+            font-size: 3em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .course-description {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .course-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ffd700;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        .tab {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .tab.active {
+            background: #ffd700;
+            color: #333;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .lesson-item, .assignment-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .lesson-item:hover, .assignment-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(31, 38, 135, 0.3);
+        }
+        .item-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .item-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #ffd700;
+        }
+        .item-number {
+            background: rgba(255, 215, 0, 0.3);
+            color: #ffd700;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        .item-description {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+        .item-duration {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        .status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .status.locked {
+            background: rgba(255, 0, 0, 0.3);
+            color: #ff6b6b;
+        }
+        .status.available {
+            background: rgba(0, 255, 0, 0.3);
+            color: #51cf66;
+        }
+        .status.completed {
+            background: rgba(255, 215, 0, 0.3);
+            color: #ffd700;
+        }
+        .progress-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+        }
+        .progress-title {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffd700, #ffed4e);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .progress-text {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            .course-stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="courses.html" class="back-btn">← Назад к курсам</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="course-header">
+            <h1 class="course-title">🦀 Rust</h1>
+            <p class="course-description">
+                Освойте Rust - современный язык системного программирования, который гарантирует безопасность памяти
+                и предотвращает многие типы ошибок. Изучите владение, заимствование и конкурентное программирование.
+            </p>
+            <div class="course-stats">
+                <div class="stat-item">
+                    <div class="stat-number">10</div>
+                    <div class="stat-label">Лекций</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">10</div>
+                    <div class="stat-label">Заданий</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">7-9</div>
+                    <div class="stat-label">Часа практики</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">Продвинутый</div>
+                    <div class="stat-label">Уровень</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('lectures')">📚 Лекции</button>
+            <button class="tab" onclick="showTab('assignments')">💻 Задания</button>
+        </div>
+
+        <div id="lectures" class="content-section active">
+            <h2 style="text-align: center; margin-bottom: 30px; color: #ffd700;">Программа лекций</h2>
+
+            <div class="lesson-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="rust-lecture-1.html" style="color: #ffd700; text-decoration: none;">1. Введение в Rust</a></div>
+                    <div class="item-number">Лекция 1</div>
+                </div>
+                <div class="item-description">
+                    История языка Rust, особенности, установка компилятора, первая программа "Hello World"
+                </div>
+                <div class="item-duration">⏱️ Продолжительность: 50 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="lesson-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="rust-lecture-2.html" style="color: #ffd700; text-decoration: none;">2. Переменные и типы данных</a></div>
+                    <div class="item-number">Лекция 2</div>
+                </div>
+                <div class="item-description">
+                    Владение, заимствование, срезы, скалярные и составные типы данных
+                </div>
+                <div class="item-duration">⏱️ Продолжительность: 60 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="lesson-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="rust-lecture-3.html" style="color: #ffd700; text-decoration: none;">3. Управляющие конструкции</a></div>
+                    <div class="item-number">Лекция 3</div>
+                </div>
+                <div class="item-description">
+                    Условные операторы if-else, match выражения, циклы for, while, loop
+                </div>
+                <div class="item-duration">⏱️ Продолжительность: 55 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="lesson-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="rust-lecture-4.html" style="color: #ffd700; text-decoration: none;">4. Функции и модули</a></div>
+                    <div class="item-number">Лекция 4</div>
+                </div>
+                <div class="item-description">
+                    Определение функций, параметры, возвращаемые значения, модульная система
+                </div>
+                <div class="item-duration">⏱️ Продолжительность: 65 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="lesson-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="rust-lecture-5.html" style="color: #ffd700; text-decoration: none;">5. Структуры и перечисления</a></div>
+                    <div class="item-number">Лекция 5</div>
+                </div>
+                <div class="item-description">
+                    Определение структур, методы, перечисления, паттерн matching
+                </div>
+                <div class="item-duration">⏱️ Продолжительность: 70 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="lesson-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="rust-lecture-6.html" style="color: #ffd700; text-decoration: none;">6. Векторы и строки</a></div>
+                    <div class="item-number">Лекция 6</div>
+                </div>
+                <div class="item-description">
+                    Работа с векторами, строками, UTF-8, индексация и итерация
+                </div>
+                <div class="item-duration">⏱️ Продолжительность: 60 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="lesson-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="rust-lecture-7.html" style="color: #ffd700; text-decoration: none;">7. Обработка ошибок</a></div>
+                    <div class="item-number">Лекция 7</div>
+                </div>
+                <div class="item-description">
+                    Типы Result и Option, оператор ?, panic! макрос, пользовательские ошибки
+                </div>
+                <div class="item-duration">⏱️ Продолжительность: 65 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="lesson-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="rust-lecture-8.html" style="color: #ffd700; text-decoration: none;">8. Дженерики и трейты</a></div>
+                    <div class="item-number">Лекция 8</div>
+                </div>
+                <div class="item-description">
+                    Обобщенное программирование, трейты, ограничения, реализация трейтов
+                </div>
+                <div class="item-duration">⏱️ Продолжительность: 75 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="lesson-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="rust-lecture-9.html" style="color: #ffd700; text-decoration: none;">9. Умные указатели</a></div>
+                    <div class="item-number">Лекция 9</div>
+                </div>
+                <div class="item-description">
+                    Box, Rc, Arc, RefCell, внутреннее изменяемое заимствование
+                </div>
+                <div class="item-duration">⏱️ Продолжительность: 70 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="lesson-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="rust-lecture-10.html" style="color: #ffd700; text-decoration: none;">10. Конкурентность</a></div>
+                    <div class="item-number">Лекция 10</div>
+                </div>
+                <div class="item-description">
+                    Потоки, каналы, async/await, Send и Sync трейты, безопасность конкурентности
+                </div>
+                <div class="item-duration">⏱️ Продолжительность: 80 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+        </div>
+
+        <div id="assignments" class="content-section">
+            <h2 style="text-align: center; margin-bottom: 30px; color: #ffd700;">Практические задания</h2>
+
+            <div class="assignment-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="rust-assignment-1.html" style="color: #ffd700; text-decoration: none;">1. Hello World и основы</a></div>
+                    <div class="item-number">Задание 1</div>
+                </div>
+                <div class="item-description">
+                    Создайте персонализированную программу приветствия с использованием аргументов командной строки
+                </div>
+                <div class="item-duration">⏱️ Время на выполнение: 30 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="assignment-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="rust-assignment-2.html" style="color: #ffd700; text-decoration: none;">2. Переменные и типы данных</a></div>
+                    <div class="item-number">Задание 2</div>
+                </div>
+                <div class="item-description">
+                    Демонстрация всех типов данных Rust и операций с переменными
+                </div>
+                <div class="item-duration">⏱️ Время на выполнение: 45 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="assignment-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="rust-assignment-3.html" style="color: #ffd700; text-decoration: none;">3. Функции</a></div>
+                    <div class="item-number">Задание 3</div>
+                </div>
+                <div class="item-description">
+                    Создайте программу, демонстрирующую работу с функциями, параметрами и возвращаемыми значениями
+                </div>
+                <div class="item-duration">⏱️ Время на выполнение: 40 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="assignment-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="rust-assignment-4.html" style="color: #ffd700; text-decoration: none;">4. Управляющие конструкции</a></div>
+                    <div class="item-number">Задание 4</div>
+                </div>
+                <div class="item-description">
+                    Игра угадай число с использованием циклов и условных конструкций
+                </div>
+                <div class="item-duration">⏱️ Время на выполнение: 60 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="assignment-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="rust-assignment-5.html" style="color: #ffd700; text-decoration: none;">5. Структуры и перечисления</a></div>
+                    <div class="item-number">Задание 5</div>
+                </div>
+                <div class="item-description">
+                    Создайте систему управления задачами с использованием структур и перечислений
+                </div>
+                <div class="item-duration">⏱️ Время на выполнение: 70 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="assignment-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="rust-assignment-6.html" style="color: #ffd700; text-decoration: none;">6. Владение и заимствование</a></div>
+                    <div class="item-number">Задание 6</div>
+                </div>
+                <div class="item-description">
+                    Работа с владением, заимствованием и жизненными циклами в Rust
+                </div>
+                <div class="item-duration">⏱️ Время на выполнение: 80 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="assignment-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="rust-assignment-7.html" style="color: #ffd700; text-decoration: none;">7. Обработка ошибок</a></div>
+                    <div class="item-number">Задание 7</div>
+                </div>
+                <div class="item-description">
+                    Создайте калькулятор с собственной системой обработки ошибок
+                </div>
+                <div class="item-duration">⏱️ Время на выполнение: 65 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="assignment-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="rust-assignment-8.html" style="color: #ffd700; text-decoration: none;">8. Коллекции</a></div>
+                    <div class="item-number">Задание 8</div>
+                </div>
+                <div class="item-description">
+                    Работа с векторами, HashMap и другими коллекциями стандартной библиотеки
+                </div>
+                <div class="item-duration">⏱️ Время на выполнение: 60 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="assignment-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="rust-assignment-9.html" style="color: #ffd700; text-decoration: none;">9. Работа с файлами</a></div>
+                    <div class="item-number">Задание 9</div>
+                </div>
+                <div class="item-description">
+                    Создайте программу для чтения, обработки и записи файлов
+                </div>
+                <div class="item-duration">⏱️ Время на выполнение: 75 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+
+            <div class="assignment-item">
+                <div class="item-header">
+                    <div class="item-title"><a href="rust-assignment-10.html" style="color: #ffd700; text-decoration: none;">10. Финальный проект</a></div>
+                    <div class="item-number">Задание 10</div>
+                </div>
+                <div class="item-description">
+                    Создайте полноценное приложение, объединяющее все изученные концепции Rust
+                </div>
+                <div class="item-duration">⏱️ Время на выполнение: 120 минут</div>
+                <div class="status available">Доступно</div>
+            </div>
+        </div>
+
+        <div class="progress-section">
+            <h2 class="progress-title">📊 Ваш прогресс</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">Завершено 0 из 20 заданий</div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all content sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        // Progress tracking system
+        function updateProgress() {
+            // Check localStorage for completed items
+            const completedLectures = JSON.parse(localStorage.getItem('completedRustLectures') || '[]');
+            const completedAssignments = JSON.parse(localStorage.getItem('completedRustAssignments') || '[]');
+
+            const totalLectures = 10;
+            const totalAssignments = 10;
+            const totalItems = totalLectures + totalAssignments;
+
+            const completedItems = completedLectures.length + completedAssignments.length;
+            const percentage = (completedItems / totalItems) * 100;
+
+            document.getElementById('progressFill').style.width = percentage + '%';
+            document.getElementById('progressText').textContent =
+                `${completedItems} из ${totalItems} элементов завершено (${Math.round(percentage)}%)`;
+
+            // Update individual item statuses
+            updateItemStatuses(completedLectures, completedAssignments);
+        }
+
+        function updateItemStatuses(completedLectures, completedAssignments) {
+            // Update lecture statuses
+            for (let i = 1; i <= 10; i++) {
+                const lectureElement = document.querySelector(`[href="rust-lecture-${i}.html"]`)?.closest('.lesson-item');
+                if (lectureElement) {
+                    const statusElement = lectureElement.querySelector('.status');
+                    if (completedLectures.includes(i)) {
+                        statusElement.className = 'status completed';
+                        statusElement.textContent = 'Завершено';
+                    } else if (i === 1 || completedLectures.includes(i - 1)) {
+                        statusElement.className = 'status available';
+                        statusElement.textContent = 'Доступно';
+                    } else {
+                        statusElement.className = 'status locked';
+                        statusElement.textContent = 'Заблокировано';
+                    }
+                }
+            }
+
+            // Update assignment statuses
+            for (let i = 1; i <= 10; i++) {
+                const assignmentElement = document.querySelector(`[href="rust-assignment-${i}.html"]`)?.closest('.assignment-item');
+                if (assignmentElement) {
+                    const statusElement = assignmentElement.querySelector('.status');
+                    if (completedAssignments.includes(i)) {
+                        statusElement.className = 'status completed';
+                        statusElement.textContent = 'Завершено';
+                    } else if (i === 1 || completedAssignments.includes(i - 1)) {
+                        statusElement.className = 'status available';
+                        statusElement.textContent = 'Доступно';
+                    } else {
+                        statusElement.className = 'status locked';
+                        statusElement.textContent = 'Заблокировано';
+                    }
+                }
+            }
+        }
+
+        // Track when user visits pages
+        function markAsCompleted(type, number) {
+            const storageKey = type === 'lecture' ? 'completedRustLectures' : 'completedRustAssignments';
+            const completed = JSON.parse(localStorage.getItem(storageKey) || '[]');
+
+            if (!completed.includes(number)) {
+                completed.push(number);
+                localStorage.setItem(storageKey, JSON.stringify(completed));
+                updateProgress();
+            }
+        }
+
+        // Add click tracking to all links
+        document.addEventListener('DOMContentLoaded', function() {
+            // Track lecture visits
+            document.querySelectorAll('a[href^="rust-lecture-"]').forEach(link => {
+                link.addEventListener('click', function() {
+                    const lectureNum = this.href.match(/rust-lecture-(\d+)/);
+                    if (lectureNum) {
+                        markAsCompleted('lecture', parseInt(lectureNum[1]));
+                    }
+                });
+            });
+
+            // Track assignment visits
+            document.querySelectorAll('a[href^="rust-assignment-"]').forEach(link => {
+                link.addEventListener('click', function() {
+                    const assignmentNum = this.href.match(/rust-assignment-(\d+)/);
+                    if (assignmentNum) {
+                        markAsCompleted('assignment', parseInt(assignmentNum[1]));
+                    }
+                });
+            });
+
+            updateProgress();
+        });
+    </script>
+</body>
+</html>

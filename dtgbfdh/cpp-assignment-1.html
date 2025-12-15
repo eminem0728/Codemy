@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 1: Первая программа - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .assignment-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .task-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .task-box h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .solution-box {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .solution-box h4 {
+            color: #51cf66;
+            margin-bottom: 10px;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-cpp.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 1: Первая программа</h1>
+            <div class="assignment-meta">
+                <span>⚡ C++</span>
+                <span>⏱️ 30 минут</span>
+                <span>📝 Начальное</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Описание задания</h2>
+            <p>Создайте свою первую программу на C++, которая демонстрирует основы синтаксиса языка, работу с переменными и вывод информации.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🎯 Цели задания</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Настроить среду разработки C++</li>
+                <li>Создать и скомпилировать программу</li>
+                <li>Изучить основную структуру C++ программы</li>
+                <li>Освоить вывод текста с помощью cout</li>
+                <li>Добавить комментарии в код</li>
+            </ul>
+        </div>
+
+        <div class="task-box">
+            <h4>📝 Задача</h4>
+            <p>Создайте программу PersonalInfo, которая:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Выводит приветствие с вашим именем</li>
+                <li>Отображает информацию о вашем возрасте</li>
+                <li>Показывает ваш любимый язык программирования</li>
+                <li>Содержит комментарии, объясняющие код</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>💡 Подсказки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Используйте #include <iostream> для подключения ввода-вывода</li>
+                <li>Добавьте комментарии для объяснения каждого блока кода</li>
+                <li>Используйте std::cout для вывода и std::endl для новой строки</li>
+                <li>Не забудьте return 0; в конце main функции</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🏗️ Структура решения</h2>
+
+            <h3>1. Подключение заголовочных файлов</h3>
+            <div class="code-example">
+                <code>#include <iostream></code>
+            </div>
+
+            <h3>2. Создание основной функции</h3>
+            <div class="code-example">
+                <code>int main() {
+    // Ваш код здесь
+    return 0;
+}</code>
+            </div>
+
+            <h3>3. Объявление переменных</h3>
+            <div class="code-example">
+                <code>std::string name = "Ваше имя";
+int age = 25;
+std::string favoriteLanguage = "C++";</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📊 Пример выполнения</h2>
+            <div class="code-example">
+                <code>=== ЗАПУСК ПРОГРАММЫ ===
+
+Привет! Меня зовут Алексей
+Мне 25 лет
+Мой любимый язык программирования: C++
+
+=== ПРОГРАММА ЗАВЕРШЕНА ===</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔧 Дополнительные возможности</h2>
+            <p>Попробуйте расширить программу:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Добавить ввод данных с клавиатуры</li>
+                <li>Вычислить и вывести год рождения</li>
+                <li>Добавить ASCII-арт приветствие</li>
+                <li>Создать простую арифметическую операцию</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>✅ Критерии оценки</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Компиляция (30%):</strong> Программа компилируется без ошибок</li>
+                <li><strong>Структура (25%):</strong> Правильная структура main функции</li>
+                <li><strong>Вывод (25%):</strong> Корректный вывод всех требуемых данных</li>
+                <li><strong>Комментарии (10%):</strong> Наличие понятных комментариев</li>
+                <li><strong>Стиль (10%):</strong> Читаемый и правильно оформленный код</li>
+            </ul>
+        </div>
+
+        <div class="solution-box">
+            <h4>💡 Пример решения</h4>
+            <p>Нажмите кнопку ниже, чтобы посмотреть пример решения:</p>
+            <button onclick="toggleSolution()" class="nav-button" style="margin-top: 15px;">
+                Показать решение
+            </button>
+
+            <div id="solution" style="display: none; margin-top: 20px;">
+                <div class="code-example">
+                    <code>/**
+ * Первая программа на C++
+ * Автор: Студент CodeLearn
+ * Дата создания: 08.12.2024
+ *
+ * Эта программа демонстрирует основы C++:
+ * - Подключение заголовочных файлов
+ * - Объявление переменных
+ * - Вывод текста на экран
+ * - Использование комментариев
+ */
+
+#include <iostream>
+#include <string>
+
+int main() {
+    // Объявляем переменные для хранения личной информации
+    std::string name = "Алексей";
+    int age = 25;
+    std::string favoriteLanguage = "C++";
+
+    // Выводим приветствие
+    std::cout << "=== ЛИЧНАЯ ИНФОРМАЦИЯ ===" << std::endl;
+    std::cout << std::endl;
+
+    // Выводим основную информацию
+    std::cout << "Привет! Меня зовут " << name << std::endl;
+    std::cout << "Мне " << age << " лет" << std::endl;
+    std::cout << "Мой любимый язык программирования: " << favoriteLanguage << std::endl;
+    std::cout << std::endl;
+
+    // Вычисляем и выводим дополнительную информацию
+    int currentYear = 2024;
+    int birthYear = currentYear - age;
+    std::cout << "Я родился в " << birthYear << " году" << std::endl;
+    std::cout << std::endl;
+
+    // ASCII арт
+    std::cout << "   /\\_/\\" << std::endl;
+    std::cout << "  ( o.o )" << std::endl;
+    std::cout << "   > ^ <" << std::endl;
+    std::cout << std::endl;
+
+    // Мотивационное сообщение
+    std::cout << "Приятно познакомиться! Добро пожаловать в мир C++!" << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "=== ПРОГРАММА ЗАВЕРШЕНА ===" << std::endl;
+
+    // Возвращаем 0, что означает успешное завершение
+    return 0;
+}</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🚀 Расширения</h2>
+            <p>После выполнения основного задания попробуйте добавить:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Ввод имени пользователя с клавиатуры</li>
+                <li>Вычисление возраста в днях</li>
+                <li>Создание таблицы с информацией</li>
+                <li>Добавление цвета в вывод (если поддерживается)</li>
+            </ul>
+        </div>
+
+        <div class="navigation">
+            <a href="course-cpp.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(1)" class="nav-button" style="border: none; cursor: pointer;">✅ Завершить задание</button>
+            <a href="cpp-assignment-2.html" class="nav-button">Следующее задание →</a>
+        </div>
+
+        <script>
+            function toggleSolution() {
+                const solution = document.getElementById('solution');
+                const button = event.target;
+
+                if (solution.style.display === 'none') {
+                    solution.style.display = 'block';
+                    button.textContent = 'Скрыть решение';
+                } else {
+                    solution.style.display = 'none';
+                    button.textContent = 'Показать решение';
+                }
+            }
+
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedCPPAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedCPPAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание завершено! Отличная работа! 🎉');
+                } else {
+                    alert('Это задание уже отмечено как завершенное.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

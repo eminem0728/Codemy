@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 2: Игра "Угадай число" - CodeLearn</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 1.8em; font-weight: bold; text-decoration: none; color: white; }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .assignment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+        }
+        .assignment-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .assignment-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        .content-section h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .content-section h3 {
+            color: #ffd700;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+        .content-section p { margin-bottom: 15px; font-size: 1.1em; }
+        .code-example {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .code-example code {
+            color: #00ff00;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .nav-button {
+            background: #ffd700;
+            color: #333;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .nav-button:hover { transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <a href="course-python.html" class="back-btn">← Назад к курсу</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="assignment-header">
+            <h1 class="assignment-title">Задание 2: Игра "Угадай число"</h1>
+            <div class="assignment-meta">
+                <span>🐍 Python</span>
+                <span>⏱️ 45 минут</span>
+                <span>💻 Практическое</span>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📋 Описание задания</h2>
+            <p>Создайте игру, где компьютер загадывает число, а игрок пытается его угадать.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>📖 Основной код</h2>
+            <div class="code-example">
+                <code>import random<br><br># Генерируем случайное число от 1 до 100<br>secret_number = random.randint(1, 100)<br>attempts = 0<br><br>print("=== Игра 'Угадай число' ===")<br>print("Я загадал число от 1 до 100. Попробуй угадать!")<br><br>while True:<br>&nbsp;&nbsp;&nbsp;&nbsp;guess = int(input("Введи своё число: "))<br>&nbsp;&nbsp;&nbsp;&nbsp;attempts += 1<br><br>&nbsp;&nbsp;&nbsp;&nbsp;if guess == secret_number:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(f"Поздравляю! Ты угадал за {attempts} попыток!")<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break<br>&nbsp;&nbsp;&nbsp;&nbsp;elif guess < secret_number:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Загаданное число больше!")<br>&nbsp;&nbsp;&nbsp;&nbsp;else:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Загаданное число меньше!")</code>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>💡 Дополнительные задачи</h2>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Добавьте ограничение на количество попыток</li>
+                <li>Создайте уровни сложности</li>
+                <li>Добавьте счётчик лучших результатов</li>
+            </ul>
+        </div>
+
+        <div class="navigation">
+            <a href="course-python.html" class="nav-button">← Назад к курсу</a>
+            <button onclick="markAssignmentCompleted(2)" class="nav-button" style="border: none; cursor: pointer;">✅ Отметить как выполненное</button>
+            <a href="assignment-3.html" class="nav-button">Следующее задание →</a>
+        </div>
+
+        <script>
+            function markAssignmentCompleted(assignmentNum) {
+                const completedAssignments = JSON.parse(localStorage.getItem('completedAssignments') || '[]');
+                if (!completedAssignments.includes(assignmentNum)) {
+                    completedAssignments.push(assignmentNum);
+                    localStorage.setItem('completedAssignments', JSON.stringify(completedAssignments));
+                    alert('Задание отмечено как выполненное! Прогресс обновлен.');
+                } else {
+                    alert('Это задание уже отмечено как выполненное.');
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

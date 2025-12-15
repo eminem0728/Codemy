@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Курсы - CodeLearn</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .user-menu span {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .welcome-section h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .welcome-section p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .course-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+        }
+        .course-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .course-icon {
+            font-size: 3em;
+            margin-right: 15px;
+        }
+        .course-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .course-level {
+            background: rgba(255, 215, 0, 0.3);
+            color: #ffd700;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .course-description {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .course-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .course-button {
+            width: 100%;
+            background: #ffd700;
+            color: #333;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .course-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+        .search-section {
+            margin-bottom: 40px;
+        }
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+            backdrop-filter: blur(10px);
+        }
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #ffd700;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2em;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <a href="courses.html" class="logo">🚀 CodeLearn</a>
+            <div class="user-menu">
+                <span id="userWelcome">Загрузка...</span>
+                <button id="logoutBtn" class="logout-btn">Выйти</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="welcome-section">
+            <h1>Выберите курс для изучения</h1>
+            <p>Откройте для себя мир программирования с нашими экспертными курсами</p>
+        </div>
+
+        <div class="search-section">
+            <div class="search-container">
+                <input type="text" id="courseSearch" class="search-input" placeholder="🔍 Поиск курсов по языку программирования...">
+            </div>
+        </div>
+
+        <div class="courses-grid">
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-icon">🐍</div>
+                    <div>
+                        <div class="course-title">Python</div>
+                        <div class="course-level">Начинающий</div>
+                    </div>
+                </div>
+                <div class="course-description">
+                    Изучите один из самых популярных языков программирования. Python идеально подходит для начинающих и широко используется в веб-разработке, анализе данных и машинном обучении.
+                </div>
+                <div class="course-stats">
+                    <span>⏱️ 40 часов</span>
+                    <span>📚 12 уроков</span>
+                    <span>✅ Сертификат</span>
+                </div>
+                <a href="course-python.html" class="course-button">Начать курс</a>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-icon">🌐</div>
+                    <div>
+                        <div class="course-title">JavaScript</div>
+                        <div class="course-level">Начинающий</div>
+                    </div>
+                </div>
+                <div class="course-description">
+                    Создавайте интерактивные веб-сайты и приложения. JavaScript - основа современной веб-разработки, позволяющая создавать динамические пользовательские интерфейсы.
+                </div>
+                <div class="course-stats">
+                    <span>⏱️ 35 часов</span>
+                    <span>📚 20 уроков</span>
+                    <span>✅ Сертификат</span>
+                </div>
+                <a href="course-js.html" class="course-button">Начать курс</a>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-icon">☕</div>
+                    <div>
+                        <div class="course-title">Java</div>
+                        <div class="course-level">Средний</div>
+                    </div>
+                </div>
+                <div class="course-description">
+                    Освойте объектно-ориентированное программирование с Java. Идеально подходит для создания корпоративных приложений, Android-приложений и веб-сервисов.
+                </div>
+                <div class="course-stats">
+                    <span>⏱️ 50 часов</span>
+                    <span>📚 20 уроков</span>
+                    <span>✅ Сертификат</span>
+                </div>
+                <a href="course-java.html" class="course-button">Начать курс</a>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-icon">⚡</div>
+                    <div>
+                        <div class="course-title">C++</div>
+                        <div class="course-level">Продвинутый</div>
+                    </div>
+                </div>
+                <div class="course-description">
+                    Изучите мощный язык системного программирования. C++ используется для создания игр, операционных систем, встраиваемых систем и высокопроизводительных приложений.
+                </div>
+                <div class="course-stats">
+                    <span>⏱️ 60 часов</span>
+                    <span>📚 2 урока</span>
+                    <span>✅ Сертификат</span>
+                </div>
+                <a href="course-cpp.html" class="course-button">Начать курс</a>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-icon">🚀</div>
+                    <div>
+                        <div class="course-title">Go</div>
+                        <div class="course-level">Средний</div>
+                    </div>
+                </div>
+                <div class="course-description">
+                    Современный язык программирования от Google. Go идеально подходит для создания высокопроизводительных веб-сервисов, микросервисов и облачных приложений.
+                </div>
+                <div class="course-stats">
+                    <span>⏱️ 45 часов</span>
+                    <span>📚 20 уроков</span>
+                    <span>✅ Сертификат</span>
+                </div>
+                <a href="course-go.html" class="course-button">Начать курс</a>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-icon">🦀</div>
+                    <div>
+                        <div class="course-title">Rust</div>
+                        <div class="course-level">Продвинутый</div>
+                    </div>
+                </div>
+                <div class="course-description">
+                    Безопасный и быстрый язык системного программирования. Rust предотвращает многие типы ошибок и идеально подходит для создания производительных и надежных систем.
+                </div>
+                <div class="course-stats">
+                    <span>⏱️ 55 часов</span>
+                    <span>📚 0 уроков</span>
+                    <span>✅ Сертификат</span>
+                </div>
+                <a href="course-rust.html" class="course-button">Начать курс</a>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div class="course-icon">🅺</div>
+                    <div>
+                        <div class="course-title">Kotlin</div>
+                        <div class="course-level">Средний</div>
+                    </div>
+                </div>
+                <div class="course-description">
+                    Современный язык программирования от JetBrains, официально поддерживаемый Google для Android-разработки. Kotlin сочетает объектно-ориентированное и функциональное программирование.
+                </div>
+                <div class="course-stats">
+                    <span>⏱️ 45 часов</span>
+                    <span>📚 20 уроков</span>
+                    <span>✅ Сертификат</span>
+                </div>
+                <a href="course-kotlin.html" class="course-button">Начать курс</a>
+            </div>
+        </div>
+        
+        <div class="no-results" id="noResults">
+            <h3>🔍 Курсы не найдены</h3>
+            <p>Попробуйте изменить поисковый запрос или выберите другой язык программирования.</p>
+        </div>
+    </div>
+
+    <script>
+        // Course search functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('courseSearch');
+            const courseCards = document.querySelectorAll('.course-card');
+            const noResults = document.getElementById('noResults');
+            
+            // Add data attributes for search
+            courseCards.forEach(card => {
+                const title = card.querySelector('.course-title').textContent.toLowerCase();
+                const description = card.querySelector('.course-description').textContent.toLowerCase();
+                card.setAttribute('data-search', title + ' ' + description);
+            });
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                let visibleCount = 0;
+                
+                courseCards.forEach(card => {
+                    const searchData = card.getAttribute('data-search');
+                    
+                    if (searchTerm === '' || searchData.includes(searchTerm)) {
+                        card.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // Show/hide no results message
+                if (visibleCount === 0 && searchTerm !== '') {
+                    noResults.style.display = 'block';
+                } else {
+                    noResults.style.display = 'none';
+                }
+            });
+            
+            // Clear search on escape key
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    this.value = '';
+                    this.dispatchEvent(new Event('input'));
+                }
+            });
+
+            // User authentication and logout
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+            const userWelcome = document.getElementById('userWelcome');
+            const logoutBtn = document.getElementById('logoutBtn');
+
+            if (!currentUser) {
+                // No user logged in, redirect to login
+                window.location.href = 'login.html';
+            } else {
+                // Show user info
+                userWelcome.textContent = `Добро пожаловать, ${currentUser.firstName} ${currentUser.lastName}!`;
+
+                // Handle logout
+                logoutBtn.addEventListener('click', function() {
+                    localStorage.removeItem('currentUser');
+                    window.location.href = 'index.html';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
